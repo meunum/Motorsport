@@ -1,0 +1,229 @@
+body
+{
+	margin: 0;
+	padding: 0;
+	background-color: white;
+	font-family: Tahoma;
+}
+
+nav{
+	margin: 0;
+	padding: 1em;
+	height: 1.25em;
+}
+
+nav ul
+{
+	margin: 0;
+	padding: 0;
+	height: 1.25em;
+}
+
+nav li
+{
+	margin: 0;
+	padding: 0;
+	padding-right: 0.5em;
+	list-style-type: none;
+	float: left;
+}
+
+#homeNav
+{
+	float: left;
+}
+
+#accountNav
+{
+	float: right;
+}
+
+#footNav
+{
+	float: left;
+}
+
+#footLegend
+{
+	margin: 0;
+	padding: 1em;
+	height: 1.25em;
+	float: right;
+	text-align: right;
+}
+
+h2
+{
+	margin: 0;
+	padding: 0;
+	font-size: 12pt;
+	font-weight: bold;
+}
+
+h3
+{
+	font-size: 12pt;
+	font-weight: normal;
+}
+
+legend
+{
+	padding: 1em;
+	margin: 0;
+	color: grey;
+	font-weight: normal;
+	font-size: 10pt;
+	height: 1.5em;
+}
+
+main
+{
+	width: auto;
+}
+
+.userNav
+{
+	padding: 0;
+	padding-left: 0.5em;
+	margin: 0;
+	color: grey;
+	font-weight: normal;
+	font-size: 10pt;
+	height: 1.5em;
+	float: right;
+}
+
+.userLegend
+{
+	padding: 0;
+	float: right;
+}
+
+header
+{
+	margin: 0;
+	padding: 0;
+	height: 3.25em;
+	border-bottom: 1px solid black;
+}
+
+a
+{
+	text-decoration: none;
+}
+
+.activeLink1
+{
+	color: black;
+	font-weight: bold;
+	font-size: 11pt;
+}
+
+.activeLink2
+{
+	color: black;
+	font-weight: bold;
+	font-size: 10pt;
+}
+
+.navTitle
+{
+	padding: 0;
+	color: black;
+	font-weight: normal;
+	font-size: 13pt;
+}
+
+table
+{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	font-size: 11pt;
+}
+
+th {
+	background-color: #c0d3d9;
+}
+
+td:first-child
+{
+	margin: 0;
+	padding: 0.25em 0 0 0.25em;
+	width: 1px;
+}
+
+td:nth-child(2)
+{
+	margin: 0;
+	padding: 0 0 0 0.5em;
+}
+
+tr {
+	background-color: white;
+}
+
+tr:nth-child(odd) {
+	background-color: #e4ebf2 ;
+}
+
+.editEvents td:nth-child(2)
+{
+	padding: 0;
+	margin: 0;
+	width: 40%;
+}
+
+.editEvents td:nth-child(3)
+{
+	padding: 0;
+	margin: 0;
+	width: 14%;
+}
+
+.editEvents td:nth-child(4)
+{
+	padding: 0;
+	margin: 0;
+	width: 26%;
+}
+
+.editEvents td:nth-child(5)
+{
+	padding: 0;
+	margin: 0;
+	width: 20%;
+}
+
+form .subTableButton
+{
+	position: absolute;
+	right: 1.25em;
+	padding-top: 0.5em;
+}
+
+footer
+{
+	margin: 0;
+	padding: 0;
+	height: 50px;
+	border-top: 1px solid black;
+}
+
+h1
+{
+	margin: 0;
+	padding: 0;
+	color: black;
+	font-size: 13pt;
+	font-weight: bold;
+}
+
+h2
+{
+	margin: 0;
+	padding: 0.1em;
+	color: black;
+	font-size: 11pt;
+	font-weight: bold;
+}

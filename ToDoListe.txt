@@ -1,0 +1,18 @@
+Legende: + Erledigt, - ToDo
+
++ Benutzerregistrierung (nur Veranstalter)
++ Benutzeranmeldung (nur Veranstalter)
++ Eigene Veranstalterdaten ändern
++ Liste der Veranstalter anzeigen
++ Liste der Veranstaltungen zum Bearbeiten anzeigen
+
+- Veranstaltungen und Fahrer erfassen
+- Liste der Veranstaltungen anzeigen
+- Liste der Fahrer anzeigen
+- Liste der Fahrer zum Bearbeiten anzeigen
+- Kommentarfunktion für Fahrer, mit QR-Code, ohne Benutzeranmeldung
+- Listen filtern und sortieren
+- Registrierung erweitern mit Emailbestätigung
+- Passwort und Emailadresse änderbar machen
+- Passwort-vergessen-Funktion
+- Impressum

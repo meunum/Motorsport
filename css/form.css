@@ -1,0 +1,101 @@
+form *
+{
+	margin: 0;
+	padding: 0;
+}
+
+form
+{
+	margin: 0;
+	padding: 1em;
+}
+
+abbr.required
+{
+	font-size: 9pt;
+	color: red;
+}
+
+form p
+{
+	margin: 1em 0 0 0;
+}
+
+form label
+{
+	float: left;
+	width: 11em;
+}
+
+form input.edit
+{
+	width: 50%;
+}
+
+#buttonLabel
+{
+	color: white;
+}
+
+#buttonSection
+{
+	margin-top: 2em;
+}
+
+Button
+{
+	width: 10em;
+}
+
+.error
+{
+	margin: 1em;
+	background-color: #ffaaaa;
+	padding: 0.5em;
+	font-size: 10pt;
+}
+
+.error li
+{
+	list-style-type: none;
+}
+
+.success
+{
+	margin: 1em;
+	background-color: #aaffaa;
+	padding: 0.5em;
+	font-size: 10pt;
+}
+
+form li
+{
+	margin: 0.5em;
+	list-style-type: none;
+}
+
+#userLabel
+{
+	font-size: 8pt;
+}
+
+.formHead
+{
+	margin: 0;
+	padding: 1em;
+}
+
+.formNav
+{
+	margin: 0;
+	padding: 0;
+	float: left;
+}
+
+.dialogTitle
+{
+	padding: 0;
+	color: black;
+	font-weight: normal;
+	font-size: 13pt;
+}
