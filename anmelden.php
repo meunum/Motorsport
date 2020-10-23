@@ -42,8 +42,13 @@
 			require("php/messages.php"); 
 ?>
 			<form method="post">
-				<section class="groupBox">
-					<legend>Bitte melde Dich an oder registriere Dich auf dieser Seite.</legend>
+				<section class="dialogSection_legend">
+					<legend>
+						<p>Bitte melde Dich mit Deinen Zugansdaten auf dieser Seite an.</p>
+						<p>Falls Du noch kein Benutzerkonto auf Motorsport.de hast, dann klicke auf Registrieren, um ein Konto anzulegen.</p>
+					</legend>
+				</section>
+				<section class="dialogSection_edits">
 					<ul>
 						<li>
 							<label for="email"><span>E-Mail: </span></label>
@@ -55,11 +60,14 @@
 						</li>
 					</ul>
 				</section>
-				<section id="submitSection">
+				<section class="dialogSection_buttons">
 					<ul>
 						<li>
 							<label for="submitButton" id="buttonLabel">.</label>
 							<button class="button" name="submitButton" id="submitButton" value="1">Anmelden</button>
+						</li>
+						<li>
+							<label for="signupButton" id="buttonLabel">.</label>
 							<button class="button" name="signupButton" id="signupButton" value="1">Registrieren</button>
 						</li>
 					</ul>

@@ -79,6 +79,22 @@ form li
 	font-size: 8pt;
 }
 
+.dialogSection_legend
+{
+	padding: 1em;
+	padding-left: 0.5;
+}
+
+.dialogSection_edits
+{
+	padding: 1em;
+}
+
+.dialogSection_buttons
+{
+	padding: 1em;
+}
+
 .formHead
 {
 	margin: 0;

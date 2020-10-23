@@ -8,16 +8,16 @@ if(isset($_POST['submitButton'])) {
 	function registerCallback ($selector, $token) 
 	{
 		$empfaenger = $_POST["email"];
-		$betreff = "Konto auf meunum.de aktivieren";
+		$betreff = "Konto auf motorsport.de aktivieren";
 		$nachricht = "Hallo, " . "\r\n" .
 			"\r\n" .
-			"Du hast Dich erfolgreich auf meunum.de registriert. Bitte aktiviere Dein Konto durch Klick auf folgenden Link:" . "\r\n" .
-			"http://meunum.de/registrierungabschliessen.php?selector=" . \urlencode($selector) . "&token=" . \urlencode($token) . "\r\n" .
+			"Du hast Dich erfolgreich auf motorsport.de registriert. Bitte aktiviere Dein Konto durch Klick auf folgenden Link:" . "\r\n" .
+			"http://motorsport.de/registrierungabschliessen.php?selector=" . \urlencode($selector) . "&token=" . \urlencode($token) . "\r\n" .
 			"Danach kannst Du Dich mit Deinen Benutzerdaten im Veranstalterbereich anmelden." . "\r\n" .
 			"\r\n" .
-			"Viel Spaß auf meunum.de";
-		$header = "From: webmaster@meunum.de" . "\r\n" .
-			"Reply-To: webmaster@meunum.de" . "\r\n" .
+			"Viel Spaß auf motorsport.de";
+		$header = "From: webmaster@motorsport.de" . "\r\n" .
+			"Reply-To: webmaster@motorsport.de" . "\r\n" .
 			"X-Mailer: PHP/" . phpversion();
 		
 		$success = mail($empfaenger, $betreff, $nachricht, $header);
