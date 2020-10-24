@@ -79,33 +79,10 @@ form li
 	font-size: 8pt;
 }
 
-.dialogSection_legend
+
+.dialogSection
 {
 	padding: 1em;
-	padding-left: 0.5;
-}
-
-.dialogSection_edits
-{
-	padding: 1em;
-}
-
-.dialogSection_buttons
-{
-	padding: 1em;
-}
-
-.formHead
-{
-	margin: 0;
-	padding: 1em;
-}
-
-.formNav
-{
-	margin: 0;
-	padding: 0;
-	float: left;
 }
 
 .dialogTitle

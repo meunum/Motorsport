@@ -1,11 +1,10 @@
 <?php
 			require_once 'globals.php';
-			$db = new \PDO('mysql:dbname='.$DBNAME.';host='.$DBHOST.';charset=utf8mb4', $DBUSER, $DBPASS);
-			$auth = new \Delight\Auth\Auth($db);
+			require 'getUserData.php';
+			$messages = [];
 			try
 			{
-				require 'getUserData.php';
-				//print_r($BenutzerDaten);
+				$db = new \PDO('mysql:dbname='.$GLOBALS['DBNAME'].';host='.$GLOBALS['DBHOST'].';charset=utf8mb4', $GLOBALS['DBUSER'], $GLOBALS['DBPASS']);
 				$BildId = $BenutzerDaten['bild'];
 				$db->beginTransaction();
 				if(!empty($_FILES['bild']['name']))
@@ -30,11 +29,8 @@
 
 				$db->commit();
 			}
-			catch(Error $e)
+			catch(PDOException $e)
 			{
-				echo '<div class="error">Fehler beim Speichern:<br>';
-				print_r($e->errorInfo());
-				echo '</div>';
-				$db->rollBack();
+				$messages[] = 'Datenbankfehler';
 			}
 ?>

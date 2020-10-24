@@ -4,7 +4,6 @@
 		<title>Motorsport</title>
 		<meta charset="UTF8"/>
 		<link rel="stylesheet" type="text/css" href="css\style.css"/>
-		<link rel="stylesheet" type="text/css" href="css\form.css"/>
 	</head>
 	<body>
 <?php
@@ -12,9 +11,9 @@
 		require("php/header.php"); 
 ?>
 			<main>
-			<section class="formHead">
+			<section class="mainHead">
 				<?php require("php/userSection.php"); ?> 
-				<nav class="formNav">
+				<nav class="mainNav">
 					<ul>
 						<li><div class="navTitle">Veranstalter</div></li>
 						<li><a class="activeLink2" href="veranstaltungenliste.php">Veranstaltungen</a></li>
@@ -27,7 +26,7 @@
 				<th></th><th>Veranstalter</th><th>Bevorstehende Termine</th>
 <?php
 				require_once 'php/globals.php';
-				$mysqli = new mysqli($DBHOST, $DBUSER, $DBPASS, $DBNAME);
+				$mysqli = new mysqli($GLOBALS['DBHOST'], $GLOBALS['DBUSER'], $GLOBALS['DBPASS'], $GLOBALS['DBNAME']);
 				if (mysqli_connect_errno()) {
 					echo "Connect failed: %s\n", mysqli_connect_error();
 					exit();
@@ -35,7 +34,8 @@
 				if (!$mysqli->set_charset("utf8")) {
 					echo "Error loading character set utf8: %s\n", $mysqli->error;
 				}
-				$veranstalter = $mysqli->query("SELECT id, name, kategorie, region, bild FROM veranstalter");
+				$veranstalter = $mysqli->query(
+					"SELECT v.id, v.name, v.kategorie, v.region, v.bild FROM veranstalter v INNER JOIN users u ON v.users_fk = u.id WHERE u.verified = 1");
 				foreach($veranstalter as $zeile) 
 				{
 					$VeranstId = $zeile['id'];

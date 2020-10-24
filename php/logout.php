@@ -10,7 +10,8 @@
 		{
 			$messages = [];
 
-			$db = new \Delight\Db\PdoDsn('mysql:dbname='.$DBNAME.';host='.$DBHOST.';charset=utf8mb4', $DBUSER, $DBPASS);
+			$db = new \Delight\Db\PdoDsn(
+				'mysql:dbname=' . $GLOBALS['DBNAME'] . ';host=' . $GLOBALS['DBHOST'] . ';charset=utf8mb4', $GLOBALS['DBUSER'], $GLOBALS['DBPASS']);
 			$auth = new \Delight\Auth\Auth($db);
 			try {
 				$auth->logOut();

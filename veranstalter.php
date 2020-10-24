@@ -29,9 +29,9 @@
 		require("php/header.php"); 
 ?>
 		<main>
-			<section class="formHead">
+			<section class="mainHead">
 				<?php require("php/userSection.php"); ?> 
-				<nav class="formNav">
+				<nav class="mainNav">
 					<ul>
 						<li><div class="navTitle">Meine Grunddaten</div></li>
 						<li><a class="activeLink2" href="veranstaltungeneditliste.php">Meine Veranstaltungen</a></li>

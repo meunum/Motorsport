@@ -1,16 +1,19 @@
 <?php
+$GLOBALS = [];
 if($_SERVER['SERVER_NAME'] == 'localhost')
 {
-	$DBHOST='localhost';
-	$DBNAME='motorsport';
-	$DBUSER='root';
-	$DBPASS='';
+	$GLOBALS['DOMAIN']='localhost/motorsport';
+	$GLOBALS['DBHOST']='localhost';
+	$GLOBALS['DBNAME']='motorsport';
+	$GLOBALS['DBUSER']='root';
+	$GLOBALS['DBPASS']='';
 }
 else
 {
-	$DBHOST='10.35.46.173:3306';
-	$DBNAME='k143704_mtrsprt';
-	$DBUSER='k143704_root';
-	$DBPASS='&22uuS4p';
+	$GLOBALS['DOMAIN']='meunum.de';
+	$GLOBALS['DBHOST']='10.35.46.173:3306';
+	$GLOBALS['DBNAME']='k143704_mtrsprt';
+	$GLOBALS['DBUSER']='k143704_root';
+	$GLOBALS['DBPASS']='&22uuS4p';
 }
 ?>

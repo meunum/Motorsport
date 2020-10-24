@@ -14,10 +14,10 @@
 		{
 			require_once __DIR__ . '/../vendor/autoload.php';
 			require_once 'globals.php';
-			$pdo = new \PDO('mysql:dbname='.$DBNAME.';host='.$DBHOST.';charset=utf8mb4', $DBUSER, $DBPASS);
-			$auth = new \Delight\Auth\Auth($pdo);
 			try 
 			{
+				$pdo = new \PDO('mysql:dbname='.$GLOBALS['DBNAME'].';host='.$GLOBALS['DBHOST'].';charset=utf8mb4', $GLOBALS['DBUSER'], $GLOBALS['DBPASS']);
+				$auth = new \Delight\Auth\Auth($pdo);
 				$auth->login($_POST['email'], $_POST['passwort']);
 				echo '<div class="success">Anmeldung erfolgreich.</div>';
 				$loggedIn = True;
@@ -34,10 +34,13 @@
 				$messages[] = 'Die Email-Adresse ist keinem Benutzerkonto zugeordnet, oder das Passwort ist falsch. Klicke auf "Registrieren", um ein neues Konto zu erstellen.';
 			}
 			catch (\Delight\Auth\EmailNotVerifiedException $e) {
-				$messages[] = 'Email not verified';
+				$messages[] = 'Email nicht verifiziert';
 			}
 			catch (\Delight\Auth\TooManyRequestsException $e) {
 				$messages[] = 'Zu viele Versuche';
+			}
+			catch (PDOException $e) {
+				$messages[] = 'Datenbankfehler';
 			}
 		}
 	}

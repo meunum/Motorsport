@@ -1,33 +1,9 @@
 <?php
 if(isset($_POST['submitButton'])) {
 //	echo "<div><pre>"; print_r ($_POST); echo "/<pre></div>";
+  require "globals.php";
 
-	
   $messages = [];
-
-	function registerCallback ($selector, $token) 
-	{
-		$empfaenger = $_POST["email"];
-		$betreff = "Konto auf motorsport.de aktivieren";
-		$nachricht = "Hallo, " . "\r\n" .
-			"\r\n" .
-			"Du hast Dich erfolgreich auf motorsport.de registriert. Bitte aktiviere Dein Konto durch Klick auf folgenden Link:" . "\r\n" .
-			"http://motorsport.de/registrierungabschliessen.php?selector=" . \urlencode($selector) . "&token=" . \urlencode($token) . "\r\n" .
-			"Danach kannst Du Dich mit Deinen Benutzerdaten im Veranstalterbereich anmelden." . "\r\n" .
-			"\r\n" .
-			"Viel Spaß auf motorsport.de";
-		$header = "From: webmaster@motorsport.de" . "\r\n" .
-			"Reply-To: webmaster@motorsport.de" . "\r\n" .
-			"X-Mailer: PHP/" . phpversion();
-		
-		$success = mail($empfaenger, $betreff, $nachricht, $header);
-		
-		if (!$success)
-		{
-			$messages[] = "Fehler beim Mailversand";
-		}
-	}
-	$registerCallbackVar = 'registerCallback';
 
   // Eingaben überprüfen:
   if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
@@ -51,13 +27,42 @@ if(isset($_POST['submitButton'])) {
   {
 	require_once __DIR__ . '/../vendor/autoload.php';
 	require_once 'globals.php';
-	$db = new \PDO('mysql:dbname='.$DBNAME.';host='.$DBHOST.';charset=utf8mb4', $DBUSER, $DBPASS);
-	$auth = new \Delight\Auth\Auth($db);
 
 	try 
 	{
+		$db = new \PDO('mysql:dbname='.$GLOBALS['DBNAME'].';host='.$GLOBALS['DBHOST'].';charset=utf8mb4', $GLOBALS['DBUSER'], $GLOBALS['DBPASS']);
+		$auth = new \Delight\Auth\Auth($db);
 		$db->beginTransaction();
-		$UserId = $auth->register($_POST['email'], $_POST['passwort'], '', $registerCallbackVar);
+		$my_globals = $GLOBALS;
+
+		$UserId = $auth->register($_POST['email'], $_POST['passwort'], '', 
+			function($selector, $token) use ($my_globals) 
+			{
+				$empfaenger = $_POST["email"];
+				$betreff = "Konto auf " . $my_globals['DOMAIN'] . " aktivieren";
+				$url = "http://" . $my_globals['DOMAIN'] . "/registrierungabschliessen.php?selector=" . \urlencode($selector) . "&token=" . \urlencode($token);
+				$nachricht = "Hallo, " . "\r\n" .
+					"\r\n" .
+					"Du hast Dich erfolgreich auf Motorsport.de registriert. Bitte aktiviere Dein Konto durch Klick auf folgenden Link:" . "\r\n" .
+					$url . "\r\n" .
+					"Danach kannst Du Dich mit Deinen Benutzerdaten im Veranstalterbereich anmelden." . "\r\n" .
+					"\r\n" .
+					"Viel Spaß auf " . $my_globals['DOMAIN'];
+				$header = "From: webmaster@". $my_globals['DOMAIN'] . "\r\n" .
+					"Reply-To: webmaster@" . $my_globals['DOMAIN'] . "\r\n" .
+					"X-Mailer: PHP/" . phpversion();
+				
+				if($_SERVER['SERVER_NAME'] == "localhost")
+				{
+					echo '<a href="' . $url . '">Konto aktivieren</a>';
+				}
+				else
+				{
+					mail($empfaenger, $betreff, $nachricht, $header);
+					mail('meunum.4.tomsel@neverbox.com', 'Registrierung erfolgt', $empfaenger . ' wurde registriert.', $header);
+				}
+			}
+		);
 
 		$Name = $_POST['name'];
 		$Kategorie = $_POST['kategorie'];
@@ -96,13 +101,9 @@ if(isset($_POST['submitButton'])) {
 		$messages[] = 'Zu viele Versuche';
 		$db->rollBack();
 	}
-	catch(Error $e)
-	{
-		echo '<div class="error">Fehler beim Speichern:<br>';
-		print_r($e->errorInfo());
-		echo '</div>';
-		$db->rollBack();
+	catch (PDOException $e) {
+		$messages[] = 'Datenbankfehler';
 	}
-  }
+ }
 }
 ?>

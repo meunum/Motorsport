@@ -2,7 +2,7 @@
 <?php
 	require_once __DIR__ . '/vendor/autoload.php';
 	require_once 'php/globals.php';
-	$db = new \PDO('mysql:dbname='.$DBNAME.';host='.$DBHOST.';charset=utf8mb4', $DBUSER, $DBPASS);
+	$db = new \PDO('mysql:dbname='.$GLOBALS['DBNAME'].';host='.$GLOBALS['DBHOST'].';charset=utf8mb4', $GLOBALS['DBUSER'], $GLOBALS['DBPASS']);
 	$auth = new \Delight\Auth\Auth($db);
 
 	try {

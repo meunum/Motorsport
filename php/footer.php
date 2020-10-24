@@ -7,6 +7,6 @@
 				</ul>
 			</nav>
 			<div>
-				<legend id="footLegend">Letzte Aktualisierung: 22.10.2020 22:10</legend>
+				<legend id="footLegend">Letzte Aktualisierung: 24.10.2020 21:30</legend>
 			</div>
 		</footer>

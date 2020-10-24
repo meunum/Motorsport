@@ -12,7 +12,8 @@
 			if (empty($messages))
 			{
 				// Registrieren war erfolgreich, Weiterleitung
-				echo '<meta http-equiv="Refresh" content="0; url=registrierungsmitteilung.php" />';
+				if($_SERVER['SERVER_NAME'] != "localhost")
+					echo '<meta http-equiv="Refresh" content="0; url=registrierungsmitteilung.php" />';
 			}
 			else
 			{

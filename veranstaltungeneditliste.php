@@ -32,9 +32,9 @@
 		require("php/header.php"); 
 ?>
 		<main>
-			<section class="formHead">
+			<section class="mainHead">
 				<?php require("php/userSection.php"); ?> 
-				<nav class="formNav">
+				<nav class="mainNav">
 					<ul>
 						<li><a class="activeLink2" href="veranstalter.php">Meine Grunddaten</a></li>
 						<li><div class="navTitle">Meine Veranstaltungen</div></li>
@@ -47,7 +47,7 @@
 					<th></th><th>Bezeichnung</th><th>Datum, Zeit</th><th>Ort</th><th>Kategorie</th><th>Bearbeiten</th>
 <?php
 					require_once 'php/globals.php';
-					$mysqli = new mysqli($DBHOST, $DBUSER, $DBPASS, $DBNAME);
+					$mysqli = new mysqli($GLOBALS['DBHOST'], $GLOBALS['DBUSER'], $GLOBALS['DBPASS'], $GLOBALS['DBNAME']);
 					$veranstaltungen = $mysqli->query("SELECT * FROM veranstaltung WHERE veranstalter=$BenutzerId");
 					foreach($veranstaltungen as $zeile) 
 					{

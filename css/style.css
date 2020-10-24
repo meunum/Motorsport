@@ -28,6 +28,19 @@ nav li
 	float: left;
 }
 
+.mainHead
+{
+	margin: 0;
+	padding: 1em;
+}
+
+.mainNav
+{
+	margin: 0;
+	padding: 0;
+	float: left;
+}
+
 #homeNav
 {
 	float: left;

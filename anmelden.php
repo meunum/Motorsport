@@ -42,13 +42,10 @@
 			require("php/messages.php"); 
 ?>
 			<form method="post">
-				<section class="dialogSection_legend">
+				<section class="dialogSection">
 					<legend>
-						<p>Bitte melde Dich mit Deinen Zugansdaten auf dieser Seite an.</p>
-						<p>Falls Du noch kein Benutzerkonto auf Motorsport.de hast, dann klicke auf Registrieren, um ein Konto anzulegen.</p>
+						Bitte melde Dich mit Deinen Zugansdaten auf <?php echo $GLOBALS['DOMAIN']?> an.
 					</legend>
-				</section>
-				<section class="dialogSection_edits">
 					<ul>
 						<li>
 							<label for="email"><span>E-Mail: </span></label>
@@ -58,14 +55,17 @@
 							<label for="passwort">Passwort</label>
 							<input class="edit" id="passwort" name="passwort" type="password" minlength="8" >
 						</li>
-					</ul>
-				</section>
-				<section class="dialogSection_buttons">
-					<ul>
 						<li>
 							<label for="submitButton" id="buttonLabel">.</label>
 							<button class="button" name="submitButton" id="submitButton" value="1">Anmelden</button>
 						</li>
+					</ul>
+				</section>
+				<section class="dialogSection">
+					<legend>
+						Falls Du noch kein Benutzerkonto auf <?php echo $GLOBALS['DOMAIN']?> hast, dann klicke auf Registrieren, um ein Konto anzulegen.
+					</legend>
+					<ul>
 						<li>
 							<label for="signupButton" id="buttonLabel">.</label>
 							<button class="button" name="signupButton" id="signupButton" value="1">Registrieren</button>
