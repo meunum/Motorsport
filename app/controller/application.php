@@ -37,14 +37,14 @@
 			
 			private function createView()
 			{
-				require_once $this->context->indexdir . '/app/view/notfoundView.php';
-				require_once $this->context->indexdir . '/app/view/promoterListView.php';
-				require_once $this->context->indexdir . '/app/view/imageView.php';
 				require_once $this->context->indexdir . '/app/model/promoter.php';
+				require_once $this->context->indexdir . '/app/view/promoterListView.php';
 				require_once $this->context->indexdir . '/app/view/loginView.php';
-				require_once $this->context->indexdir . '/app/view/signupView.php';
+				require_once $this->context->indexdir . '/app/view/signupViews.php';
+				require_once $this->context->indexdir . '/app/view/accountActivateViews.php';
 				require_once $this->context->indexdir . '/app/controller/signupAction.php';
-				require_once $this->context->indexdir . '/app/view/signupSuccessView.php';
+				require_once $this->context->indexdir . '/app/controller/accountActivateAction.php';
+				require_once $this->context->indexdir . '/app/controller/signupAction.php';
 
 				if(isset($_GET['view']))
 				{
@@ -75,9 +75,18 @@
 				}
 				else if(isset($_GET['action']))
 				{
-					if($_GET['action'] == 'accountActivate' & isset($_GET['selector']) & isset($_GET['token']))
+					if($_GET['action'] == 'accountActivate')
 					{
-						//$action = new AccountActivateAction($this->context);
+						$action = new \App\Controller\AccountActivateAction($this->context);
+						$messages = $action->execute();
+						if(!empty($messages)) 
+						{
+							$view = new \App\View\AccountActivateErrorView($this->context, $messages);
+						}
+						else
+						{
+							$view = new \App\View\AccountActivateSuccessView($this->context, []);
+						}
 					}
 				}
 				else if(isset($_POST['action']))

@@ -1,14 +1,9 @@
 <?php
 namespace App\Controller;
+require_once 'action.php';
 
-class SignUpAction
+class SignUpAction extends Action
 {
-	private $context;
-	
-	public function __construct($context) 
-	{
-		$this->context = $context;
-	}
 	
 	public function execute()
 	{
@@ -63,7 +58,7 @@ class SignUpAction
 						
 						if($_SERVER['SERVER_NAME'] == "localhost")
 						{
-							echo '<a href="' . $url . '">Konto aktivieren</a>';
+							echo '<a href="' . $url . '">$url</a>';
 						}
 						else
 						{

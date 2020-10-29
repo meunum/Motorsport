@@ -2,7 +2,7 @@
 
 	namespace App\View;
 	use App\Model;
-	require_once 'htmlView.php';
+	require_once 'views.php';
 	
 	class PromoterListView extends htmlView
 	{
