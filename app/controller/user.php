@@ -1,5 +1,6 @@
 <?php
 namespace App\Controller;
+use App\Model;
 
 class User
 {
@@ -17,7 +18,7 @@ class User
 			$this->loggedIn = True;
 			$this->id = $auth->getUserId();
 			$this->email = $auth->getEmail();
-			$this->promoter = PromoterList::get($this->id);
+			$this->promoter = \App\Model\PromoterList::get($this->id);
 		}
 	}
 }

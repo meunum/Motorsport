@@ -25,8 +25,8 @@
 					$this->context->dbuser, 
 					$this->context->dbpass);
 				$this->context->database = $this->database;
-				$this->context->user = new User($this->context);
 				\App\Model\PromoterList::SetContext($this->context);
+				$this->context->user = new User($this->context);
 			}
 			
 			public function run()
@@ -45,6 +45,7 @@
 				require_once $this->context->indexdir . '/app/controller/signupAction.php';
 				require_once $this->context->indexdir . '/app/controller/accountActivateAction.php';
 				require_once $this->context->indexdir . '/app/controller/signupAction.php';
+				require_once $this->context->indexdir . '/app/controller/loginActions.php';
 
 				if(isset($_GET['view']))
 				{
@@ -88,12 +89,27 @@
 							$view = new \App\View\AccountActivateSuccessView($this->context, []);
 						}
 					}
+					else if($_GET['action'] == 'logout')
+					{
+						$action = new \App\Controller\LogOutAction($this->context);
+						$action->execute();
+						$view = $this->CreateMainView();
+					}
 				}
 				else if(isset($_POST['action']))
 				{
 					if($_POST['action'] == 'login')
 					{
-						
+						$action = new \App\Controller\LogInAction($this->context);
+						$messages = $action->execute();
+						if(!empty($messages)) 
+						{
+							$view = new \App\View\LogInView($this->context, $messages);
+						}
+						else
+						{
+							$view = $this->CreateMainView();
+						}
 					}
 					else if($_POST['action'] == 'signup')
 					{
@@ -116,13 +132,20 @@
 				}
 				else
 				{
-					$view = new \App\View\PromoterListView(
-						$this->context, 
-						\App\Model\PromoterList::createList());
+					$view = $this->CreateMainView();
 				}
 				
 				return $view;
 				
+			}
+			
+			private function CreateMainView()
+			{
+				$view = new \App\View\PromoterListView(
+					$this->context, 
+					\App\Model\PromoterList::createList());
+					
+				return $view;
 			}
 		}
 

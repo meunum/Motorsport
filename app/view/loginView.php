@@ -3,7 +3,7 @@
 	use App\Model;
 	require_once 'views.php';
 	
-	class LogInView extends htmlView
+	class LogInView extends FormView
 	{
 		
 		private function showMainContent()
@@ -45,6 +45,7 @@
 		{
 			$this->startPage();
 			$this->showHtmlHead('Motorsport (anmelden)');
+			$this->showMessages();
 			$this->showBody();
 			$this->endPage();
 		}
