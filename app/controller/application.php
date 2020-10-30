@@ -61,7 +61,7 @@
 						}
 						else
 						{
-							$view = new \App\View\LogInView($this->context);
+							$view = new \App\View\LogInView($this->context, []);
 						}
 					}
 					else
@@ -108,6 +108,7 @@
 						}
 						else
 						{
+							$this->context->user = new User($this->context);
 							$view = $this->CreateMainView();
 						}
 					}
