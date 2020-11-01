@@ -3,28 +3,35 @@
 	use App\Model;
 	use App\View;
 	require_once dirname($_SERVER['SCRIPT_FILENAME']) . '/vendor/autoload.php';
-	require_once dirname($_SERVER['SCRIPT_FILENAME']) . '/app/model/promoter.php';
 	
 		class Application
 		{
-
-			public \PDO $database;
-			public AppContext $context;
 			
 			public function __construct() 
 			{
-				$INDEXDIR = dirname($_SERVER['SCRIPT_FILENAME'], 1);
 				require_once 'context.php';
 				require_once 'user.php';
+				$INDEXDIR = dirname($_SERVER['SCRIPT_FILENAME'], 1);
+				require_once $INDEXDIR . '/app/model/promoter.php';
+				require_once $INDEXDIR . '/app/view/promoterListView.php';
+				require_once $INDEXDIR . '/app/view/loginView.php';
+				require_once $INDEXDIR . '/app/view/signupViews.php';
+				require_once $INDEXDIR . '/app/view/accountActivateViews.php';
+				require_once $INDEXDIR . '/app/view/promoterView.php';
+				require_once $INDEXDIR . '/app/controller/signupAction.php';
+				require_once $INDEXDIR . '/app/controller/accountActivateAction.php';
+				require_once $INDEXDIR . '/app/controller/signupAction.php';
+				require_once $INDEXDIR . '/app/controller/loginActions.php';
+				require_once $INDEXDIR . '/app/controller/promoterSubmitAction.php';
 				
 				$this->context = new AppContext($INDEXDIR);
-				$this->database = new \PDO(
-					'mysql:dbname=' . 
-						$this->context->dbname . ';host=' . 
-						$this->context->dbhost . ';charset=utf8mb4', 
+				$this->context->database = new \PDO(
+					'mysql:' . 
+						'dbname=' . $this->context->dbname . 
+						';host=' . $this->context->dbhost . 
+						';charset=utf8mb4', 
 					$this->context->dbuser, 
 					$this->context->dbpass);
-				$this->context->database = $this->database;
 				\App\Model\PromoterList::SetContext($this->context);
 				$this->context->user = new User($this->context);
 			}
@@ -32,109 +39,134 @@
 			public function run()
 			{
 				$view = $this->createView();
-				$view->show();
+				if(isset($view))
+				{
+					$view->show();
+				}
+				else
+				{
+					print('$_GET: '); print_r($_GET);
+					print('$_POST: '); print_r($_POST);
+				}
+				$this->afterRender();
 			}
 			
 			private function createView()
 			{
-				require_once $this->context->indexdir . '/app/model/promoter.php';
-				require_once $this->context->indexdir . '/app/view/promoterListView.php';
-				require_once $this->context->indexdir . '/app/view/loginView.php';
-				require_once $this->context->indexdir . '/app/view/signupViews.php';
-				require_once $this->context->indexdir . '/app/view/accountActivateViews.php';
-				require_once $this->context->indexdir . '/app/controller/signupAction.php';
-				require_once $this->context->indexdir . '/app/controller/accountActivateAction.php';
-				require_once $this->context->indexdir . '/app/controller/signupAction.php';
-				require_once $this->context->indexdir . '/app/controller/loginActions.php';
-
 				if(isset($_GET['view']))
 				{
-					if($_GET['view'] == 'imageView' & isset($_GET['imageId']))
-					{
-						$view = new \App\View\ImageView($this->context, $_GET['imageId']);
-					}
-					else if($_GET['view'] == 'currentUserView')
-					{
-						if($this->context->user->loggedIn)
-						{
-							
-						}
-						else
-						{
-							$view = new \App\View\LogInView($this->context, []);
-						}
-					}
-					else
-						$view = new \App\View\NotFoundView();
+					$view = $this->CreateViewByName($_GET['view']);
 				}
 				else if(isset($_POST['view']))
 				{
-					if($_POST['view'] == 'signupView')
-					{
-						$view = new \App\View\SignUpView($this->context, []);
-					}
+					$view = $this->CreateViewByName($_POST['view']);
 				}
 				else if(isset($_GET['action']))
 				{
-					if($_GET['action'] == 'accountActivate')
-					{
-						$action = new \App\Controller\AccountActivateAction($this->context);
-						$messages = $action->execute();
-						if(!empty($messages)) 
-						{
-							$view = new \App\View\AccountActivateErrorView($this->context, $messages);
-						}
-						else
-						{
-							$view = new \App\View\AccountActivateSuccessView($this->context, []);
-						}
-					}
-					else if($_GET['action'] == 'logout')
-					{
-						$action = new \App\Controller\LogOutAction($this->context);
-						$action->execute();
-						$view = $this->CreateMainView();
-					}
+					$view = $this->CreateViewByAction($_GET['action']);
 				}
 				else if(isset($_POST['action']))
 				{
-					if($_POST['action'] == 'login')
-					{
-						$action = new \App\Controller\LogInAction($this->context);
-						$messages = $action->execute();
-						if(!empty($messages)) 
-						{
-							$view = new \App\View\LogInView($this->context, $messages);
-						}
-						else
-						{
-							$this->context->user = new User($this->context);
-							$view = $this->CreateMainView();
-						}
-					}
-					else if($_POST['action'] == 'signup')
-					{
-						$action = new \App\Controller\SignUpAction($this->context);
-						$messages = $action->execute();
-						if(!empty($messages)) 
-						{
-							$view = new \App\View\SignUpView($this->context, $messages);
-						}
-						else
-						{
-							$view = new \App\View\SignUpSuccessView($this->context);
-						}
-						
-					}
-					else if($_POST['action'] == 'submit...')
-					{
-						
-					}
+					$view = $this->CreateViewByAction($_POST['action']);
 				}
 				else
 				{
 					$view = $this->CreateMainView();
 				}
+				
+				if(isset($view))
+					return $view;
+				
+			}
+
+			private function CreateViewByName(string $viewName)
+			{
+				if($viewName == 'imageView' & isset($_GET['imageId']))
+				{
+					$view = new \App\View\ImageView($this->context, $_GET['imageId']);
+				}
+				else if($viewName == 'promoterView')
+				{
+					if($this->context->user->loggedIn)
+					{
+						$view = new \App\View\PromoterView($this->context, []);
+					}
+					else
+					{
+						$view = new \App\View\LogInView($this->context, []);
+					}
+				}
+				else if($viewName == 'signupView')
+				{
+					$view = new \App\View\SignUpView($this->context, []);
+				}
+//				else
+	//				$view = new \App\View\NotFoundView();
+				
+				return $view;
+				
+			}
+			
+			private function CreateViewByAction(string $actionName)
+			{
+				if($actionName == 'signup')
+				{
+					$action = new \App\Controller\SignUpAction($this->context);
+					$messages = $action->execute();
+					if(!empty($messages)) 
+					{
+						$view = new \App\View\SignUpView($this->context, $messages);
+					}
+					else
+					{
+						$view = new \App\View\SignUpSuccessView($this->context);
+					}
+				}
+				else if($actionName == 'accountActivate')
+				{
+					$action = new \App\Controller\AccountActivateAction($this->context);
+					$messages = $action->execute();
+					if(!empty($messages)) 
+					{
+						$view = new \App\View\AccountActivateErrorView($this->context, $messages);
+					}
+					else
+					{
+						$view = new \App\View\AccountActivateSuccessView($this->context, []);
+					}
+				}
+				else if($actionName == 'login')
+				{
+					$action = new \App\Controller\LogInAction($this->context);
+					$messages = $action->execute();
+					if(!empty($messages)) 
+					{
+						$view = new \App\View\LogInView($this->context, $messages);
+					}
+					else
+					{
+						$this->context->user = new User($this->context);
+						$view = new \App\View\PromoterView($this->context, []);
+					}
+				}
+				else if($actionName == 'logout')
+				{
+					$action = new \App\Controller\LogOutAction($this->context);
+					$action->execute();
+					$view = $this->CreateMainView();
+				}
+				else if($actionName == 'promoterView.submit')
+				{
+					$action = new \App\Controller\PromoterSubmitAction($this->context);
+					$messages = $action->execute();
+					if(empty($messages)) 
+					{
+						$this->context->user = new User($this->context);
+					}
+					$view = new \App\View\PromoterView($this->context, $messages);
+				}
+//				else
+	//				$view = new \App\View\NotFoundView();
 				
 				return $view;
 				
@@ -148,6 +180,10 @@
 					
 				return $view;
 			}
+			
+			private function afterRender()
+			{
+				$this->context->user->justLoggedOut = False;
+			}
 		}
-
 ?>

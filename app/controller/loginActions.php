@@ -52,14 +52,16 @@ class LogOutAction extends Action
 	
 	public function execute()
 	{
+		$messages = [];
+
+		$this->context->user->justLoggedOut = False;
 		if ($this->context->user->loggedIn)
 		{
-			$messages = [];
-
 			$auth = new \Delight\Auth\Auth($this->context->database);
 			try {
 				$auth->logOut();
 				$this->context->user->loggedIn = False;
+				$this->context->user->justLoggedOut = True;
 			}
 			catch (\Delight\Auth\NotLoggedInException $e) {
 				$messages[] = 'Nicht angemeldet';

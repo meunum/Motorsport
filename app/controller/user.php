@@ -7,6 +7,7 @@ class User
 	public $id = NULL;
 	public $email = NULL;
 	public $loggedIn = False;
+	public $justLoggedOut = False;
 	public $promoter = NULL;
 	
 	public function __construct($context) 

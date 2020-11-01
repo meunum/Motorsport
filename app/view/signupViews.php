@@ -8,27 +8,26 @@
 		
 		private function showMainContent()
 		{
-			$REQUIRED = "<abbr class = 'required' title='erforderlich' >*</abbr>";
 			print('<main>');
 			print('<form id="veranstalter" action="index.php" enctype="multipart/form-data" method="post">');
-			print('<legend class="dialogHint">Pflichtfelder sind gekennzeichnet mit: ' . $REQUIRED . '</legend>');
+			print('<legend class="dialogHint">Pflichtfelder sind gekennzeichnet mit: ' . $this->REQUIRED . '</legend>');
 			print('<section class="groupBox">');
 			print('<legend>Daten zur Anmeldung</legend>');
 			print('<ul><li>');
-			print('<label for="email"><span>E-Mail: ' . $REQUIRED . '</label>');
+			print('<label for="email"><span>E-Mail: ' . $this->REQUIRED . '</label>');
 			print('<input class="edit" type="email" name="email" id="email" value="' . htmlspecialchars($_POST['email']??'') . '" required/>');
 			print('</li><li>');
-			print('<label for="passwort"><span>Passwort: </span>' . $REQUIRED . '</label>');
+			print('<label for="passwort"><span>Passwort: </span>' . $this->REQUIRED . '</label>');
 			print('<input class="edit" type="password" name="passwort" id="passwort" minlength="8" required/>');
 			print('</li><li>');
-			print('<label for="passwort2"><span>Passwort wiederholen: </span>' . $REQUIRED . '</label>');
+			print('<label for="passwort2"><span>Passwort wiederholen: </span>' . $this->REQUIRED . '</label>');
 			print('<input class="edit" type="password" name="passwort2" id="passwort2" minlength="8" required/>');
 			print('</li></ul>');
 			print('</section>');
 			print('<section class="groupBox">');
 			print('<legend>Daten des Veranstalters</legend>');
 			print('<ul><li>');
-			print('<label for="name"><span>Name: ' . $REQUIRED . '</label>');
+			print('<label for="name"><span>Name: ' . $this->REQUIRED . '</label>');
 			print('<input class="edit" type="text" name="name" id="name" value="' . htmlspecialchars($_POST['name']??'') . '" required/>');
 			print('</li><li>');
 			print('<label for="kategorie"><span>Kategorie: </span></label>');

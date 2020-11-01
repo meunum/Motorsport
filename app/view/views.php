@@ -44,7 +44,7 @@ namespace App\View;
 			print('	</nav>');
 			print('	<nav id="accountNav">');
 			print('		<ul>');
-			print('			<li><a class="activeLink1" href="index.php?view=currentUserView">Veranstalterbereich</a></li>');
+			print('			<li><a class="activeLink1" href="index.php?view=promoterView">Veranstalterbereich</a></li>');
 			print('		</ul>');
 			print('	</nav>');
 			print('</header>');
@@ -66,13 +66,12 @@ namespace App\View;
 			print('</footer>');
 		}
 
-		protected function showImage(int $id, int $width, int $height)
+		protected function showImage($id, int $width, int $height)
 		{
-			echo '<img src="index.php?view=imageView&imageId=', $id, '" width="' . $width . '" height="' . $height . '"/>';
-		}
-		
-		public function show()
-		{
+			if($id == null)
+				echo '<img src="app/view/img/placeholder.jpg" width="' . $width . '" height="' . $height . '"/>';
+			else
+				echo '<img src="index.php?view=imageView&imageId=', $id, '" width="' . $width . '" height="' . $height . '"/>';
 		}
 
 	}
@@ -80,6 +79,7 @@ namespace App\View;
 	class FormView extends HtmlView
 	{
 		protected $messages = [];
+		protected $REQUIRED = "<abbr class = 'required' title='erforderlich' >*</abbr>";
 		
 		public function __construct($context, $messages) 
 		{

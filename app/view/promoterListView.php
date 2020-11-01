@@ -38,7 +38,10 @@
 			if($this->context->user->loggedIn)
 				print('<legend class="userLegend">Du bist angemeldet als ' . htmlspecialchars($this->context->user->promoter->name??'') . '</legend>');
 			else
-				print('<legend class="userLegend"></legend>');
+				if($this->context->user->justLoggedOut)
+					print('<legend class="userLegend">Du bist nicht mehr angemeldet</legend>');
+				else
+					print('<legend class="userLegend"></legend>');
 			print('<nav class="mainNav">');
 			print('<ul>');
 			print('<li><div class="navTitle">Veranstalter</div></li>');
