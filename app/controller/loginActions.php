@@ -1,58 +1,80 @@
 <?php
 namespace App\Controller;
+use App\View;
+use App\Model;
 require_once 'action.php';
 
 class LogInAction extends Action
 {
+
+	public function createView()
+	{
+		if($this->success) 
+		{
+			return new \App\View\promoterView($this->context, []);
+		}
+		else
+		{
+			return new \App\View\loginView($this->context, $this->messages);
+		}
+	}
 	
 	public function execute()
 	{
-		$messages = [];
+		$this->messages = [];
 		if(empty($_POST['email'])) {
-			$messages[] = 'Die Email-Adresse darf nicht leer sein.';
+			$this->messages[] = 'Die Email-Adresse darf nicht leer sein.';
 		}
 		if(empty($_POST['passwort'])) {
-			$messages[] = 'Das Passwort darf nicht leer sein.';
+			$this->messages[] = 'Das Passwort darf nicht leer sein.';
 		}
 
-		if(empty($messages)) 
+		if(empty($this->messages)) 
 		{
 			try 
 			{
 				$auth = new \Delight\Auth\Auth($this->context->database);
 				$auth->login($_POST['email'], $_POST['passwort']);
 				$this->context->user->loggedIn = True;
+				$this->context->user->id = $auth->getUserId();
+				$this->context->user->promoter = \App\Model\Promoterlist::getByUserId($this->context->user->id);
+				$this->success = true;
 			}
 			catch (\Delight\Auth\InvalidEmailException $e) {
-				$messages[] = 'Die Email-Adresse ist keinem Benutzerkonto zugeordnet, oder das Passwort ist falsch.';
-				$messages[] = 'Klicke auf "Registrieren", wenn Du ein neues Konto anlegen möchtest.';
+				$this->messages[] = 'Die Email-Adresse ist keinem Benutzerkonto zugeordnet, oder das Passwort ist falsch.';
+				$this->messages[] = 'Klicke auf "Registrieren", wenn Du ein neues Konto anlegen möchtest.';
 			}
 			catch (\Delight\Auth\InvalidPasswordException $e) {
-				$messages[] = 'Die Email-Adresse ist keinem Benutzerkonto zugeordnet, oder das Passwort ist falsch.';
-				$messages[] = 'Klicke auf "Registrieren", wenn Du ein neues Konto anlegen möchtest.';
+				$this->messages[] = 'Die Email-Adresse ist keinem Benutzerkonto zugeordnet, oder das Passwort ist falsch.';
+				$this->messages[] = 'Klicke auf "Registrieren", wenn Du ein neues Konto anlegen möchtest.';
 			}
 			catch (\Delight\Auth\EmailNotVerifiedException $e) {
-				$messages[] = 'Email nicht verifiziert';
+				$this->messages[] = 'Email nicht verifiziert';
 			}
 			catch (\Delight\Auth\TooManyRequestsException $e) {
-				$messages[] = 'Zu viele Versuche';
+				$this->messages[] = 'Zu viele Versuche';
 			}
 			catch (PDOException $e) {
-				$messages[] = 'Datenbankfehler';
+				$this->messages[] = 'Datenbankfehler';
 			}
 		}
-		
-		return $messages;
+
+		return $this->success;
 		
 	}
 }
 
 class LogOutAction extends Action
 {
+
+	public function createView()
+	{
+		return new \App\View\loginView($this->context, $this->messages);
+	}
 	
 	public function execute()
 	{
-		$messages = [];
+		$this->messages = [];
 
 		$this->context->user->justLoggedOut = False;
 		if ($this->context->user->loggedIn)
@@ -62,13 +84,15 @@ class LogOutAction extends Action
 				$auth->logOut();
 				$this->context->user->loggedIn = False;
 				$this->context->user->justLoggedOut = True;
+				$this->context->user->promoter = null;
+				$this->success = true;
 			}
 			catch (\Delight\Auth\NotLoggedInException $e) {
-				$messages[] = 'Nicht angemeldet';
+				$this->messages[] = 'Nicht angemeldet';
 			}
 		}
 		
-		return $messages;
+		return $this->success;
 		
 	}
 }

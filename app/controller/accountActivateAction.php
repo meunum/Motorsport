@@ -1,34 +1,46 @@
 <?php
 namespace App\Controller;
+use App\View;
 require_once 'action.php';
 
 class AccountActivateAction extends Action
 {
+
+	public function createView()
+	{
+		if(!$this->success) 
+		{
+			return new \App\View\accountActivateErrorView($this->context, $this->messages);
+		}
+		else
+		{
+			return new \App\View\accountActivateSuccessView($this->context, []);
+		}
+	}
 	
 	public function execute()
 	{
-		require_once $this->context->indexdir . '/vendor/autoload.php';
-
 		$auth = new \Delight\Auth\Auth($this->context->database);
 
-		$messages = [];
+		$this->messages = [];
 		try {
 			$auth->confirmEmail($_GET['selector'], $_GET['token']);
+			$this->success = true;
 		}
 		catch (\Delight\Auth\InvalidSelectorTokenPairException $e) {
-			$messages[] = 'Aktivierungsinformationen sind ungültig';
+			$this->messages[] = 'Aktivierungsinformationen sind ungültig';
 		}
 		catch (\Delight\Auth\TokenExpiredException $e) {
-			$messages[] = 'Aktivierungsinformationen sind nicht mehr gültig';
+			$this->messages[] = 'Aktivierungsinformationen sind nicht mehr gültig';
 		}
 		catch (\Delight\Auth\UserAlreadyExistsException $e) {
-			$messages[] = 'Emailadresse existiert bereits';
+			$this->messages[] = 'Emailadresse existiert bereits';
 		}
 		catch (\Delight\Auth\TooManyRequestsException $e) {
-			$messages[] = 'Zu viele Versuche';
+			$this->messages[] = 'Zu viele Versuche';
 		}
 		
-		return $messages;
+		return $this->success;
 		
 	}
 }

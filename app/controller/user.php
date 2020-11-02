@@ -19,7 +19,7 @@ class User
 			$this->loggedIn = True;
 			$this->id = $auth->getUserId();
 			$this->email = $auth->getEmail();
-			$this->promoter = \App\Model\PromoterList::get($this->id);
+			$this->promoter = \App\Model\PromoterList::getByUserId($this->id);
 		}
 	}
 }

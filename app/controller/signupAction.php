@@ -1,36 +1,47 @@
 <?php
 namespace App\Controller;
+use App\View;
 require_once 'action.php';
 
 class SignUpAction extends Action
 {
+
+	public function createView()
+	{
+		if(!empty($this->messages)) 
+		{
+			return new \App\View\signUpView($this->context, $this->messages);
+		}
+		else
+		{
+			return new \App\View\signUpSuccessView($this->context, []);
+		}
+	}
 	
 	public function execute()
 	{
-		$messages = [];
+		$this->messages = [];
 
 		  // Eingaben überprüfen:
 		if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-			$messages[] = 'Die E-Mail-Adresse ist nicht gültig.';
+			$this->messages[] = 'Die E-Mail-Adresse ist nicht gültig.';
 		}
 		if(($_POST['passwort']??'') != ($_POST['passwort2']??'')) {
-			$messages[] = 'Die eingegebenen Passwörter sind nicht gleich.';
+			$this->messages[] = 'Die eingegebenen Passwörter sind nicht gleich.';
 		}
 		// ggf. noch mehr Tests auf schlechte Passwörter durchführen
 		if(!empty($_POST['email']) && $_POST['email']==$_POST['passwort']) {
-			$messages[] = 'Das Passwort darf nicht gleich der E-Mail-Adresse sein.';
+			$this->messages[] = 'Das Passwort darf nicht gleich der E-Mail-Adresse sein.';
 		}
 		if(!empty($_POST['benutzername']) && $_POST['benutzername']==$_POST['passwort']) {
-			$messages[] = 'Das Passwort darf nicht gleich dem Anmeldenamen sein.';
+			$this->messages[] = 'Das Passwort darf nicht gleich dem Anmeldenamen sein.';
 		}
 		if(mb_strlen($_POST['passwort']) < 8) {
-			$messages[] = 'Das eingegebene Passwort ist zu kurz.';
+			$this->messages[] = 'Das eingegebene Passwort ist zu kurz.';
 		}
 
-		if(empty($messages)) 
+		if(empty($this->messages)) 
 		{
-			require_once $this->context->indexdir . '/vendor/autoload.php';
-
 			try 
 			{
 				$this->context->database->beginTransaction();
@@ -90,27 +101,27 @@ class SignUpAction extends Action
 				$this->context->database->commit();
 			}
 			catch (\Delight\Auth\InvalidEmailException $e) {
-				$messages[] = 'Ungültige Email-Adresse';
+				$this->messages[] = 'Ungültige Email-Adresse';
 				$this->context->database->rollBack();
 			}
 			catch (\Delight\Auth\InvalidPasswordException $e) {
-				$messages[] = 'Ungültiges Passwort';
+				$this->messages[] = 'Ungültiges Passwort';
 				$this->context->database->rollBack();
 			}
 			catch (\Delight\Auth\UserAlreadyExistsException $e) {
-				$messages[] = 'Der Benutzer existiert bereits';
+				$this->messages[] = 'Der Benutzer existiert bereits';
 				$this->context->database->rollBack();
 			}
 			catch (\Delight\Auth\TooManyRequestsException $e) {
-				$messages[] = 'Zu viele Versuche';
+				$this->messages[] = 'Zu viele Versuche';
 				$this->context->database->rollBack();
 			}
 			catch (PDOException $e) {
-				$messages[] = 'Datenbankfehler';
+				$this->messages[] = 'Datenbankfehler';
 			}
 		}
 		
-		return $messages;
+		return empty($this->messages);
 		
 	}
 }

@@ -8,11 +8,12 @@
 		private function showMainContent()
 		{
 			print('<main>');
+			print('<form id="accountActivate" action="index.php" enctype="multipart/form-data" method="post">');
 			print('<section class="groupBox">');
-			print('<ul><li>');
-			print('<label for="name"><span>Dein Konto wurde erfolgreich aktiviert. Du kannst Dich nun mit Deinen Benutzerdaten anmelden.</label>');
-			print('</li></ul></section>');
-			print('<section id="submitSection">');
+			print('<div class="zentralerInfotext">');
+			print('<p>Dein Konto auf ' . $this->context->domain . ' wurde erfolgreich aktiviert.</p>');
+			print('<p>Du kannst Dich nun mit Deinen Benutzerdaten im Veranstalterbereich anmelden.</p>');
+			print('</div>');
 			print('<ul><li>');
 			print('<label for="submitButton" id="buttonLabel">.</label>');
 			print('<button class="button" name="view" id="submitButton" value="loginView">Anmelden...</button>');

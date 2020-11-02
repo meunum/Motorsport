@@ -55,19 +55,19 @@
 			{
 				if(isset($_GET['view']))
 				{
-					$view = $this->CreateViewByName($_GET['view']);
+					$view = $this->CreateViewByName($_GET['view'], []);
 				}
 				else if(isset($_POST['view']))
 				{
-					$view = $this->CreateViewByName($_POST['view']);
+					$view = $this->CreateViewByName($_POST['view'], []);
 				}
 				else if(isset($_GET['action']))
 				{
-					$view = $this->CreateViewByAction($_GET['action']);
+					$view = $this->CreateViewByAction($_GET['action'], []);
 				}
 				else if(isset($_POST['action']))
 				{
-					$view = $this->CreateViewByAction($_POST['action']);
+					$view = $this->CreateViewByAction($_POST['action'], []);
 				}
 				else
 				{
@@ -79,7 +79,7 @@
 				
 			}
 
-			private function CreateViewByName(string $viewName)
+			private function CreateViewByName(string $viewName, $messages, bool $internal=False)
 			{
 				if($viewName == 'imageView' & isset($_GET['imageId']))
 				{
@@ -89,16 +89,24 @@
 				{
 					if($this->context->user->loggedIn)
 					{
-						$view = new \App\View\PromoterView($this->context, []);
+						$view = new \App\View\PromoterView($this->context, $messages);
 					}
 					else
 					{
-						$view = new \App\View\LogInView($this->context, []);
+						$view = new \App\View\LogInView($this->context, $messages);
 					}
 				}
 				else if($viewName == 'signupView')
 				{
-					$view = new \App\View\SignUpView($this->context, []);
+					$view = new \App\View\SignUpView($this->context, $messages);
+				}
+				else if($viewName == 'loginView')
+				{
+					$view = new \App\View\LoginView($this->context, $messages);
+				}
+				else if($viewName == 'mainView')
+				{
+					$view = $this->CreateMainView();
 				}
 //				else
 	//				$view = new \App\View\NotFoundView();
@@ -112,62 +120,29 @@
 				if($actionName == 'signup')
 				{
 					$action = new \App\Controller\SignUpAction($this->context);
-					$messages = $action->execute();
-					if(!empty($messages)) 
-					{
-						$view = new \App\View\SignUpView($this->context, $messages);
-					}
-					else
-					{
-						$view = new \App\View\SignUpSuccessView($this->context);
-					}
 				}
 				else if($actionName == 'accountActivate')
 				{
 					$action = new \App\Controller\AccountActivateAction($this->context);
-					$messages = $action->execute();
-					if(!empty($messages)) 
-					{
-						$view = new \App\View\AccountActivateErrorView($this->context, $messages);
-					}
-					else
-					{
-						$view = new \App\View\AccountActivateSuccessView($this->context, []);
-					}
 				}
 				else if($actionName == 'login')
 				{
 					$action = new \App\Controller\LogInAction($this->context);
-					$messages = $action->execute();
-					if(!empty($messages)) 
-					{
-						$view = new \App\View\LogInView($this->context, $messages);
-					}
-					else
-					{
-						$this->context->user = new User($this->context);
-						$view = new \App\View\PromoterView($this->context, []);
-					}
 				}
 				else if($actionName == 'logout')
 				{
 					$action = new \App\Controller\LogOutAction($this->context);
-					$action->execute();
-					$view = $this->CreateMainView();
 				}
 				else if($actionName == 'promoterView.submit')
 				{
 					$action = new \App\Controller\PromoterSubmitAction($this->context);
-					$messages = $action->execute();
-					if(empty($messages)) 
-					{
-						$this->context->user = new User($this->context);
-					}
-					$view = new \App\View\PromoterView($this->context, $messages);
 				}
-//				else
-	//				$view = new \App\View\NotFoundView();
-				
+				if(isset($action))
+				{
+					$action->execute();
+					$view = $action->createView();
+				}
+			
 				return $view;
 				
 			}

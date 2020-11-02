@@ -64,7 +64,7 @@
 		public function show()
 		{
 			$this->startPage();
-			$this->showHtmlHead('Motorsport (anmelden)');
+			$this->showHtmlHead('Motorsport (Konto erstellen)');
 			$this->showBody();
 			$this->endPage();
 		}
@@ -76,11 +76,12 @@
 		private function showMainContent()
 		{
 			print('<main>');
+			print('<form id="signUpSuccess" action="index.php" enctype="multipart/form-data" method="post">');
 			print('<div class="zentralerInfotext">');
-			print('<p>Vielen Dank für Deine Registrierung auf dieser Seite.</p>');
-			print('<p>Es wurde eine Nachricht an Deine Emailadresse geschickt. Um die Registrierung abzuschließen, klicke bitte auf den dort enthaltenen Link. Danach kannst Du Dich mit Deinen Benutzerdaten im Veranstalterbereich anmelden.</p>');
-			print('</div>');
-			print('</main>');
+			print('<p>Vielen Dank für Deine Registrierung auf ' . $this->context->domain . '.</p>');
+			print('<p>Es wurde eine Nachricht an Deine Emailadresse geschickt. Um die Registrierung abzuschließen, klicke bitte auf den dort enthaltenen Link.</p>');
+			print('<p>Danach kannst Du Dich mit Deinen Benutzerdaten auf ' . $this->context->domain . ' im Veranstalterbereich anmelden.</p>');
+			print('</div></form></main>');
 		}
 		
 		private function showBody()

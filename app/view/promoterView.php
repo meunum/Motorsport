@@ -8,6 +8,7 @@
 		
 		private function showMainContent()
 		{
+		//	print_r($this->context);
 			print('<main>');
 			print('<section class="mainHead">');
 			print('<nav class="mainNav">');
