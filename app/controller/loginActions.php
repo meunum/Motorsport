@@ -37,6 +37,7 @@ class LogInAction extends Action
 				$auth->login($_POST['email'], $_POST['passwort']);
 				$this->context->user->loggedIn = True;
 				$this->context->user->id = $auth->getUserId();
+				$this->context->user->email = $_POST['email'];
 				$this->context->user->promoter = \App\Model\Promoterlist::getByUserId($this->context->user->id);
 				$this->success = true;
 			}
@@ -75,7 +76,7 @@ class LogOutAction extends Action
 	public function execute()
 	{
 		$this->messages = [];
-
+		$this->success = !$this->context->user->loggedIn;
 		$this->context->user->justLoggedOut = False;
 		if ($this->context->user->loggedIn)
 		{

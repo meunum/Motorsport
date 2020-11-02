@@ -30,7 +30,7 @@
 			print('<nav class="userNav">');
 			print('<ul>');
 			if($this->context->user->loggedIn)
-				print('<li><a class="activeLink2" href="index.php?action=logout">Abmelden</a></li>');
+				print('<li><a class="activeLink2" href="index.php?action=logout&createView=promoterListView">Abmelden</a></li>');
 			else
 				print('<li></li>');
 			print('</ul>');

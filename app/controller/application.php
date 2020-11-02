@@ -48,7 +48,6 @@
 					print('$_GET: '); print_r($_GET);
 					print('$_POST: '); print_r($_POST);
 				}
-				$this->afterRender();
 			}
 			
 			private function createView()
@@ -71,7 +70,7 @@
 				}
 				else
 				{
-					$view = $this->CreateMainView();
+					$view = $this->CreateViewByName('promoterListView', []);
 				}
 				
 				if(isset($view))
@@ -104,9 +103,11 @@
 				{
 					$view = new \App\View\LoginView($this->context, $messages);
 				}
-				else if($viewName == 'mainView')
+				else if($viewName == 'promoterListView')
 				{
-					$view = $this->CreateMainView();
+					$view = new \App\View\PromoterListView(
+						$this->context, 
+						\App\Model\PromoterList::createList());
 				}
 //				else
 	//				$view = new \App\View\NotFoundView();
@@ -140,25 +141,14 @@
 				if(isset($action))
 				{
 					$action->execute();
-					$view = $action->createView();
+					if(isset($_GET['createView']))
+						$view = $this->CreateViewByName($_GET['createView'], []);
+					else
+						$view = $action->createView();
 				}
 			
 				return $view;
 				
-			}
-			
-			private function CreateMainView()
-			{
-				$view = new \App\View\PromoterListView(
-					$this->context, 
-					\App\Model\PromoterList::createList());
-					
-				return $view;
-			}
-			
-			private function afterRender()
-			{
-				$this->context->user->justLoggedOut = False;
 			}
 		}
 ?>
