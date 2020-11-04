@@ -2,7 +2,6 @@
 namespace App\Controller;
 use App\View;
 use App\Model;
-require_once 'action.php';
 
 class LogInAction extends Action
 {

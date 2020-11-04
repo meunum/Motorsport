@@ -1,6 +1,5 @@
 <?php
-namespace App\Controller;
-use App\Model;
+namespace App\Model;
 
 class User
 {
@@ -10,9 +9,9 @@ class User
 	public $justLoggedOut = False;
 	public $promoter = NULL;
 	
-	public function __construct($context) 
+	public function __construct() 
 	{
-		require_once $context->indexdir . '/app/model/promoter.php';
+		$context = \App\Model\PromoterList::GetContext();
 		$auth = new \Delight\Auth\Auth($context->database);
 		if ($auth->isLoggedIn()) 
 		{

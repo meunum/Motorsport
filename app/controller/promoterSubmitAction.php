@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller;
 use App\View;
-require_once 'action.php';
 
 class PromoterSubmitAction extends Action
 {

@@ -10,6 +10,16 @@
 			public $beschreibung = '';
 			public $bildId = NULL;
 			
+			public function events()
+			{
+				return EventList::createListByPromoterId($this->id);
+			}
+			
+			public function eventsComing(int $limit = 0)
+			{
+				return EventList::eventsComingByPromoterId($this->id, $limit);
+			}
+			
 			public function __construct($pdaten) 
 			{
 				if(isset($pdaten['id']))
@@ -27,19 +37,13 @@
 			}
 		}
 		
-		class PromoterList
+		class PromoterList extends EntityList
 		{
-			private static $context;
-			
-			public static function SetContext($context)
-			{
-				self::$context = $context;
-			}
 
 			public static function createList() 
 			{
 				$list = [];
-				$stmt = self::$context->database->query(
+				$stmt = self::$db->query(
 					"SELECT v.* FROM veranstalter v INNER JOIN users u ON v.users_fk = u.id WHERE u.verified = 1");
 				$allPromoter = $stmt->fetchAll();
 				foreach($allPromoter as $pdaten)
@@ -51,14 +55,14 @@
 
 			public static function getByUserId($userId) 
 			{
-				$stmt = self::$context->database->query("SELECT * FROM veranstalter where users_fk=" . $userId);
+				$stmt = self::$db->query("SELECT * FROM veranstalter where users_fk=" . $userId);
 				if($stmt)
 					return new Promoter($stmt->fetch());
 			}
 
 			public static function get($id) 
 			{
-				$stmt = self::$context->database->query("SELECT * FROM veranstalter where id=" . $id);
+				$stmt = self::$db->query("SELECT * FROM veranstalter where id=" . $id);
 				if($stmt)
 					return new Promoter($stmt->fetch());
 			}

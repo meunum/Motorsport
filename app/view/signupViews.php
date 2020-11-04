@@ -6,9 +6,13 @@
 	class SignUpView extends FormView
 	{
 		
-		private function showMainContent()
+		public function __construct($context, $messages) 
 		{
-			print('<main>');
+			parent::__construct($context, 'Motorsport (Konto erstellen)', $messages);
+		}
+		
+		protected function showMainSectionContent()
+		{
 			print('<form id="veranstalter" action="index.php" enctype="multipart/form-data" method="post">');
 			print('<legend class="dialogHint">Pflichtfelder sind gekennzeichnet mit: ' . $this->REQUIRED . '</legend>');
 			print('<section class="groupBox">');
@@ -46,59 +50,28 @@
 			print('<section id="submitSection">');
 			print('<ul><li>');
 			print('<label for="submitButton" id="buttonLabel">.</label>');
-			print('<button class="button" name="action" id="submitButton" value="signup">Konto erstellen</button>');
+			print('<button class="button" name="action" id="submitButton" value="Signup">Konto erstellen</button>');
 			print('</li></ul>');
-			print('</section></form></main>');
-		}
-		
-		private function showBody()
-		{
-			print('<body>');
-			$this->showHeader();
-			$this->showMessages();
-			$this->showMainContent();
-			$this->showFooter();
-			print('</body>');
-		}
-		
-		public function show()
-		{
-			$this->startPage();
-			$this->showHtmlHead('Motorsport (Konto erstellen)');
-			$this->showBody();
-			$this->endPage();
+			print('</section></form>');
 		}
 	}
 
 	class SignUpSuccessView extends HtmlView
 	{
 		
-		private function showMainContent()
+		public function __construct($context, $messages) 
 		{
-			print('<main>');
+			parent::__construct($context, 'Motorsport (Konto erstellt)', $messages);
+		}
+		
+		protected function showMainSectionContent()
+		{
 			print('<form id="signUpSuccess" action="index.php" enctype="multipart/form-data" method="post">');
 			print('<div class="zentralerInfotext">');
 			print('<p>Vielen Dank für Deine Registrierung auf ' . $this->context->domain . '.</p>');
 			print('<p>Es wurde eine Nachricht an Deine Emailadresse geschickt. Um die Registrierung abzuschließen, klicke bitte auf den dort enthaltenen Link.</p>');
 			print('<p>Danach kannst Du Dich mit Deinen Benutzerdaten auf ' . $this->context->domain . ' im Veranstalterbereich anmelden.</p>');
-			print('</div></form></main>');
-		}
-		
-		private function showBody()
-		{
-			print('<body>');
-			$this->showHeader();
-			$this->showMainContent();
-			$this->showFooter();
-			print('</body>');
-		}
-		
-		public function show()
-		{
-			$this->startPage();
-			$this->showHtmlHead('Motorsport (Konto erstellt)');
-			$this->showBody();
-			$this->endPage();
+			print('</div></form>');
 		}
 	}
 ?>

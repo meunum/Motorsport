@@ -4,56 +4,20 @@
 	use App\Model;
 	require_once 'views.php';
 	
-	class PromoterListView extends htmlView
+	class PromoterListView extends ListView
 	{
-		private $promoterList;
 		
-		public function __construct($context, $promoterList) 
+		public function __construct($context, $list) 
 		{
-			parent::__construct($context);
-			$this->promoterList = $promoterList;
+			parent::__construct($context, 'Motorsport', $list);
 		}
 		
-		private function showBody()
+		protected function showMainSectionContent()
 		{
-			print('<body>');
-			$this->showHeader();
-			$this->showMainContent();
-			$this->showFooter();
-			print('</body>');
-		}
-		
-		private function showMainContent()
-		{
-			print('<main>');
-			print('<section class="mainHead">');
-			print('<nav class="userNav">');
-			print('<ul>');
-			if($this->context->user->loggedIn)
-				print('<li><a class="activeLink2" href="index.php?action=logout&createView=promoterListView">Abmelden</a></li>');
-			else
-				print('<li></li>');
-			print('</ul>');
-			print('</nav>');
-			if($this->context->user->loggedIn)
-				print('<legend class="userLegend">Du bist angemeldet als ' . htmlspecialchars($this->context->user->promoter->name??'') . '</legend>');
-			else
-				if($this->context->user->justLoggedOut)
-					print('<legend class="userLegend">Du bist nicht mehr angemeldet</legend>');
-				else
-					print('<legend class="userLegend"></legend>');
-			print('<nav class="mainNav">');
-			print('<ul>');
-			print('<li><div class="navTitle">Veranstalter</div></li>');
-			print('<li><a class="activeLink2" href="index.php?view=eventlistview">Veranstaltungen</a></li>');
-			print('<li><a class="activeLink2" href="index.php?view=driverlistview">Fahrer</a></li>');
-			print('</ul>');
-			print('</nav>');
-			print('</section>');
 			print('<p>');
 			print('<table>');
 			print('<th></th><th>Veranstalter</th><th>Bevorstehende Termine</th>');
-			foreach($this->promoterList as $promoter) 
+			foreach($this->contentList as $promoter) 
 			{
 				print('<tr><td>');
 					if($promoter->bildId==NULL)
@@ -65,8 +29,7 @@
 					echo '<div> Kategorie: ', htmlspecialchars($promoter->kategorie), '</div>';
 					echo '<div> Region: ', htmlspecialchars($promoter->region), '</div>';
 				print('</td><td>');
-					$SQL = "SELECT zeitpunkt,bezeichnung,ort FROM veranstaltung WHERE veranstalter=$promoter->id and zeitpunkt>=CURRENT_DATE() ORDER BY zeitpunkt LIMIT 3";
-					$termine = $this->context->database->query($SQL);
+					$termine = $promoter->eventsComing(3);
 					foreach($termine as $termin)
 					{
 						print('<div>');
@@ -77,15 +40,14 @@
 					}
 				print('</td></tr>');
 			}
-			print('</table></main>');
+			print('</table>');
 		}
-		
-		public function show()
+
+		public function showMainNavContent() 
 		{
-			$this->startPage();
-			$this->showHtmlHead('Motorsport');
-			$this->showBody();
-			$this->endPage();
+			print('<li><div class="navTitle">Veranstalter</div></li>');
+			print('<li><a class="activeLink2" href="index.php?view=eventlist">Veranstaltungen</a></li>');
+			print('<li><a class="activeLink2" href="index.php?view=driverlist">Fahrer</a></li>');
 		}
 	}
 ?>
