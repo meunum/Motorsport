@@ -15,6 +15,21 @@ class Action
 
 	public function createView()
 	{
+		if(!$this->executed)
+			$this->execute();
+		
+		if($this->success)
+			return $this->createViewOnSuccess();
+		else
+			return $this->createViewOnFail();
+	}
+
+	protected function createViewOnSuccess()
+	{
+	}
+
+	protected function createViewOnFail()
+	{
 	}
 	
 	public function execute()

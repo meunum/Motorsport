@@ -13,6 +13,7 @@
 				require_once $INDEXDIR . '/app/controller/context.php';
 				require_once $INDEXDIR . '/app/controller/actions.php';
 				require_once $INDEXDIR . '/app/controller/promoterActions.php';
+				require_once $INDEXDIR . '/app/controller/eventActions.php';
 				require_once $INDEXDIR . '/app/controller/signupAction.php';
 				require_once $INDEXDIR . '/app/controller/accountActivateAction.php';
 				require_once $INDEXDIR . '/app/controller/signupAction.php';
@@ -72,10 +73,10 @@
 				
 			}
 
-			private function CreateViewByName(string $viewName, $messages, bool $internal=False)
+			private function CreateViewByName(string $viewName, bool $internal=False)
 			{
 				$viewClass = '\\App\\View\\' . $viewName . 'View';
-				$view = new $viewClass($this->context, $messages);
+				$view = new $viewClass($this->context, []);
 				
 				if (isset($view))
 					return $view;
@@ -84,15 +85,17 @@
 			
 			private function CreateViewByAction(string $actionName)
 			{
-				$actionClass = '\\App\\Controller\\' . $actionName . 'Action';
-				$action = new $actionClass($this->context);
+				$actionParams = explode('@', $actionName);
+				$actionClass = '\\App\\Controller\\' . $actionParams[0] . 'Action';
+				$action = new $actionClass($this->context, $actionParams);
 				
 				if(isset($action))
 				{
 					$action->execute();
 					$view = $action->createView();
 			
-					return $view;
+					if (isset($view))
+						return $view;
 				
 				}
 			}
