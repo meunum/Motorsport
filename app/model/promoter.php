@@ -22,6 +22,13 @@
 			
 			public function __construct($pdaten) 
 			{
+				$this->id = 0;
+				$this->name = '';
+				$this->region = '';
+				$this->beschreibung = '';
+				$this->kategorie = '';
+				$this->bild = 0;
+				
 				if(isset($pdaten['id']))
 					$this->id = $pdaten['id'];
 				if(isset($pdaten['name']))
