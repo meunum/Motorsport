@@ -40,7 +40,8 @@
 				if(isset($pdaten['beschreibung']))
 					$this->beschreibung = $pdaten['beschreibung'];
 				if(isset($pdaten['bild']))
-					$this->bildId = $pdaten['bild'];
+					if($pdaten['bild'] != null)
+						$this->bildId = $pdaten['bild'];
 			}
 		}
 		
