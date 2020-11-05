@@ -150,6 +150,11 @@ namespace App\View;
 			$this->messages = $messages;
 		}
 		
+		protected function showMainSectionContent()
+		{
+			$this->showMessages();
+		}
+		
 		protected function showMessages()
 		{
 			if(!empty($this->messages)) 

@@ -13,6 +13,7 @@
 		
 		protected function showMainSectionContent()
 		{
+			parent::showMainSectionContent();
 			print('<form id="veranstalter" action="index.php" enctype="multipart/form-data" method="post">');
 			print('<section class="dialogSection">');
 			printf('<legend>Bitte melde Dich mit Deinen Zugangsdaten auf %s an.</legend>', $this->context->domain);

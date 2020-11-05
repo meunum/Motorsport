@@ -6,16 +6,14 @@ use App\Model;
 class LogInAction extends Action
 {
 
-	public function createView()
+	public function createViewOnSuccess()
 	{
-		if($this->success) 
-		{
-			return new \App\View\promoterView($this->context, []);
-		}
-		else
-		{
-			return new \App\View\loginView($this->context, $this->messages);
-		}
+		return new \App\View\promoterView($this->context, []);
+	}
+	
+	public function createViewOnFail()
+	{
+		return new \App\View\loginView($this->context, $this->messages);
 	}
 	
 	public function execute()
