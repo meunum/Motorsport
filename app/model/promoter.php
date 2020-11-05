@@ -3,12 +3,12 @@
 	
 		class Promoter
 		{
-			public $id = NULL;
-			public $name = '';
-			public $kategorie = '';
-			public $region = '';
-			public $beschreibung = '';
-			public $bildId = NULL;
+			public int $id = 0;
+			public string $name = '';
+			public string $kategorie = '';
+			public string $region = '';
+			public string $beschreibung = '';
+			public int $bildId = 0;
 			
 			public function events()
 			{
@@ -22,13 +22,6 @@
 			
 			public function __construct($pdaten) 
 			{
-				$this->id = 0;
-				$this->name = '';
-				$this->region = '';
-				$this->beschreibung = '';
-				$this->kategorie = '';
-				$this->bild = 0;
-				
 				if(isset($pdaten['id']))
 					$this->id = $pdaten['id'];
 				if(isset($pdaten['name']))
