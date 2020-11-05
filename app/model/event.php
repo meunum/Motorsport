@@ -13,6 +13,13 @@ namespace App\Model;
 		
 		public function __construct($eventData) 
 		{
+			$this->id = 0;
+			$this->veranstalter = '';
+			$this->bezeichnung = '';
+			$this->ort = '';
+			$this->kategorie = '';
+			$this->bild = 0;
+			
 			if(isset($eventData['id']))
 				$this->id = $eventData['id'];
 			if(isset($eventData['veranstalter']))
