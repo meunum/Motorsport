@@ -6,13 +6,14 @@ class ShowPromoterListAction extends Action
 {
 	private $list;
 	
-	public function createView()
+	public function createViewOnSuccess()
 	{
-		if(!$this->executed)
-			$this->execute();
-		if($this->success)
-			return new \App\View\PromoterListView($this->context, $this->list);
-		
+		return new \App\View\PromoterListView($this->context, $this->list);
+	}
+	
+	public function createViewOnFail()
+	{
+		return new \App\View\PromoterListView($this->context, []);
 	}
 	
 	public function execute()
@@ -28,22 +29,23 @@ class ShowPromoterListAction extends Action
 class ShowPromoterViewAction extends Action
 {
 
-	public function createView()
+	public function createViewOnSuccess()
 	{
-		if(!$this->executed)
-			$this->execute();
-		if($this->success)
-			return new \App\View\PromoterView($this->context, []);
-		else
-			return new \App\View\LoginView($this->context, []);
-		
+		return new \App\View\PromoterView($this->context, []);
+	}
+
+	public function createViewOnFail()
+	{
+		return new \App\View\LoginView($this->context, []);
 	}
 	
 	public function execute()
 	{
 		$this->success = $this->context->user->loggedIn;
 		$this->executed = true;
+
 		return $this->success;
+
 	}
 	
 }
@@ -52,20 +54,27 @@ class ShowPromoterEventListAction extends Action
 {
 	private $list;
 	
-	public function createView()
+	public function createViewOnSuccess()
 	{
-		if(!$this->executed)
-			$this->execute();
-		if($this->success)
-			return new \App\View\PromoterEventListView($this->context, $this->list);
+		return new \App\View\PromoterEventListView($this->context, $this->list);
+	}
+
+	public function createViewOnFail()
+	{
+		return new \App\View\LoginView($this->context, []);
 	}
 	
 	public function execute()
 	{
-		$this->list = $this->context->user->promoter->events();
-		$this->success = isset($this->list);
+		if($this->context->user->loggedIn)
+		{
+			$this->list = $this->context->user->promoter->events();
+			$this->success = true;
+		}
 		$this->executed = true;
+
 		return $this->success;
+
 	}
 	
 }

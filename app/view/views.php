@@ -121,9 +121,9 @@ namespace App\View;
 			print('</footer>');
 		}
 
-		protected function showImage($id, int $width, int $height)
+		protected function showImage(int $id, int $width, int $height)
 		{
-			if($id == null)
+			if($id == 0)
 				echo '<img src="app/view/img/placeholder.jpg" width="' . $width . '" height="' . $height . '"/>';
 			else
 				echo '<img src="index.php?action=ShowImage&imageId=', $id, '" width="' . $width . '" height="' . $height . '"/>';

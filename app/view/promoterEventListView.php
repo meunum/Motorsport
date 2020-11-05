@@ -2,7 +2,6 @@
 
 	namespace App\View;
 	use App\Model;
-	require_once 'views.php';
 	
 	class PromoterEventListView extends ListView
 	{
@@ -29,21 +28,21 @@
 			foreach($this->contentList as $event) 
 			{
 				echo '<tr><td>';
-				if($event['bild']==NULL)
+				if($event->bildId==0)
 					echo '<img src="app/view/img/placeholder.jpg" width="160" height="90"/>';
 				else
-					$this->showImage($event['bild'], 160, 90);
+					$this->showImage($event->bildId, 160, 90);
 				echo '</td><td>';
-				echo htmlspecialchars($event['bezeichnung']);
+				echo htmlspecialchars($event->bezeichnung);
 				echo '</td><td>';
-				echo htmlspecialchars($event['zeitpunkt']);
+				echo htmlspecialchars($event->zeitpunkt);
 				echo '</td><td>';
-				echo htmlspecialchars($event['ort']);
+				echo htmlspecialchars($event->ort);
 				echo '</td><td>';
-				echo htmlspecialchars($event['kategorie']);
+				echo htmlspecialchars($event->kategorie);
 				echo '</td><td>';
-				echo '<button class="cellButton" type="submit" name="action" value="EditEvent@', $event['id'], '">Ändern</button><br>';
-				echo '<button class="cellButton" type="submit" name="action" value="DeleteEvent@', $event['id'],'">Löschen</button>';
+				echo '<button class="cellButton" type="submit" name="action" value="EditEvent@', $event->id, '">Ändern</button><br>';
+				echo '<button class="cellButton" type="submit" name="action" value="DeleteEvent@', $event->id,'">Löschen</button>';
 				echo '</td></tr>';
 			}
 			print('</table>');

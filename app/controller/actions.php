@@ -49,10 +49,9 @@ class ShowImageAction extends action
 			$this->imageId = $_GET['imageId'];
 	}
 
-	public function createView()
+	public function createViewOnSuccess()
 	{
-		if($this->success)
-			return new \App\View\ImageView($this->context, $this->image);
+		return new \App\View\ImageView($this->context, $this->image);
 	}
 	
 	public function execute()
@@ -69,5 +68,9 @@ class ShowImageAction extends action
 		$this->executed = true;
 	}
 	
+}
+
+class SubmitAction extends action
+{
 }
 ?>

@@ -23,12 +23,14 @@
 				require_once $INDEXDIR . '/app/model/user.php';
 				require_once $INDEXDIR . '/app/model/promoter.php';
 				require_once $INDEXDIR . '/app/model/event.php';
-				require_once $INDEXDIR . '/app/view/promoterListView.php';
+				require_once $INDEXDIR . '/app/view/views.php';
 				require_once $INDEXDIR . '/app/view/loginView.php';
 				require_once $INDEXDIR . '/app/view/signupViews.php';
 				require_once $INDEXDIR . '/app/view/accountActivateViews.php';
+				require_once $INDEXDIR . '/app/view/promoterListView.php';
 				require_once $INDEXDIR . '/app/view/promoterView.php';
-				require_once $INDEXDIR . '/app/view/promoterEventListView.php';
+				require_once $INDEXDIR . '/app/view/PromoterEventListView.php';
+				require_once $INDEXDIR . '/app/view/eventView.php';
 				
 				$this->context = new AppContext($INDEXDIR);
 				$this->context->database = new \PDO(

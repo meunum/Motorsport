@@ -1,15 +1,15 @@
 <?php
 namespace App\Model;
 
-	class Event
+	class Event extends Entity
 	{
-		public int $id;
-		public int $veranstalter;
-		public $zeitpunkt;
-		public string $bezeichnung;
-		public string $ort;
-		public string $kategorie;
-		public int $bildId;
+		public int $id = 0;
+		public int $veranstalter = 0;
+		public $zeitpunkt = '';
+		public string $bezeichnung = '';
+		public string $ort = '';
+		public string $kategorie = '';
+		public int $bildId = 0;
 		
 		public function __construct($eventData) 
 		{
@@ -25,8 +25,8 @@ namespace App\Model;
 				$this->ort = $eventData['ort'];
 			if(isset($eventData['kategorie']))
 				$this->kategorie = $eventData['kategorie'];
-			if(isset($eventData['bildId']))
-				$this->bildId = $eventData['bildId'];
+			if(isset($eventData['bild']))
+				$this->bildId = $eventData['bild'];
 		}
 	}
 
@@ -60,5 +60,42 @@ namespace App\Model;
 			
 		}
 		
+		public function save(Event $event)
+		{
+				self::$db->beginTransaction();
+
+				$event->bildId = self::saveImage($event->bildId);
+
+				if($event->id == 0)
+				{
+					$event->veranstalter = self::$context->user->promoter->id;
+					$statement = self::$db->prepare(
+						'INSERT INTO veranstaltung (bezeichnung, zeitpunkt, ort, kategorie, veranstalter, bild) VALUES(?, ?, ?, ?, ?, ?)');
+					$statement->execute(array(
+						$event->bezeichnung, 
+						$event->zeitpunkt, 
+						$event->ort, 
+						$event->kategorie, 
+						$event->veranstalter, 
+						$event->bildId));
+					$event->id = self::$db->lastInsertId();
+				}
+				else
+				{
+					$statement = self::$db->prepare(
+						'UPDATE veranstaltung SET bezeichnung=?, zeitpunkt=?, ort=?, kategorie=?, bild=? WHERE id=?');
+					$statement->execute(array(
+						$event->bezeichnung, 
+						$event->zeitpunkt, 
+						$event->ort, 
+						$event->kategorie, 
+						$event->bildId,
+						$event->id));
+				}
+				
+
+				self::$db->commit();
+			
+		}
 	}
 ?>
