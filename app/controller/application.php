@@ -29,7 +29,7 @@
 				require_once $INDEXDIR . '/app/view/accountActivateViews.php';
 				require_once $INDEXDIR . '/app/view/promoterListView.php';
 				require_once $INDEXDIR . '/app/view/promoterView.php';
-				require_once $INDEXDIR . '/app/view/PromoterEventListView.php';
+				require_once $INDEXDIR . '/app/view/promoterEventListView.php';
 				require_once $INDEXDIR . '/app/view/eventView.php';
 				
 				$this->context = new AppContext($INDEXDIR);
