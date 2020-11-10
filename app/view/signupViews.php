@@ -5,14 +5,17 @@
 	
 	class SignUpView extends FormView
 	{
+		private \App\Model\Promoter $promoter;
 		
-		public function __construct($context, $messages) 
+		public function __construct($context, \App\Model\Promoter $promoter, $messages) 
 		{
 			parent::__construct($context, 'Motorsport (Konto erstellen)', $messages);
+			$this->promoter = $promoter;
 		}
 		
 		protected function showMainSectionContent()
 		{
+			parent::showMainSectionContent();
 			print('<form id="veranstalter" action="index.php" enctype="multipart/form-data" method="post">');
 			print('<legend class="dialogHint">Pflichtfelder sind gekennzeichnet mit: ' . $this->REQUIRED . '</legend>');
 			print('<section class="groupBox">');
@@ -32,25 +35,27 @@
 			print('<legend>Daten des Veranstalters</legend>');
 			print('<ul><li>');
 			print('<label for="name"><span>Name: ' . $this->REQUIRED . '</label>');
-			print('<input class="edit" type="text" name="name" id="name" value="' . htmlspecialchars($_POST['name']??'') . '" required/>');
+			print('<input class="edit" type="text" name="name" id="name" value="' . htmlspecialchars($this->promoter->name??'') . '" required/>');
 			print('</li><li>');
 			print('<label for="kategorie"><span>Kategorie: </span></label>');
-			print('<input class="edit" type="text" name="kategorie" id="kategorie" value="' . htmlspecialchars($_POST['kategorie']??'') . '" />');
+			print('<input class="edit" type="text" name="kategorie" id="kategorie" value="' . htmlspecialchars($this->promoter->kategorie??'') . '" />');
 			print('</li><li>');
 			print('<label for="region"><span>Region: </span></label>');
-			print('<input class="edit" type="text" name="region" id="region" value="' . htmlspecialchars($_POST['region']??'') . '"/>');
+			print('<input class="edit" type="text" name="region" id="region" value="' . htmlspecialchars($this->promoter->region??'') . '"/>');
 			print('</li><li>');
 			print('<label for="beschreibung"><span>Beschreibung: </span></label>');
-			print('<input class="edit" type="text" name="beschreibung" id="beschreibung" value="' . htmlspecialchars($_POST['beschreibung']??'') . '" />');
+			print('<input class="edit" type="text" name="beschreibung" id="beschreibung" value="' . htmlspecialchars($this->promoter->beschreibung??'') . '" />');
 			print('</li><li>');
 			print('<label for="bild"><span>Bild: </span></label>');
 			print('<input class="edit" type="file" name="bild" id="bild" />');
+			print('</li><li>');
+			print('<input class="edit" type="hidden" name="id" id="id" value="' . htmlspecialchars($this->promoter->id) . '" />');
 			print('</li></ul>');
 			print('</section>');
 			print('<section id="submitSection">');
 			print('<ul><li>');
 			print('<label for="submitButton" id="buttonLabel">.</label>');
-			print('<button class="button" name="action" id="submitButton" value="Signup">Konto erstellen</button>');
+			print('<button class="submit" name="action" id="submitButton" value="Signup">Konto erstellen</button>');
 			print('</li></ul>');
 			print('</section></form>');
 		}

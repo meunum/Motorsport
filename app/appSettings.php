@@ -2,7 +2,7 @@
 $appSettings = [];
 if($_SERVER['SERVER_NAME'] == 'localhost')
 {
-	$appSettings['DOMAIN']='localhost/motorsport20';
+	$appSettings['DOMAIN']='localhost/motorsport';
 	$appSettings['DBHOST']='localhost';
 	$appSettings['DBNAME']='motorsport';
 	$appSettings['DBUSER']='root';

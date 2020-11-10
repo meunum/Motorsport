@@ -1,34 +1,41 @@
 <?php
 namespace App\Controller;
+use App\Model;
 use App\View;
 
 class PromoterSubmitAction extends SubmitAction
 {
 
+	protected \App\Model\Promoter $promoter;
+	
 	public function createView()
 	{
-		return new \App\View\promoterView($this->context, $this->messages);
+		return new \App\View\promoterView($this->context, $this->promoter, $this->messages);
 	}
 	
 	public function execute()
 	{
-		require_once $this->context->indexdir . '/app/model/promoter.php';
+		$this->executed = true;
+		$this->promoter = new \App\Model\Promoter($_POST);
+		$this->savePromoter();
+	}
+	
+	public function savePromoter()
+	{
 		try
 		{
-			$BildId = $this->context->user->promoter->bildId;
-			$BenutzerId = $this->context->user->promoter->id;
-			$db = $this->context->database;
-			$db->beginTransaction();
-			$BildId = saveImage($BenutzerDaten['bild']);
-			$statement = $db->prepare('UPDATE veranstalter SET name=?, kategorie=?, region=?, beschreibung=?, bild=? WHERE id=?');
-			$statement->execute(array($_POST['name'], $_POST['kategorie'], $_POST['region'], $_POST['beschreibung'], $BildId, $BenutzerId));
-			$db->commit();
-			$this->context->user->promoter = \App\Model\Promoterlist::get($BenutzerId);
-			$this->success = True;
+			$this->messages = \App\Model\PromoterList::validate($this->promoter);
+			if(empty($this->messages))
+			{
+				\App\Model\PromoterList::save($this->promoter);
+				$this->context->user->promoter = $this->promoter;
+				$this->success = True;
+			}
 		}
-		catch(PDOException $e)
+		catch(Exception $e)
 		{
-			$this->messages[] = 'Datenbankfehler';
+			$this->messages[] = 'Fehler beim Speichern';
+			$this->messages[] = $e->getMessage();
 		}
 			
 		return $this->success;

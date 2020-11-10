@@ -63,10 +63,10 @@ namespace App\Model;
 		
 		public function save(Event $event)
 		{
+			try
+			{
 				self::$db->beginTransaction();
-
 				$event->bildId = self::saveImage($event->bildId);
-
 				if($event->id == 0)
 				{
 					$event->veranstalter = self::$context->user->promoter->id;
@@ -93,10 +93,19 @@ namespace App\Model;
 						$event->bildId,
 						$event->id));
 				}
-				
-
 				self::$db->commit();
-			
+			}
+			catch(PDOException $e)
+			{
+				self::$db->rollBack();
+				throw($e);
+			}
+		}
+		
+		public function validate(Event $event)
+		{
+			$messages = [];
+			return $messages;
 		}
 	}
 ?>

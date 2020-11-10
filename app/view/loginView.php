@@ -25,14 +25,14 @@
 			print('<input class="edit" id="passwort" name="passwort" type="password" minlength="8" >');
 			print('</li><li>');
 			print('<label for="submitButton" id="buttonLabel">.</label>');
-			print('<button class="button" name="action" id="submitButton" value="Login">Anmelden</button>');
+			print('<button class="submit" name="action" id="submitButton" value="Login">Anmelden</button>');
 			print('</li></ul>');
 			print('</section>');
 			print('<section class="dialogSection">');
 			printf('<legend>Falls Du noch kein Benutzerkonto auf %s hast, dann klicke auf Registrieren, um ein Konto anzulegen.</legend>', $this->context->domain);
 			print('<ul><li>');
 			print('<label for="signupButton" id="buttonLabel">.</label>');
-			print('<button class="button" name="view" id="signupButton" value="Signup">Registrieren</button>');
+			print('<button class="button" name="action" id="signupButton" value="Signup">Registrieren</button>');
 			print('</li></ul>');
 			print('</section></form>');
 		}

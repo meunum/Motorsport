@@ -1,5 +1,6 @@
 <?php
 namespace App\Controller;
+use App\Model;
 use App\View;
 
 class InsertEventAction extends Action
@@ -29,7 +30,7 @@ class InsertEventAction extends Action
 
 class EventSubmitAction extends SubmitAction
 {
-	protected $event;
+	protected \App\Model\Event $event;
 	
 	public function __construct($context) 
 	{
@@ -38,7 +39,7 @@ class EventSubmitAction extends SubmitAction
 
 	protected function createViewOnSuccess()
 	{
-		$followAction = new \App\Controller\ShowPromoterEventListAction($this->context);
+		$followAction = new ShowPromoterEventListAction($this->context);
 		return $followAction->createView();
 	}
 
@@ -56,30 +57,22 @@ class EventSubmitAction extends SubmitAction
 	
 	private function saveEvent()
 	{
-		$this->checkInput();
-		if(empty($this->messages)) 
+		try 
 		{
-			try 
+			$this->messages = \App\Model\EventList::validate($this->event);
+			if(empty($this->messages)) 
 			{
 				\App\Model\EventList::save($this->event);
 				$this->success = true;
 			}
-			catch (PDOException $e) {
-				$this->messages[] = 'Fehler beim Speichern';
-			}
+		}
+		catch (Exception $e) {
+			$this->messages[] = 'Fehler beim Speichern';
+			$this->messages[] = $e->getMessage();
 		}
 		
 		return $this->success;
 		
-	}
-		
-	private function checkInput()
-	{
-		$this->messages = [];
-
-/*		if(!empty($_POST['']) && $_POST['']==$_POST['']) {
-			$this->messages[] = '';
-		}*/
 	}
 }
 ?>

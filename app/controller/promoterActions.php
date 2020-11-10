@@ -36,6 +36,7 @@ class ShowPromoterViewAction extends Action
 
 	public function createViewOnFail()
 	{
+		$_POST = [];
 		return new \App\View\LoginView($this->context, []);
 	}
 	

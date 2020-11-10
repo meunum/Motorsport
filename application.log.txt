@@ -1,0 +1,26 @@
+
+=======================================================
+createView
+GET: Array
+(
+)
+POST: Array
+(
+    [action] => EditEvent@1
+)
+-------------------------------------------------------
+CreateViewByAtion
+actionName: EditEvent@1
+actionClass: \App\Controller\EditEventAction
+actionParams: Array
+(
+    [0] => EditEvent
+    [1] => 1
+)
+
+!-!-!-!-!-!-!-!-!-!-!-!- ERROR !-!-!-!-!-!-!-!-!-!-!-!-
+Class '\App\Controller\EditEventAction' not found
+#0 C:\xampp\htdocs\motorsport\app\controller\application.php(76): App\Controller\Application->CreateViewByAction('EditEvent@1')
+#1 C:\xampp\htdocs\motorsport\app\controller\application.php(51): App\Controller\Application->createView()
+#2 C:\xampp\htdocs\motorsport\index.php(4): App\Controller\Application->run()
+#3 {main}
