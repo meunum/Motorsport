@@ -16,5 +16,6 @@ else
 	$appSettings['DBUSER']='k143704_root';
 	$appSettings['DBPASS']='&22uuS4p';
 }
-$appSettings['LASTUPDATE']='05.11.2020 21:00';
+$appSettings['LASTUPDATE']='11.11.2020 21:00';
+$appSettings['LOGLEVEL']='info';
 ?>

@@ -8,7 +8,7 @@ class InsertEventAction extends Action
 	
 	public function __construct($context) 
 	{
-		$this->context = $context;
+		parent::__construct($context);
 	}
 
 	protected function createViewOnSuccess()
@@ -28,12 +28,53 @@ class InsertEventAction extends Action
 	}
 }
 
+class EditEventAction extends Action
+{
+	private int $eventId = 0;
+	private \App\Model\Event $event;
+	
+	public function __construct($context, $actionParams) 
+	{
+		$context->logger->LogDebug("\n-------------------------------------------------------\n");
+		$context->logger->LogDebug("EditEventAction->__construct(" . print_r($actionParams, true) . ")\n");
+		
+		parent::__construct($context);
+		$this->eventId = $actionParams[1];
+		
+		$context->logger->LogDebug("eventId: " . $this->eventId);
+	}
+
+	protected function createViewOnSuccess()
+	{
+		return new \App\View\EventView($this->context, $this->event, []);
+	}
+
+	protected function createViewOnFail()
+	{
+	}
+	
+	public function execute()
+	{
+		$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
+		$this->context->logger->LogDebug("EditEventAction->execute()\n");
+		$this->event = \App\Model\EventList::get($this->eventId);
+		$this->context->logger->LogDebug("event: " . print_r($this->event, true) . ")\n");
+		
+		$this->executed = true;
+		$this->success = isset($this->event);
+
+		$this->context->logger->LogDebug("success: " . $this->success . "\n");
+	}
+}
+
 class EventSubmitAction extends SubmitAction
 {
 	protected \App\Model\Event $event;
 	
 	public function __construct($context) 
 	{
+		$context->logger->LogDebug("\n-------------------------------------------------------\n");
+		$context->logger->LogDebug("EventSubmitAction->__construct()\n");
 		$this->context = $context;
 	}
 
@@ -50,28 +91,27 @@ class EventSubmitAction extends SubmitAction
 	
 	public function execute()
 	{
+		$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
+		$this->context->logger->LogDebug("EventSubmitAction->execute()\n");
+
 		$this->executed = true;
 		$this->event = new \App\Model\Event($_POST);
-		$this->saveEvent();
+
+		$this->context->logger->LogDebug("event: " . print_r($this->event, true) . ")\n");
+
+		$this->success = $this->saveEvent();
 	}
 	
 	private function saveEvent()
 	{
-		try 
+		$this->messages = \App\Model\EventList::validate($this->event);
+		if(empty($this->messages)) 
 		{
-			$this->messages = \App\Model\EventList::validate($this->event);
-			if(empty($this->messages)) 
-			{
-				\App\Model\EventList::save($this->event);
-				$this->success = true;
-			}
-		}
-		catch (Exception $e) {
-			$this->messages[] = 'Fehler beim Speichern';
-			$this->messages[] = $e->getMessage();
+			\App\Model\EventList::save($this->event);
+			return true;
 		}
 		
-		return $this->success;
+		return false;
 		
 	}
 }

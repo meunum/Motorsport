@@ -49,7 +49,7 @@ namespace App\Model;
 			
 		}
 			
-		public function eventsComingByPromoterId(int $promoterId, int $limit = 0)
+		public static function eventsComingByPromoterId(int $promoterId, int $limit = 0)
 		{
 			$SQL = "SELECT id,zeitpunkt,bezeichnung,ort FROM veranstaltung WHERE veranstalter=$promoterId and zeitpunkt>=CURRENT_DATE() " .
 				"ORDER BY zeitpunkt";
@@ -61,7 +61,14 @@ namespace App\Model;
 			
 		}
 		
-		public function save(Event $event)
+		public static function get(int $id)
+		{
+			$stmt = self::$db->query("SELECT * FROM veranstaltung WHERE id=" . $id);
+			if($stmt)
+				return new Event($stmt->fetch());
+		}
+		
+		public static function save(Event $event)
 		{
 			try
 			{
@@ -102,10 +109,18 @@ namespace App\Model;
 			}
 		}
 		
-		public function validate(Event $event)
+		public static function validate(Event $event)
 		{
 			$messages = [];
+			if($event->bezeichnung == '')
+				$messages[] = 'Die Bezeichnung darf nicht leer sein.';
+			if($event->zeitpunkt == '')
+				$messages[] = 'Der Zeitpunkt darf nicht leer sein.';
+			if($event->ort == '')
+				$messages[] = 'Der Ort darf nicht leer sein.';
+			
 			return $messages;
+			
 		}
 	}
 ?>

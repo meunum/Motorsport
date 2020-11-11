@@ -1,6 +1,16 @@
 
 =======================================================
-createView
+11.11.2020 - 12:54
+=======================================================
+Application->__construct()
+INDEXDIR: C:/xampp/htdocs/motorsport
+dbname: motorsport
+dbhost: localhost
+dbuser: root
+dbpass: 
+
+-------------------------------------------------------
+Application->run()
 GET: Array
 (
 )
@@ -8,9 +18,12 @@ POST: Array
 (
     [action] => EditEvent@1
 )
+
 -------------------------------------------------------
-CreateViewByAtion
-actionName: EditEvent@1
+Application->createView()
+
+-------------------------------------------------------
+Application->CreateViewByAtion(EditEvent@1)
 actionClass: \App\Controller\EditEventAction
 actionParams: Array
 (
@@ -20,7 +33,7 @@ actionParams: Array
 
 !-!-!-!-!-!-!-!-!-!-!-!- ERROR !-!-!-!-!-!-!-!-!-!-!-!-
 Class '\App\Controller\EditEventAction' not found
-#0 C:\xampp\htdocs\motorsport\app\controller\application.php(76): App\Controller\Application->CreateViewByAction('EditEvent@1')
-#1 C:\xampp\htdocs\motorsport\app\controller\application.php(51): App\Controller\Application->createView()
+#0 C:\xampp\htdocs\motorsport\app\controller\application.php(90): App\Controller\Application->CreateViewByAction('EditEvent@1')
+#1 C:\xampp\htdocs\motorsport\app\controller\application.php(69): App\Controller\Application->createView()
 #2 C:\xampp\htdocs\motorsport\index.php(4): App\Controller\Application->run()
 #3 {main}

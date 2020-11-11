@@ -7,12 +7,13 @@
 	
 	class Application
 	{
-		private $debug = true;
 
 		public function __construct() 
 		{
+
 			$INDEXDIR = dirname($_SERVER['SCRIPT_FILENAME'], 1);
 			require_once $INDEXDIR . '/app/controller/context.php';
+			require_once $INDEXDIR . '/app/controller/logger.php';
 			require_once $INDEXDIR . '/app/controller/actions.php';
 			require_once $INDEXDIR . '/app/controller/promoterActions.php';
 			require_once $INDEXDIR . '/app/controller/eventActions.php';
@@ -35,6 +36,18 @@
 			require_once $INDEXDIR . '/app/view/eventView.php';
 
 			$this->context = new AppContext($INDEXDIR);
+			$this->context->logger = new Logger($this->context->loglevel);
+			$this->context->logger->LogDebug("\n=======================================================\n");
+			$this->context->logger->LogDebug(date("d.m.Y - H:i"));
+			$this->context->logger->LogDebug("\n=======================================================\n");
+			$this->context->logger->LogDebug("Application->__construct()\n");
+			$this->context->logger->LogDebug("INDEXDIR: " . $INDEXDIR . "\n");
+
+			$this->context->logger->LogDebug("dbname: " . $this->context->dbname . "\n");
+			$this->context->logger->LogDebug("dbhost: " . $this->context->dbhost . "\n");
+			$this->context->logger->LogDebug("dbuser: " . $this->context->dbuser . "\n");
+			$this->context->logger->LogDebug("dbpass: " . $this->context->dbpass . "\n");
+
 			$this->context->database = new \PDO(
 				'mysql:' . 
 					'dbname=' . $this->context->dbname . 
@@ -48,24 +61,26 @@
 		
 		public function run()
 		{
-			$view = $this->createView();
-			if(isset($view))
+			$this->context->logger->LogInfo("\n-------------------------------------------------------\n");
+			$this->context->logger->LogInfo("Application->run()\n");
+			$this->context->logger->LogInfo("GET: " . print_r($_GET, true));
+			$this->context->logger->LogInfo("POST: " . print_r($_POST, true));
+			try
 			{
+				$view = $this->createView();
 				$view->show();
 			}
-			else
+			catch(\Throwable $e)
 			{
-				print('$_GET: '); print_r($_GET);
-				print('$_POST: '); print_r($_POST);
+				$this->context->logger->LogError($e);
+				header($_SERVER["SERVER_PROTOCOL"]." 501 Not Implemented", true, 404);
 			}
 		}
 		
 		private function createView()
 		{
-			$this->LogDebug("\n=======================================================\n");
-			$this->LogDebug("createView\n");
-			$this->LogDebug("GET: " . print_r($_GET, true));
-			$this->LogDebug("POST: " . print_r($_POST, true));
+			$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
+			$this->context->logger->LogDebug("Application->createView()\n");
 			if(isset($_GET['view']))
 				$view = $this->CreateViewByName($_GET['view']);
 			else if(isset($_POST['view']))
@@ -83,67 +98,30 @@
 
 		private function CreateViewByName(string $viewName)
 		{
-			$this->LogDebug("-------------------------------------------------------\n");
-			$this->LogDebug("CreateViewByName\n");
+			$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
+			$this->context->logger->LogDebug("Application->CreateViewByName(". $viewName . ")\n");
 			$viewClass = '\\App\\View\\' . $viewName . 'View';
-			try
-			{
-				$this->LogDebug("viewName: " . $viewName . "\n");
-				$this->LogDebug("viewClass: " . $viewClass . "\n");
-			
-				return new $viewClass($this->context, []);
-			
-			}
-			catch(\Throwable $e)
-			{
-				$this->LogError($e);
-			}
+			$this->context->logger->LogDebug("viewClass: " . $viewClass . "\n");
+		
+			return new $viewClass($this->context, []);
+		
 		}
 		
 		private function CreateViewByAction(string $actionName)
 		{
-			$this->LogDebug("-------------------------------------------------------\n");
-			$this->LogDebug("CreateViewByAtion\n");
+			$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
+			$this->context->logger->LogDebug("Application->CreateViewByAtion(" . $actionName . ")\n");
 			$actionParams = explode('@', $actionName);
 			$actionClass = '\\App\\Controller\\' . $actionParams[0] . 'Action';
-			try
-			{
-				$this->LogDebug("actionName: " . $actionName . "\n");
-				$this->LogDebug("actionClass: " . $actionClass . "\n");
-				$this->LogDebug("actionParams: " . print_r($actionParams, true));
-				$action = new $actionClass($this->context, $actionParams);
-				
-				$action->execute();
-				$view = $action->createView();
-		
-				return $view;
+			$this->context->logger->LogDebug("actionClass: " . $actionClass . "\n");
+			$this->context->logger->LogDebug("actionParams: " . print_r($actionParams, true));
+			$action = new $actionClass($this->context, $actionParams);
 			
-			}
-			catch(\Throwable $e)
-			{
-				$this->LogError($e);
-			}
-		}
+			$action->execute();
+			$view = $action->createView();
+	
+			return $view;
 		
-		private function LogDebug($text)
-		{
-			if($this->debug)
-			{
-				$this->LogText($text);
-			}
-		}
-		
-		private function LogError($e)
-		{                     
-			$this->LogText("\n!-!-!-!-!-!-!-!-!-!-!-!- ERROR !-!-!-!-!-!-!-!-!-!-!-!-\n");
-			$this->LogText($e->getMessage() . "\n");
-			$this->LogText($e->getTraceAsString() . "\n");
-		}
-		
-		private function LogText($text)
-		{
-			$logFile = "application.log.txt";
-			file_put_contents($logFile, $text, FILE_APPEND);
 		}
 	}
 ?>

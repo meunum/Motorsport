@@ -12,6 +12,8 @@
 		public string $lastupdate;
 		public $user;
 		public $database;
+		public $logger;
+		public $loglevel;
 		
 		public function __construct(string $indexdir) 
 		{
@@ -22,6 +24,7 @@
 			$this->dbname = $appSettings['DBNAME'];
 			$this->dbuser = $appSettings['DBUSER'];
 			$this->dbpass = $appSettings['DBPASS'];
+			$this->loglevel = $appSettings['LOGLEVEL'];
 			$this->lastupdate = $appSettings['LASTUPDATE'];
 		}
 

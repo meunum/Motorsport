@@ -14,11 +14,15 @@ class EventView extends FormView
 
 	public function showMainNavContent() 
 	{
-		print('<li><div class="navTitle">Neue Veranstaltung erfassen</div></li>');
+		if($this->event->id == 0)
+			print('<li><div class="navTitle">Neue Veranstaltung erfassen</div></li>');
+		else
+			print('<li><div class="navTitle">Veranstaltung ändern</div></li>');
 	}
 	
 	protected function showMainSectionContent()
 	{
+		parent::showMainSectionContent();
 		include 'inc\eventViewContent.php';
 	}
 }
