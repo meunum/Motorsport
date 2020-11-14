@@ -76,7 +76,7 @@ namespace App\View;
 			print('<nav class="userNav">');
 			print('<ul>');
 			if($this->context->user->loggedIn)
-				print('<li><a class="activeLink2" href="index.php?action=Logout&sender=' . $this->className() . '">Abmelden</a></li>');
+				print('<li><a class="activeLink2" href="index.php?action=Logout@' . $this->className() . '">Abmelden</a></li>');
 			else
 				print('<li></li>');
 			print('</ul>');
@@ -126,7 +126,7 @@ namespace App\View;
 			if($id == 0)
 				echo '<img src="app/view/img/placeholder.jpg" width="' . $width . '" height="' . $height . '"/>';
 			else
-				echo '<img src="index.php?action=ShowImage&imageId=', $id, '" width="' . $width . '" height="' . $height . '"/>';
+				echo '<img src="index.php?action=ShowImage@', $id, '" width="' . $width . '" height="' . $height . '"/>';
 		}
 		
 		public function show()

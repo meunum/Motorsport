@@ -6,9 +6,9 @@ use App\View;
 class InsertEventAction extends Action
 {
 	
-	public function __construct($context) 
+	public function __construct($context, $parameter) 
 	{
-		parent::__construct($context);
+		parent::__construct($context, $parameter);
 	}
 
 	protected function createViewOnSuccess()
@@ -33,13 +33,13 @@ class EditEventAction extends Action
 	private int $eventId = 0;
 	private \App\Model\Event $event;
 	
-	public function __construct($context, $actionParams) 
+	public function __construct($context, $parameter) 
 	{
+		parent::__construct($context, $parameter);
 		$context->logger->LogDebug("\n-------------------------------------------------------\n");
-		$context->logger->LogDebug("EditEventAction->__construct(" . print_r($actionParams, true) . ")\n");
+		$context->logger->LogDebug("EditEventAction->__construct(" . print_r($parameter, true) . ")\n");
 		
-		parent::__construct($context);
-		$this->eventId = $actionParams[1];
+		$this->eventId = $parameter[1];
 		
 		$context->logger->LogDebug("eventId: " . $this->eventId);
 	}
@@ -67,15 +67,15 @@ class EditEventAction extends Action
 	}
 }
 
-class EventSubmitAction extends SubmitAction
+class EventSubmitAction extends Action
 {
 	protected \App\Model\Event $event;
 	
-	public function __construct($context) 
+	public function __construct($context, $parameter) 
 	{
+		parent::__construct($context, $parameter);
 		$context->logger->LogDebug("\n-------------------------------------------------------\n");
 		$context->logger->LogDebug("EventSubmitAction->__construct()\n");
-		parent::__construct($context);
 	}
 
 	protected function createViewOnSuccess()

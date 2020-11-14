@@ -3,16 +3,16 @@ namespace App\Controller;
 use App\Model;
 use App\View;
 
-class PromoterSubmitAction extends SubmitAction
+class PromoterSubmitAction extends Action
 {
 
 	protected \App\Model\Promoter $promoter;
 	
-	public function __construct($context) 
+	public function __construct($context, $parameter) 
 	{
+		parent::__construct($context, $parameter);
 		$context->logger->LogDebug("\n-------------------------------------------------------\n");
 		$context->logger->LogDebug("PromoterSubmitAction->__construct()\n");
-		parent::__construct($context);
 	}
 	
 	public function createView()

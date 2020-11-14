@@ -67,7 +67,20 @@ class LogOutAction extends Action
 
 	public function createView()
 	{
-		return new \App\View\loginView($this->context, $this->messages);
+		switch($this->parameter[1])
+		{
+			case 'PromoterListView':
+				$followAction = new \App\Controller\ShowPromoterListAction($this->context, $this->parameter);
+				$followAction->execute();
+				
+				return $followAction->createView();
+				
+				break;
+			default:
+			
+				return new \App\View\loginView($this->context, []);
+				
+		}
 	}
 	
 	public function execute()

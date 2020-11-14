@@ -4,13 +4,15 @@ namespace App\Controller;
 class Action
 {
 	protected $context;
+	protected $parameter;
 	public bool $success = false;
 	public bool $executed = false;
 	public $messages = [];
 	
-	public function __construct($context) 
+	public function __construct($context, $parameter) 
 	{
 		$this->context = $context;
+		$this->parameter = $parameter;
 	}
 
 	public function createView()
@@ -39,15 +41,7 @@ class Action
 
 class ShowImageAction extends action
 {
-	private int $imageId = 0;
 	private $image;
-	
-	public function __construct($context) 
-	{
-		$this->context = $context;
-		if (isset($_GET['imageId']))
-			$this->imageId = $_GET['imageId'];
-	}
 
 	public function createViewOnSuccess()
 	{
@@ -56,10 +50,14 @@ class ShowImageAction extends action
 	
 	public function execute()
 	{
-		if($this->imageId > 0)
+		$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
+		$this->context->logger->LogDebug("ShowImageAction->execute()\n");
+		if($this->parameter[1] > 0)
 		{
 			$mysqli = new \mysqli($this->context->dbhost, $this->context->dbuser, $this->context->dbpass, $this->context->dbname);
-			$Q = $mysqli->query("SELECT * FROM grafik WHERE id=" . $this->imageId);
+			$sql = "SELECT * FROM grafik WHERE id=" . $this->parameter[1];
+			$this->context->logger->LogDebug("sql: " . $sql);
+			$Q = $mysqli->query($sql);
 			$Q = $Q->fetch_array();
 			$this->image = $Q['daten'];
 			$mysqli->close();
@@ -68,9 +66,5 @@ class ShowImageAction extends action
 		$this->executed = true;
 	}
 	
-}
-
-class SubmitAction extends action
-{
 }
 ?>
