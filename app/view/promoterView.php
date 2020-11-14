@@ -20,7 +20,7 @@
 		
 		protected function showMainSectionContent()
 		{
-			include 'inc\promoterViewContent.php';
+			include 'inc/promoterViewContent.php';
 		}
 	}
 ?>
