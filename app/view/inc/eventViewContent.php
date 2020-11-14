@@ -27,12 +27,10 @@
 				<?php $this->showImage($this->event->bildId, 160, 90); ?>
 			</li>
 			<li>
-				<label for="bild"><span>id: </span></label>
 				<input class="edit" type="hidden" name="id" id="id" value="<?=htmlspecialchars($this->event->id??'0')?>" />
 			</li>
 			<li>
-				<label for="bild"><span>bildId: </span></label>
-				<input class="edit" type="text" name="bildId" id="bildId"  value="<?=htmlspecialchars($this->event->bildId??'')?>"/>
+				<input class="edit" type="hidden" name="bildId" id="bildId"  value="<?=htmlspecialchars($this->event->bildId??'')?>"/>
 			</li>
 		</ul>
 	</section>

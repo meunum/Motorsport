@@ -21,7 +21,6 @@ class SignUpAction extends Action
 	public function execute()
 	{
 		$this->executed = true;
-		print('$_POST: '); print_r($_POST);
 		if(!isset($_POST['id']))
 		{
 			$this->promoter = new \App\Model\Promoter([]);

@@ -29,11 +29,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `fahrer` (
   `id` int(11) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `vorname` varchar(255) NOT NULL,
-  `anmerkung` varchar(1024) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_german2_ci NOT NULL,
+  `vorname` varchar(255) COLLATE utf8_german2_ci NOT NULL,
+  `anmerkung` varchar(1024) COLLATE utf8_german2_ci DEFAULT NULL,
   `grafik_fk` int(11) UNSIGNED DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
 -- --------------------------------------------------------
 
@@ -56,7 +56,7 @@ CREATE TABLE `teilnehmer` (
   `id` int(11) UNSIGNED NOT NULL,
   `fahrer` int(11) UNSIGNED NOT NULL,
   `veranstaltung` int(11) UNSIGNED NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
 -- --------------------------------------------------------
 
@@ -143,12 +143,12 @@ CREATE TABLE `users_throttling` (
 CREATE TABLE `veranstalter` (
   `id` int(10) UNSIGNED NOT NULL,
   `users_fk` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE latin1_german2_ci NOT NULL,
-  `kategorie` varchar(255) COLLATE latin1_german2_ci DEFAULT NULL,
-  `region` varchar(255) COLLATE latin1_german2_ci DEFAULT NULL,
-  `beschreibung` varchar(1024) COLLATE latin1_german2_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_german2_ci NOT NULL,
+  `kategorie` varchar(255) COLLATE utf8_german2_ci DEFAULT NULL,
+  `region` varchar(255) COLLATE utf8_german2_ci DEFAULT NULL,
+  `beschreibung` varchar(1024) COLLATE utf8_german2_ci DEFAULT NULL,
   `grafik_fk` int(11) UNSIGNED DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_german2_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
 -- --------------------------------------------------------
 
@@ -159,12 +159,12 @@ CREATE TABLE `veranstalter` (
 CREATE TABLE `veranstaltung` (
   `id` int(11) UNSIGNED NOT NULL,
   `zeitpunkt` datetime NOT NULL DEFAULT current_timestamp(),
-  `veranstalter` int(10) UNSIGNED NOT NULL,
-  `bezeichnung` varchar(255) NOT NULL,
-  `ort` varchar(255) NOT NULL,
-  `kategorie` varchar(255) DEFAULT NULL,
+  `veranstalter` int(10) UNSIGNED COLLATE utf8_german2_ci NOT NULL,
+  `bezeichnung` varchar(255) COLLATE utf8_german2_ci NOT NULL,
+  `ort` varchar(255) COLLATE utf8_german2_ci NOT NULL,
+  `kategorie` varchar(255) COLLATE utf8_german2_ci DEFAULT NULL,
   `grafik_fk` int(10) UNSIGNED DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
 --
 -- Indizes der exportierten Tabellen
