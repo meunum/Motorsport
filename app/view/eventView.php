@@ -23,7 +23,7 @@ class EventView extends FormView
 	protected function showMainSectionContent()
 	{
 		parent::showMainSectionContent();
-		include 'inc\eventViewContent.php';
+		include 'inc/eventViewContent.php';
 	}
 }
 ?>
