@@ -33,11 +33,16 @@ namespace App\Model;
 				$this->region = $pdaten['region'];
 			if(isset($pdaten['beschreibung']))
 				$this->beschreibung = $pdaten['beschreibung'];
-			if(isset($pdaten['bild']))
-				if($pdaten['bild'] != null)
-					$this->bildId = $pdaten['bild'];
+			if(isset($pdaten['grafik_fk']))
+				if($pdaten['grafik_fk'] != null)
+					$this->bildId = $pdaten['grafik_fk'];
 			if(isset($pdaten['users_fk']))
 				$this->userId = $pdaten['users_fk'];
+			if(isset($pdaten['userId']))
+				$this->userId = $pdaten['userId'];
+			if(isset($pdaten['bildId']))
+				if($pdaten['bildId'] != null)
+					$this->bildId = $pdaten['bildId'];
 		}
 	}
 	
@@ -73,7 +78,9 @@ namespace App\Model;
 		
 		public static function save(Promoter $promoter)
 		{
-			print('$promoter: '); print_r($promoter);
+			self::$context->logger->LogDebug("\n-------------------------------------------------------\n");
+			self::$context->logger->LogDebug("PromoterList->save()\n");
+			self::$context->logger->LogDebug("promoter: " . print_r($promoter, true));
 			try
 			{
 				$db = self::$db;
@@ -81,14 +88,14 @@ namespace App\Model;
 				$promoter->bildId = self::saveImage($promoter->bildId);
 				if($promoter->id == 0)
 				{
-					$statement = $db->prepare('INSERT INTO veranstalter (name, kategorie, region, beschreibung, bild, users_fk) VALUES(?,?,?,?,?,?)');
+					$statement = $db->prepare('INSERT INTO veranstalter (name, kategorie, region, beschreibung, grafik_fk, users_fk) VALUES(?,?,?,?,?,?)');
 					$statement->execute(array(
 						$promoter->name, $promoter->kategorie, $promoter->region, $promoter->beschreibung, $promoter->bildId, $promoter->userId));
 					$promoter->id = self::$db->lastInsertId();
 				}
 				else
 				{
-					$statement = $db->prepare('UPDATE veranstalter SET name=?, kategorie=?, region=?, beschreibung=?, bild=?, users_fk=? WHERE id=?');
+					$statement = $db->prepare('UPDATE veranstalter SET name=?, kategorie=?, region=?, beschreibung=?, grafik_fk=?, users_fk=? WHERE id=?');
 					$statement->execute(array(
 						$promoter->name, $promoter->kategorie, $promoter->region, $promoter->beschreibung, $promoter->bildId, $promoter->userId, $promoter->id));
 				}

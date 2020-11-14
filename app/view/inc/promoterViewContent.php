@@ -30,6 +30,18 @@
 				<label for="bild"><span>Bild aktuell: </span></label>
 				<?php $this->showImage($this->context->user->promoter->bildId, 160, 90); ?>
 			</li>
+			<li>
+				<label for="id"><span>id: </span></label>
+				<input class="edit" type="text" name="id" id="id"  value="<?=htmlspecialchars($this->context->user->promoter->id??'')?>"/>
+			</li>
+			<li>
+				<label for="bildId"><span>bildId: </span></label>
+				<input class="edit" type="text" name="bildId" id="bildId"  value="<?=htmlspecialchars($this->context->user->promoter->bildId??'')?>"/>
+			</li>
+			<li>
+				<label for="userId"><span>userId: </span></label>
+				<input class="edit" type="text" name="userId" id="userId"  value="<?=htmlspecialchars($this->context->user->promoter->userId??'')?>"/>
+			</li>
 		</ul>
 	</section>
 	<section id="buttonSection">

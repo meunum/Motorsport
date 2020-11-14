@@ -44,14 +44,14 @@ namespace App\Model;
 				$driver->bildId = self::saveImage($driver->bildId);
 				if($driver->id == 0)
 				{
-					$statement = $db->prepare('INSERT INTO fahrer (name, bild) VALUES(?,?)');
+					$statement = $db->prepare('INSERT INTO fahrer (name, grafik_fk) VALUES(?,?)');
 					$statement->execute(array(
 						$driver->name, $driver->bildId));
 					$driver->id = self::$db->lastInsertId();
 				}
 				else
 				{
-					$statement = $db->prepare('UPDATE fahrer SET name=?, bild=? WHERE id=?');
+					$statement = $db->prepare('UPDATE fahrer SET name=?, grafik_fk=? WHERE id=?');
 					$statement->execute(array(
 						$driver->name, $driver->bildId, $driver->id));
 				}

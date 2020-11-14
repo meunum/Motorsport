@@ -25,9 +25,12 @@ namespace App\Model;
 				$this->ort = $eventData['ort'];
 			if(isset($eventData['kategorie']))
 				$this->kategorie = $eventData['kategorie'];
-			if(isset($eventData['bild']))
-				if($eventData['bild'] != null)
-					$this->bildId = $eventData['bild'];
+			if(isset($eventData['grafik_fk']))
+				if($eventData['grafik_fk'] != null)
+					$this->bildId = $eventData['grafik_fk'];
+			if(isset($eventData['bildId']))
+				if($eventData['bildId'] != null)
+					$this->bildId = $eventData['bildId'];
 		}
 	}
 
@@ -78,7 +81,7 @@ namespace App\Model;
 				{
 					$event->veranstalter = self::$context->user->promoter->id;
 					$statement = self::$db->prepare(
-						'INSERT INTO veranstaltung (bezeichnung, zeitpunkt, ort, kategorie, veranstalter, bild) VALUES(?, ?, ?, ?, ?, ?)');
+						'INSERT INTO veranstaltung (bezeichnung, zeitpunkt, ort, kategorie, veranstalter, grafik_fk) VALUES(?, ?, ?, ?, ?, ?)');
 					$statement->execute(array(
 						$event->bezeichnung, 
 						$event->zeitpunkt, 
@@ -91,7 +94,7 @@ namespace App\Model;
 				else
 				{
 					$statement = self::$db->prepare(
-						'UPDATE veranstaltung SET bezeichnung=?, zeitpunkt=?, ort=?, kategorie=?, bild=? WHERE id=?');
+						'UPDATE veranstaltung SET bezeichnung=?, zeitpunkt=?, ort=?, kategorie=?, grafik_fk=? WHERE id=?');
 					$statement->execute(array(
 						$event->bezeichnung, 
 						$event->zeitpunkt, 

@@ -8,6 +8,13 @@ class PromoterSubmitAction extends SubmitAction
 
 	protected \App\Model\Promoter $promoter;
 	
+	public function __construct($context) 
+	{
+		$context->logger->LogDebug("\n-------------------------------------------------------\n");
+		$context->logger->LogDebug("PromoterSubmitAction->__construct()\n");
+		parent::__construct($context);
+	}
+	
 	public function createView()
 	{
 		return new \App\View\promoterView($this->context, $this->promoter, $this->messages);
@@ -15,6 +22,8 @@ class PromoterSubmitAction extends SubmitAction
 	
 	public function execute()
 	{
+		$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
+		$this->context->logger->LogDebug("PromoterSubmitAction->execute()\n");
 		$this->executed = true;
 		$this->promoter = new \App\Model\Promoter($_POST);
 		$this->savePromoter();
@@ -22,20 +31,16 @@ class PromoterSubmitAction extends SubmitAction
 	
 	public function savePromoter()
 	{
-		try
+		$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
+		$this->context->logger->LogDebug("PromoterSubmitAction->savePromoter()\n");
+		$this->context->logger->LogDebug("promoter: " . print_r($this->promoter, true));
+
+		$this->messages = \App\Model\PromoterList::validate($this->promoter);
+		if(empty($this->messages))
 		{
-			$this->messages = \App\Model\PromoterList::validate($this->promoter);
-			if(empty($this->messages))
-			{
-				\App\Model\PromoterList::save($this->promoter);
-				$this->context->user->promoter = $this->promoter;
-				$this->success = True;
-			}
-		}
-		catch(Exception $e)
-		{
-			$this->messages[] = 'Fehler beim Speichern';
-			$this->messages[] = $e->getMessage();
+			\App\Model\PromoterList::save($this->promoter);
+			$this->context->user->promoter = $this->promoter;
+			$this->success = True;
 		}
 			
 		return $this->success;

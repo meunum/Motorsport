@@ -37,9 +37,6 @@
 
 			$this->context = new AppContext($INDEXDIR);
 			$this->context->logger = new Logger($this->context->loglevel);
-			$this->context->logger->LogDebug("\n=======================================================\n");
-			$this->context->logger->LogDebug(date("d.m.Y - H:i"));
-			$this->context->logger->LogDebug("\n=======================================================\n");
 			$this->context->logger->LogDebug("Application->__construct()\n");
 			$this->context->logger->LogDebug("INDEXDIR: " . $INDEXDIR . "\n");
 
@@ -65,6 +62,7 @@
 			$this->context->logger->LogInfo("Application->run()\n");
 			$this->context->logger->LogInfo("GET: " . print_r($_GET, true));
 			$this->context->logger->LogInfo("POST: " . print_r($_POST, true));
+			$this->context->logger->LogInfo("FILES: " . print_r($_FILES, true));
 			try
 			{
 				$view = $this->createView();

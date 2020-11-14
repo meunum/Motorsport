@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 21. Okt 2020 um 10:26
+-- Erstellungszeit: 14. Nov 2020 um 19:13
 -- Server-Version: 10.4.14-MariaDB
 -- PHP-Version: 7.4.10
 
@@ -32,7 +32,7 @@ CREATE TABLE `fahrer` (
   `name` varchar(255) NOT NULL,
   `vorname` varchar(255) NOT NULL,
   `anmerkung` varchar(1024) DEFAULT NULL,
-  `bild` int(11) UNSIGNED DEFAULT NULL
+  `grafik_fk` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -45,10 +45,6 @@ CREATE TABLE `grafik` (
   `id` int(10) UNSIGNED NOT NULL,
   `daten` blob NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `grafik`
---
 
 -- --------------------------------------------------------
 
@@ -81,10 +77,6 @@ CREATE TABLE `users` (
   `last_login` int(10) UNSIGNED DEFAULT NULL,
   `force_logout` mediumint(7) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Daten für Tabelle `users`
---
 
 -- --------------------------------------------------------
 
@@ -142,10 +134,6 @@ CREATE TABLE `users_throttling` (
   `expires_at` int(10) UNSIGNED NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Daten für Tabelle `users_throttling`
---
-
 -- --------------------------------------------------------
 
 --
@@ -159,12 +147,8 @@ CREATE TABLE `veranstalter` (
   `kategorie` varchar(255) COLLATE latin1_german2_ci DEFAULT NULL,
   `region` varchar(255) COLLATE latin1_german2_ci DEFAULT NULL,
   `beschreibung` varchar(1024) COLLATE latin1_german2_ci DEFAULT NULL,
-  `bild` int(11) UNSIGNED DEFAULT NULL
+  `grafik_fk` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_german2_ci;
-
---
--- Daten für Tabelle `veranstalter`
---
 
 -- --------------------------------------------------------
 
@@ -179,12 +163,8 @@ CREATE TABLE `veranstaltung` (
   `bezeichnung` varchar(255) NOT NULL,
   `ort` varchar(255) NOT NULL,
   `kategorie` varchar(255) DEFAULT NULL,
-  `bild` int(10) UNSIGNED DEFAULT NULL
+  `grafik_fk` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `veranstaltung`
---
 
 --
 -- Indizes der exportierten Tabellen
@@ -195,7 +175,7 @@ CREATE TABLE `veranstaltung` (
 --
 ALTER TABLE `fahrer`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fahrer_bild_fk` (`bild`);
+  ADD KEY `fahrer_bild_fk` (`grafik_fk`);
 
 --
 -- Indizes für die Tabelle `grafik`
@@ -256,7 +236,7 @@ ALTER TABLE `users_throttling`
 ALTER TABLE `veranstalter`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_fk` (`users_fk`),
-  ADD KEY `veranstalter_bild_fk` (`bild`);
+  ADD KEY `veranstalter_bild_fk` (`grafik_fk`);
 
 --
 -- Indizes für die Tabelle `veranstaltung`
@@ -264,7 +244,7 @@ ALTER TABLE `veranstalter`
 ALTER TABLE `veranstaltung`
   ADD PRIMARY KEY (`id`),
   ADD KEY `veranstaltung_veranstalter_fk` (`veranstalter`),
-  ADD KEY `veranstaltung_bild_fk` (`bild`);
+  ADD KEY `veranstaltung_bild_fk` (`grafik_fk`);
 
 --
 -- AUTO_INCREMENT für exportierte Tabellen
@@ -280,7 +260,7 @@ ALTER TABLE `fahrer`
 -- AUTO_INCREMENT für Tabelle `grafik`
 --
 ALTER TABLE `grafik`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `teilnehmer`
@@ -292,7 +272,7 @@ ALTER TABLE `teilnehmer`
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `users_confirmations`
@@ -316,13 +296,13 @@ ALTER TABLE `users_resets`
 -- AUTO_INCREMENT für Tabelle `veranstalter`
 --
 ALTER TABLE `veranstalter`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `veranstaltung`
 --
 ALTER TABLE `veranstaltung`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

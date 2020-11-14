@@ -19,6 +19,8 @@ class Logger
 				$this->loglevel = 2;
 				break;
 		}
+		$this->LogText("\n=======================================================\n");
+		$this->LogText(date("Y-m-d h:n:s") . ", " . "Loglevel: " . $loglevel . "\n");
 	}
 	
 	public function LogInfo($text)
@@ -47,7 +49,7 @@ class Logger
 	
 	public function LogText($text)
 	{
-		$logFile = "log\application.log_" . date("Y-m-d") . ".txt";
+		$logFile = "log/application.log_" . date("Y-m-d") . ".txt";
 		file_put_contents($logFile, $text, FILE_APPEND);
 	}
 }

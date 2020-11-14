@@ -75,7 +75,7 @@ class EventSubmitAction extends SubmitAction
 	{
 		$context->logger->LogDebug("\n-------------------------------------------------------\n");
 		$context->logger->LogDebug("EventSubmitAction->__construct()\n");
-		$this->context = $context;
+		parent::__construct($context);
 	}
 
 	protected function createViewOnSuccess()
