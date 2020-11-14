@@ -1,3 +1,2 @@
 
-log/application.log_2020-11-11.txt
-log/application.log_2020-11-14.txt
+log/*.txt
