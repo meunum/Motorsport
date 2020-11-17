@@ -14,7 +14,7 @@ class DriverView extends FormView
 
 	public function showMainNavContent() 
 	{
-		print('<li><div class="navTitle">Fahrer erfassen</div></li>');
+		print('<li><div class="navTitle">Fahrer bearbeiten</div></li>');
 	}
 	
 	protected function showMainSectionContent()

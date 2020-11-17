@@ -46,7 +46,7 @@
 			<li>
 				<label for="submitButton" id="buttonLabel">.</label>
 				<button name="action" id="submitButton" value="PromoterSubmit">Speichern</button>
-				<button name="action" id="logoutButton" value="Logout">Abmelden</button>
+				<button name="action" id="logoutButton" value="Logout@promoterView">Abmelden</button>
 			</li>
 		</ul>
 	</section>

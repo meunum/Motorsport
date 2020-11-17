@@ -74,6 +74,16 @@ form li
 	list-style-type: none;
 }
 
+.buttonSection ul
+{
+	margin-left: 11em;
+}
+
+.buttonSection li
+{
+	float: left;
+}
+
 #userLabel
 {
 	font-size: 8pt;
@@ -91,4 +101,56 @@ form li
 	color: black;
 	font-weight: normal;
 	font-size: 13pt;
+}
+
+/* Style buttons */
+.icoBtn.icoEdit {
+  background-color: #426524;/*my Green*/
+}
+
+.icoBtn.icoEdit:hover {
+  background-color: #233613;/*my DarkGreen*/
+}
+
+.icoBtn.icoDelete {
+  background-color: #AB1616; /*my Red*/
+}
+
+.icoBtn.icoDelete:hover {
+  background-color: #7D0E0E; /*my DarkRed*/
+}
+
+.icoBtn.icoSave {
+  background-color: #426524;/*my Green*/
+}
+
+.icoBtn.icoSave:hover {
+  background-color: #233613;/*my DarkGreen*/
+}
+
+.icoBtn.icoCancel {
+  background-color: #AB1616; /*my Red*/
+}
+
+.icoBtn.icoCancel:hover {
+  background-color: #7D0E0E; /*my DarkRed*/
+}
+
+.icoBtn {
+	width: 2em;
+  background-color: DodgerBlue; /* Blue background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 0;
+  font-size: 16px; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
+}
+
+/* Darker background on mouse-over */
+.icoBtn:hover {
+  background-color: RoyalBlue;
+}
+
+.icoBtn.icoTxt {
+	width: 6.5em;
 }

@@ -26,32 +26,54 @@ class ShowPromoterListAction extends Action
 	
 }
 
-class ShowPromoterViewAction extends Action
+class LoggedInPromoterActions extends Action
+{
+
+	public function createViewOnFail()
+	{
+		if (!$this->context->user->loggedIn)
+		{
+			$_POST = [];
+			return new \App\View\LoginView($this->context, []);
+		}
+		else
+			return null;
+	}
+	
+	protected function executeIfLoggenIn()
+	{
+		
+	}
+	
+	public function execute()
+	{
+		$this->executed = true;
+		if($this->context->user->loggedIn)
+			$this->success = $this->executeIfLoggenIn();
+		
+		return $this->success;
+
+	}
+}
+
+class ShowPromoterViewAction extends LoggedInPromoterActions
 {
 
 	public function createViewOnSuccess()
 	{
 		return new \App\View\PromoterView($this->context, []);
 	}
-
-	public function createViewOnFail()
-	{
-		$_POST = [];
-		return new \App\View\LoginView($this->context, []);
-	}
 	
-	public function execute()
+	public function executeIfLoggenIn()
 	{
-		$this->success = $this->context->user->loggedIn;
-		$this->executed = true;
-
+		$this->success = true;
+		
 		return $this->success;
 
 	}
-	
 }
 
-class ShowPromoterEventListAction extends Action
+class ShowPromoterEventListAction extends LoggedInPromoterActions
 {
 	private $list;
 	
@@ -59,20 +81,11 @@ class ShowPromoterEventListAction extends Action
 	{
 		return new \App\View\PromoterEventListView($this->context, $this->list);
 	}
-
-	public function createViewOnFail()
-	{
-		return new \App\View\LoginView($this->context, []);
-	}
 	
-	public function execute()
+	public function executeIfLoggenIn()
 	{
-		if($this->context->user->loggedIn)
-		{
-			$this->list = $this->context->user->promoter->events();
-			$this->success = true;
-		}
-		$this->executed = true;
+		$this->list = $this->context->user->promoter->events();
+		$this->success = true;
 
 		return $this->success;
 

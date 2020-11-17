@@ -8,7 +8,7 @@ class EventView extends FormView
 	
 	public function __construct($context, $event, $messages) 
 	{
-		parent::__construct($context, 'Motorsport (Termin bearbeiten)', $messages);
+		parent::__construct($context, 'Motorsport (Veranstaltung bearbeiten)', $messages);
 		$this->event = $event;
 	}
 
@@ -18,6 +18,7 @@ class EventView extends FormView
 			print('<li><div class="navTitle">Neue Veranstaltung erfassen</div></li>');
 		else
 			print('<li><div class="navTitle">Veranstaltung ändern</div></li>');
+		print('<li><a class="activeLink2" href="index.php?action=ShowEventDriverListView">Teilnehmer</a></li>');
 	}
 	
 	protected function showMainSectionContent()

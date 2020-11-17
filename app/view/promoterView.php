@@ -15,7 +15,6 @@
 		{
 			print('<li><div class="navTitle">Meine Grunddaten</div></li>');
 			print('<li><a class="activeLink2" href="index.php?action=ShowPromoterEventList">Meine Veranstaltungen</a></li>');
-			print('<li><a class="activeLink2" href="index.php?view=driverEditList">Meine Fahrerliste</a></li>');
 		}
 		
 		protected function showMainSectionContent()

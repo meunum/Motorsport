@@ -11,7 +11,7 @@
 				<input class="edit" type="text" name="zeitpunkt" id="zeitpunkt" value="<?=htmlspecialchars($this->event->zeitpunkt??'')?>"/>
 			</li>
 			<li>
-				<label for="region"><span>Ort: </span><?php echo $this->REQUIRED; ?></label>
+				<label for="ort"><span>Ort: </span><?php echo $this->REQUIRED; ?></label>
 				<input class="edit" type="text" name="ort" id="ort" value="<?=htmlspecialchars($this->event->ort??'')?>"/>
 			</li>
 			<li>
@@ -23,7 +23,7 @@
 				<input class="edit" type="file" name="bild" id="bild" />
 			</li>
 			<li>
-				<label for="bild"><span>Bild aktuell: </span></label>
+				<label><span>Bild aktuell: </span></label>
 				<?php $this->showImage($this->event->bildId, 160, 90); ?>
 			</li>
 			<li>
@@ -34,16 +34,15 @@
 			</li>
 		</ul>
 	</section>
-	<section id="buttonSection">
+	<section id="buttonSection" class="buttonSection">
 		<ul>
 			<li>
-				<label for="submitButton" id="buttonLabel">.</label>
-				<button name="action" id="submitButton" value="EventSubmit">Speichern</button>
+				<button class="icoBtn icoTxt icoSave" name="action" id="submitButton" value="EventSubmit"><i class="fa fa-save"></i> Speichern</button>
 			</li>
 			<li>
-				<label for="cancelButton" id="buttonLabel">.</label>
-				<button name="action" id="cancelButton" value="ShowPromoterEventList">Abbrechen</button>
+				<button class="icoBtn icoTxt icoCancel" name="action" id="cancelButton" value="ShowPromoterEventList"><i class="fa fa-close"></i> Abbrechen</button>
 			</li>
 		</ul>
+		<br>
 	</section>
 </form>

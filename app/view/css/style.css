@@ -171,6 +171,11 @@ td:nth-child(2)
 	padding: 0 0 0 0.5em;
 }
 
+.td-buttons
+{
+		width: 2.25em;
+}
+
 tr {
 	background-color: white;
 }
