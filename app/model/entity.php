@@ -10,10 +10,10 @@ namespace App\Model;
 		protected static $context;
 		protected static $db;
 		
-		public static function SetContext($acontext)
+		public static function SetContext($context)
 		{
-			self::$context = $acontext;
-			self::$db = $acontext->database;
+			self::$context = $context;
+			self::$db = $context->database;
 		}
 		
 		public static function GetContext()

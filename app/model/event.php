@@ -37,11 +37,20 @@ namespace App\Model;
 	class EventList extends EntityList
 	{
 
+		public static function createList() 
+		{
+			return self::__createList("SELECT v.* FROM veranstaltung v");
+		}
+
 		public static function createListByPromoterId(int $promoterId) 
 		{
+			return self::__createList("SELECT v.* FROM veranstaltung v WHERE veranstalter = $promoterId");
+		}
+
+		private static function __createList(string $sql) 
+		{
 			$list = [];
-			$stmt = self::$db->query(
-				"SELECT v.* FROM veranstaltung v WHERE veranstalter = $promoterId");
+			$stmt = self::$db->query($sql);
 			$all = $stmt->fetchAll();
 			foreach($all as $event)
 			{

@@ -37,10 +37,10 @@
 	<section id="buttonSection" class="buttonSection">
 		<ul>
 			<li>
-				<button class="icoBtn icoTxt icoSave" name="action" id="submitButton" value="EventSubmit"><i class="fa fa-save"></i> Speichern</button>
+				<button class="button" name="action" id="submitButton" value="EventSubmit">Speichern</button>
 			</li>
 			<li>
-				<button class="icoBtn icoTxt icoCancel" name="action" id="cancelButton" value="ShowPromoterEventList"><i class="fa fa-close"></i> Abbrechen</button>
+				<button class="button" name="action" id="cancelButton" value="EventList">Abbrechen</button>
 			</li>
 		</ul>
 		<br>

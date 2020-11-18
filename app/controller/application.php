@@ -32,18 +32,12 @@
 			require_once $INDEXDIR . '/app/view/accountActivateViews.php';
 			require_once $INDEXDIR . '/app/view/promoterListView.php';
 			require_once $INDEXDIR . '/app/view/promoterView.php';
-			require_once $INDEXDIR . '/app/view/promoterEventListView.php';
 			require_once $INDEXDIR . '/app/view/eventView.php';
+			require_once $INDEXDIR . '/app/view/eventListView.php';
 
 			$this->context = new AppContext($INDEXDIR);
 			$this->context->logger = new Logger($this->context->loglevel);
 			$this->context->logger->LogDebug("Application->__construct()\n");
-			$this->context->logger->LogDebug("INDEXDIR: " . $INDEXDIR . "\n");
-
-			$this->context->logger->LogDebug("dbname: " . $this->context->dbname . "\n");
-			$this->context->logger->LogDebug("dbhost: " . $this->context->dbhost . "\n");
-			$this->context->logger->LogDebug("dbuser: " . $this->context->dbuser . "\n");
-			$this->context->logger->LogDebug("dbpass: " . $this->context->dbpass . "\n");
 
 			$this->context->database = new \PDO(
 				'mysql:' . 
@@ -52,8 +46,20 @@
 					';charset=utf8mb4', 
 				$this->context->dbuser, 
 				$this->context->dbpass);
+				
+			$auth = new \Delight\Auth\Auth($this->context->database);
 			\App\Model\EntityList::SetContext($this->context);
-			$this->context->user = new \App\Model\User();
+			if ($auth->isLoggedIn()) 
+			{
+				$this->context->user = new \App\Model\User($auth->getUserId(), $auth->getEmail(), true);
+				$this->context->user->promoter = \App\Model\PromoterList::getByUserId($this->context->user->id);
+			}
+			else
+			{
+				$this->context->user = new \App\Model\User("", "", false);
+			}
+
+			$this->context->logger->LogDebug("\n" . "context: " . print_r(\App\Model\EntityList::GetContext(), true) . "\n");
 		}
 		
 		public function run()
@@ -88,7 +94,7 @@
 			else if(isset($_POST['action']))
 				$view = $this->CreateViewByAction($_POST['action']);
 			else
-				$view = $this->CreateViewByAction('ShowPromoterList');
+				$view = $this->CreateViewByAction('PromoterList');
 			
 			return $view;
 			

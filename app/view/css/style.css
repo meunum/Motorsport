@@ -212,13 +212,6 @@ tr:nth-child(odd) {
 	width: 20%;
 }
 
-form .subTableButton
-{
-	position: absolute;
-	right: 1.25em;
-	padding-top: 0.5em;
-}
-
 footer
 {
 	margin: 0;

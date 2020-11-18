@@ -2,7 +2,7 @@
 namespace App\Controller;
 use App\Model;
 
-class ShowPromoterListAction extends Action
+class PromoterListAction extends Action
 {
 	private $list;
 	
@@ -73,23 +73,4 @@ class ShowPromoterViewAction extends LoggedInPromoterActions
 	}
 }
 
-class ShowPromoterEventListAction extends LoggedInPromoterActions
-{
-	private $list;
-	
-	public function createViewOnSuccess()
-	{
-		return new \App\View\PromoterEventListView($this->context, $this->list);
-	}
-	
-	public function executeIfLoggenIn()
-	{
-		$this->list = $this->context->user->promoter->events();
-		$this->success = true;
-
-		return $this->success;
-
-	}
-	
-}
 ?>

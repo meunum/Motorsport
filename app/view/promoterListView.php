@@ -46,7 +46,7 @@
 		public function showMainNavContent() 
 		{
 			print('<li><div class="navTitle">Veranstalter</div></li>');
-			print('<li><a class="activeLink2" href="index.php?view=eventlist">Veranstaltungen</a></li>');
+			print('<li><a class="activeLink2" href="index.php?action=EventList">Veranstaltungen</a></li>');
 			print('<li><a class="activeLink2" href="index.php?view=driverlist">Fahrer</a></li>');
 		}
 	}

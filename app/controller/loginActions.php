@@ -70,17 +70,23 @@ class LogOutAction extends Action
 		switch($this->parameter[1])
 		{
 			case 'PromoterListView':
-				$followAction = new \App\Controller\ShowPromoterListAction($this->context, $this->parameter);
-				$followAction->execute();
-				
-				return $followAction->createView();
-				
+				$followAction = new \App\Controller\PromoterListAction($this->context, $this->parameter);
 				break;
-			default:
+			case 'EventListView':
+				$followAction = new \App\Controller\EventListAction($this->context, $this->parameter);
+				break;
 			
-				return new \App\View\loginView($this->context, []);
-				
 		}
+		if(isset($followAction))
+		{
+			$followAction->execute();
+			
+			return $followAction->createView();
+			
+		}
+		else
+			return new \App\View\loginView($this->context, []);
+				
 	}
 	
 	public function execute()

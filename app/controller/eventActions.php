@@ -80,7 +80,7 @@ class EventSubmitAction extends Action
 
 	protected function createViewOnSuccess()
 	{
-		$followAction = new ShowPromoterEventListAction($this->context);
+		$followAction = new EventListAction($this->context, $this->parameter);
 		return $followAction->createView();
 	}
 
@@ -113,6 +113,42 @@ class EventSubmitAction extends Action
 		
 		return false;
 		
+	}
+}
+
+class EventListAction extends Action
+{
+	protected $list = [];
+	
+	public function __construct($context, $parameter) 
+	{
+		parent::__construct($context, $parameter);
+		$context->logger->LogDebug("\n-------------------------------------------------------\n");
+		$context->logger->LogDebug("EditEventAction->__construct(" . print_r($parameter, true) . ")\n");
+	}
+
+	protected function createViewOnSuccess()
+	{
+		return new \App\View\EventListView($this->context, $this->list, []);
+	}
+
+	protected function createViewOnFail()
+	{
+	}
+	
+	public function execute()
+	{
+		$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
+		$this->context->logger->LogDebug("EventListAction->execute()\n");
+		
+		if($this->context->user->loggedIn)
+			$this->list = $this->context->user->promoter->events();
+		else
+			$this->list = \App\Model\EventList::createList();
+		$this->executed = true;
+		$this->success = true;
+
+		$this->context->logger->LogDebug("success: " . $this->success . "\n");
 	}
 }
 ?>

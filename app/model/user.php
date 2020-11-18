@@ -9,17 +9,11 @@ class User
 	public $justLoggedOut = False;
 	public $promoter = NULL;
 	
-	public function __construct() 
+	public function __construct($id, $email, $loggedIn) 
 	{
-		$context = \App\Model\PromoterList::GetContext();
-		$auth = new \Delight\Auth\Auth($context->database);
-		if ($auth->isLoggedIn()) 
-		{
-			$this->loggedIn = True;
-			$this->id = $auth->getUserId();
-			$this->email = $auth->getEmail();
-			$this->promoter = \App\Model\PromoterList::getByUserId($this->id);
-		}
+		$this->id = $id;
+		$this->email = $email;
+		$this->loggedIn = $loggedIn;
 	}
 }
 ?>
