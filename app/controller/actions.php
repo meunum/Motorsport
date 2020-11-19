@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller;
 
-class Action
+class Action extends AppObject
 {
 	protected $context;
 	protected $parameter;

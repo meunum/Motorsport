@@ -111,31 +111,31 @@ form .subTableButton
 	right: 1.25em;
 }
 
-.icoBtn.icoEdit {
+.iconButton.editIcon {
   background-color: #42A05F;/*my Green*/
 }
 
-.icoBtn.icoEdit:hover {
+.iconButton.editIcon:hover {
   background-color: #17612E;/*my DarkGreen*/
 }
 
-.icoBtn.icoDelete {
+.iconButton.deleteIcon {
   background-color: #D24F3E; /*my Red*/
 }
 
-.icoBtn.icoDelete:hover {
+.iconButton.deleteIcon:hover {
   background-color: #C91E07; /*my DarkRed*/
 }
 
-.icoBtn.icoAdd {
+.iconButton.insertIcon {
   background-color: DodgerBlue; /* Blue background */
 }
 
-.icoBtn.icoAdd:hover {
+.iconButton.insertIcon:hover {
   background-color: RoyalBlue;
 }
 
-.icoBtn {
+.iconButton {
 	width: 1.5em;
   border: solid; /* Remove borders */
   border-width: 1px;

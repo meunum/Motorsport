@@ -1,8 +1,9 @@
 <?php
 
 namespace App\View;
+use App\Controller;
 
-	class HtmlView
+	class HtmlView extends \App\Controller\AppObject
 	{
 		protected $context = NULL;
 		protected string $title = '';
@@ -11,12 +12,6 @@ namespace App\View;
 		{
 			$this->context = $context;
 			$this->title = $title;
-		}
-	
-		public function className()
-		{
-			$arr = explode('\\', get_class($this));
-			return $arr[count($arr) - 1];
 		}
 		
 		protected function startPage()
@@ -37,7 +32,7 @@ namespace App\View;
 			print('	<meta charset="UTF8"/>');
 			print('	<link rel="stylesheet" type="text/css" href="app\view\css\style.css"/>');
 			print('	<link rel="stylesheet" type="text/css" href="app\view\css\form.css"/>');
-			print('	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">');
+			print('	<script src="https://kit.fontawesome.com/b20425f347.js" crossorigin="anonymous"></script>');
 			print('</head>');
 		}
 		

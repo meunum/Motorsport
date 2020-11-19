@@ -1,4 +1,5 @@
 <?php
+/* <script src="https://kit.fontawesome.com/b20425f347.js" crossorigin="anonymous"></script>*/
 	namespace App\Controller;
 	use \Exception as Exception;
 	use App\Model;
@@ -12,6 +13,7 @@
 		{
 
 			$INDEXDIR = dirname($_SERVER['SCRIPT_FILENAME'], 1);
+			require_once $INDEXDIR . '/app/controller/object.php';
 			require_once $INDEXDIR . '/app/controller/context.php';
 			require_once $INDEXDIR . '/app/controller/logger.php';
 			require_once $INDEXDIR . '/app/controller/actions.php';

@@ -121,6 +121,32 @@ namespace App\Model;
 			}
 		}
 		
+		public static function delete(Event $event)
+		{
+			try
+			{
+				if($event->id != 0)
+				{
+					self::$db->beginTransaction();
+					
+					if($event->bildId != 0)
+					{
+						$statement = self::$db->prepare('DELETE FROM grafik WHERE id=?');
+						$statement->execute(array($event->bildId));
+					}
+					$statement = self::$db->prepare('DELETE FROM veranstaltung WHERE id=?');
+					$statement->execute(array($event->id));
+					
+					self::$db->commit();
+				}
+			}
+			catch(PDOException $e)
+			{
+				self::$db->rollBack();
+				throw($e);
+			}
+		}
+		
 		public static function validate(Event $event)
 		{
 			$messages = [];

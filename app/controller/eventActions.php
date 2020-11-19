@@ -28,35 +28,26 @@ class InsertEventAction extends Action
 	}
 }
 
-class EditEventAction extends Action
+class EventAction extends Action
 {
-	private int $eventId = 0;
-	private \App\Model\Event $event;
+	protected int $eventId = 0;
+	protected \App\Model\Event $event;
 	
 	public function __construct($context, $parameter) 
 	{
 		parent::__construct($context, $parameter);
 		$context->logger->LogDebug("\n-------------------------------------------------------\n");
-		$context->logger->LogDebug("EditEventAction->__construct(" . print_r($parameter, true) . ")\n");
+		$context->logger->LogDebug($this->className() . "->__construct(" . print_r($parameter, true) . ")\n");
 		
-		$this->eventId = $parameter[1];
+		$this->eventId = $_POST['id'];
 		
 		$context->logger->LogDebug("eventId: " . $this->eventId);
-	}
-
-	protected function createViewOnSuccess()
-	{
-		return new \App\View\EventView($this->context, $this->event, []);
-	}
-
-	protected function createViewOnFail()
-	{
 	}
 	
 	public function execute()
 	{
 		$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
-		$this->context->logger->LogDebug("EditEventAction->execute()\n");
+		$this->context->logger->LogDebug($this->className() . "->execute()\n");
 		$this->event = \App\Model\EventList::get($this->eventId);
 		$this->context->logger->LogDebug("event: " . print_r($this->event, true) . ")\n");
 		
@@ -64,6 +55,37 @@ class EditEventAction extends Action
 		$this->success = isset($this->event);
 
 		$this->context->logger->LogDebug("success: " . $this->success . "\n");
+	}
+}
+
+class EditEventAction extends EventAction
+{
+
+	protected function createViewOnSuccess()
+	{
+		return new \App\View\EventView($this->context, $this->event, []);
+	}
+	
+	public function execute()
+	{
+		parent::execute();
+	}
+}
+
+class DeleteEventAction extends EventAction
+{
+	private $list;
+
+	public function createView()
+	{
+		return new \App\View\EventListView($this->context, $this->list, []);
+	}
+	
+	public function execute()
+	{
+		parent::execute();
+		\App\Model\EventList::delete($this->event);
+		$this->list = $this->context->user->promoter->events();
 	}
 }
 

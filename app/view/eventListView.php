@@ -22,7 +22,27 @@
 		
 		protected function showMainSectionContent()
 		{
-			print('<form id="veranstalter" action="index.php" enctype="multipart/form-data" method="post">');
+			print('<script>');
+			print('function editEvent(eventId) {');
+			print('	 var action = document.getElementById("action");');
+			print('	 action.setAttribute("value", "EditEvent");');
+			print('	 var id = document.getElementById("id");');
+			print('	 id.setAttribute("value", eventId);');
+			print('}');
+			print('function confirmDeleteEvent(eventId, eventName) {');
+			print('	 var action = document.getElementById("action");');
+			print('	 var id = document.getElementById("id");');
+			print('  if (confirm("Möchtest Du die Veranstaltung \"" + eventName + "\" löschen?")) {');
+			print('	 	action.setAttribute("value", "DeleteEvent");');
+			print('	 	id.setAttribute("value", eventId);');
+			print('  } else {');
+			print('		action.setAttribute("value", "EventList");');
+			print('	 	id.setAttribute("value", "");');
+			print('  }');
+			print('}');
+			print('</script>');
+			print('<form id="veranstaltungenForm" action="index.php" enctype="multipart/form-data" method="post">');
+			print('<input type="hidden" id="action" name="action" value="" /><input type="hidden" id="id" name="id" value="" />');
 			print('<table class="editTable">');
 			print('<th></th><th>Bezeichnung</th><th>Datum, Zeit</th><th>Ort</th><th>Kategorie</th>');
 			if($this->context->user->loggedIn)
@@ -47,8 +67,8 @@
 				if($this->context->user->loggedIn)
 				{
 					echo '</td><td class="td-buttons">';
-					echo '<button class="icoBtn icoEdit" type="submit" name="action" value="EditEvent@', $event->id, '"><i class="fa fa-edit"></i></button>';
-					echo '<button class="icoBtn icoDelete" type="submit" name="action" value="DeleteEvent@', $event->id,'"><i class="fa fa-trash"></i></button>';
+					echo '<button class="iconButton editIcon" type="submit" onclick="editEvent(', $event->id, ')" ><i class="far fa-edit"></i></button>';
+					echo '<button class="iconButton deleteIcon" type="submit" onclick="confirmDeleteEvent(', $event->id, ',\'', $event->bezeichnung, '\')" ><i class="far fa-trash-alt"></i></button>';
 				}
 				echo '</td></tr>';
 			}
@@ -56,7 +76,7 @@
 			if($this->context->user->loggedIn)
 			{
 				print('<section class="subTableButton">');
-				print('<button class="icoBtn icoAdd" type="submit" name="action" value="InsertEvent"><i class="fa fa-plus"></i></button>');
+				print('<button class="iconButton insertIcon" type="submit" name="action" value="InsertEvent"><i class="far fa-plus-square"></i></button>');
 				print('</section>');
 			}
 			print('<section><p/></section></form>');
