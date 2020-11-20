@@ -18,5 +18,5 @@ else
 	$appSettings['DBPASS']='&22uuS4p';
 	$appSettings['LOGLEVEL']='info';
 }
-$appSettings['LASTUPDATE']='19.11.2020 20:10';
+$appSettings['LASTUPDATE']='20.11.2020 20:50';
 ?>

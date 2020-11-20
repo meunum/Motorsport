@@ -16,7 +16,7 @@
 		{
 			print('<p>');
 			print('<table>');
-			print('<th></th><th>Veranstalter</th><th>Bevorstehende Termine</th>');
+			print('<th><i class="fas fa-camera"/></th><th>Veranstalter</th><th>Bevorstehende Termine</th>');
 			foreach($this->contentList as $promoter) 
 			{
 				print('<tr><td>');
@@ -47,7 +47,7 @@
 		{
 			print('<li><div class="navTitle">Veranstalter</div></li>');
 			print('<li><a class="activeLink2" href="index.php?action=EventList">Veranstaltungen</a></li>');
-			print('<li><a class="activeLink2" href="index.php?view=driverlist">Fahrer</a></li>');
+			print('<li><a class="activeLink2" href="index.php?action=Driverlist">Fahrer</a></li>');
 		}
 	}
 ?>

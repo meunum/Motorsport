@@ -67,13 +67,16 @@ class LogOutAction extends Action
 
 	public function createView()
 	{
-		switch($this->parameter[1])
+		switch($_GET['sender'])
 		{
 			case 'PromoterListView':
 				$followAction = new \App\Controller\PromoterListAction($this->context, $this->parameter);
 				break;
 			case 'EventListView':
 				$followAction = new \App\Controller\EventListAction($this->context, $this->parameter);
+				break;
+			case 'DriverListView':
+				$followAction = new \App\Controller\DriverListAction($this->context, $this->parameter);
 				break;
 			
 		}

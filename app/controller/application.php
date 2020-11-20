@@ -19,6 +19,7 @@
 			require_once $INDEXDIR . '/app/controller/actions.php';
 			require_once $INDEXDIR . '/app/controller/promoterActions.php';
 			require_once $INDEXDIR . '/app/controller/eventActions.php';
+			require_once $INDEXDIR . '/app/controller/driverActions.php';
 			require_once $INDEXDIR . '/app/controller/signupAction.php';
 			require_once $INDEXDIR . '/app/controller/accountActivateAction.php';
 			require_once $INDEXDIR . '/app/controller/signupAction.php';
@@ -28,6 +29,7 @@
 			require_once $INDEXDIR . '/app/model/user.php';
 			require_once $INDEXDIR . '/app/model/promoter.php';
 			require_once $INDEXDIR . '/app/model/event.php';
+			require_once $INDEXDIR . '/app/model/driver.php';
 			require_once $INDEXDIR . '/app/view/views.php';
 			require_once $INDEXDIR . '/app/view/loginView.php';
 			require_once $INDEXDIR . '/app/view/signupViews.php';
@@ -36,6 +38,8 @@
 			require_once $INDEXDIR . '/app/view/promoterView.php';
 			require_once $INDEXDIR . '/app/view/eventView.php';
 			require_once $INDEXDIR . '/app/view/eventListView.php';
+			require_once $INDEXDIR . '/app/view/driverView.php';
+			require_once $INDEXDIR . '/app/view/driverListView.php';
 
 			$this->context = new AppContext($INDEXDIR);
 			$this->context->logger = new Logger($this->context->loglevel);

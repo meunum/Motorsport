@@ -19,6 +19,7 @@ class DriverView extends FormView
 	
 	protected function showMainSectionContent()
 	{
+		parent::showMainSectionContent();
 		include 'inc/driverViewContent.php';
 	}
 }

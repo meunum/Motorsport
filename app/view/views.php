@@ -72,7 +72,7 @@ use App\Controller;
 			print('<nav class="userNav">');
 			print('<ul>');
 			if($this->context->user->loggedIn)
-				print('<li><a class="activeLink2" href="index.php?action=Logout@' . $this->className() . '">Abmelden</a></li>');
+				print('<li><a class="activeLink2" href="index.php?action=Logout&sender=' . $this->className() . '">Abmelden</a></li>');
 			else
 				print('<li></li>');
 			print('</ul>');

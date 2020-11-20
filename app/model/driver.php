@@ -5,10 +5,26 @@ namespace App\Model;
 	{
 		public int $id = 0;
 		public string $name = '';
+		public string $vorname = '';
+		public string $anmerkung = '';
 		public int $bildId = 0;
 
 		public function __construct($driverData) 
 		{
+			if(isset($driverData['id']))
+				$this->id = $driverData['id'];
+			if(isset($driverData['name']))
+				$this->name = $driverData['name'];
+			if(isset($driverData['vorname']))
+				$this->vorname = $driverData['vorname'];
+			if(isset($driverData['anmerkung']))
+				$this->anmerkung = $driverData['anmerkung'];
+			if(isset($driverData['grafik_fk']))
+				if($driverData['grafik_fk'] != null)
+					$this->bildId = $driverData['grafik_fk'];
+			if(isset($driverData['bildId']))
+				if($driverData['bildId'] != null)
+					$this->bildId = $driverData['bildId'];
 		}
 	}
 	
@@ -36,7 +52,8 @@ namespace App\Model;
 		
 		public static function save(driver $driver)
 		{
-			//print('$driver: '); print_r($driver);
+			self::$context->logger->LogDebug("\n-------------------------------------------------------\n");
+			self::$context->logger->LogDebug("DriverList->save()\n");
 			try
 			{
 				$db = self::$db;
@@ -44,16 +61,16 @@ namespace App\Model;
 				$driver->bildId = self::saveImage($driver->bildId);
 				if($driver->id == 0)
 				{
-					$statement = $db->prepare('INSERT INTO fahrer (name, grafik_fk) VALUES(?,?)');
+					$statement = $db->prepare('INSERT INTO fahrer (name, vorname, anmerkung, grafik_fk) VALUES(?,?)');
 					$statement->execute(array(
-						$driver->name, $driver->bildId));
+						$driver->name, $driver->vorname, $driver->anmerkung, $driver->bildId));
 					$driver->id = self::$db->lastInsertId();
 				}
 				else
 				{
-					$statement = $db->prepare('UPDATE fahrer SET name=?, grafik_fk=? WHERE id=?');
+					$statement = $db->prepare('UPDATE fahrer SET name=?, vorname=?, anmerkung=?, grafik_fk=? WHERE id=?');
 					$statement->execute(array(
-						$driver->name, $driver->bildId, $driver->id));
+						$driver->name, $driver->vorname, $driver->anmerkung, $driver->bildId, $driver->id));
 				}
 				$db->commit();
 			}
@@ -66,9 +83,16 @@ namespace App\Model;
 		
 		public static function validate(Driver $driver)
 		{
+			self::$context->logger->LogDebug("\n-------------------------------------------------------\n");
+			self::$context->logger->LogDebug("DriverList->validate()\n");
+
 			$messages = [];
 			if ($driver->name == '')
 				$messages[] = 'Der Name darf nicht leer sein.';
+			if ($driver->vorname == '')
+				$messages[] = 'Der Vorname darf nicht leer sein.';
+
+			self::$context->logger->LogDebug("messages: " . print_r($messages, true) . "\n");
 			
 			return $messages;
 			
