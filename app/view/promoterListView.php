@@ -20,10 +20,7 @@
 			foreach($this->contentList as $promoter) 
 			{
 				print('<tr><td>');
-					if($promoter->bildId==NULL)
-						print('<img src="app/view/img/placeholder.jpg" width="160" height="90"/>');
-					else
-						$this->showImage($promoter->bildId, 160, 90);
+					$this->showImage($promoter->bildId, 160, 90);
 				print('</td><td>');
 					echo '<div>', htmlspecialchars($promoter->name), '</div><br>';
 					echo '<div> Kategorie: ', htmlspecialchars($promoter->kategorie), '</div>';

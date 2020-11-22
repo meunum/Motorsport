@@ -13,8 +13,7 @@ namespace App\Model;
 		
 		public function __construct($eventData) 
 		{
-			if(isset($eventData['id']))
-				$this->id = $eventData['id'];
+			parent::__construct($eventData);
 			if(isset($eventData['veranstalter']))
 				$this->veranstalter = $eventData['veranstalter'];
 			if(isset($eventData['zeitpunkt']))
@@ -25,12 +24,6 @@ namespace App\Model;
 				$this->ort = $eventData['ort'];
 			if(isset($eventData['kategorie']))
 				$this->kategorie = $eventData['kategorie'];
-			if(isset($eventData['grafik_fk']))
-				if($eventData['grafik_fk'] != null)
-					$this->bildId = $eventData['grafik_fk'];
-			if(isset($eventData['bildId']))
-				if($eventData['bildId'] != null)
-					$this->bildId = $eventData['bildId'];
 		}
 	}
 

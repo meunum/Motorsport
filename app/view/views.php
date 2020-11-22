@@ -120,9 +120,23 @@ use App\Controller;
 		protected function showImage(int $id, int $width, int $height)
 		{
 			if($id == 0)
-				echo '<img src="app/view/img/placeholder.jpg" width="' . $width . '" height="' . $height . '"/>';
+			{
+				$width = $height * (209 / 222);
+				echo '<img src="app/view/img/placeholder.jpg" width="100" height="90"/>';
+			}
 			else
-				echo '<img src="index.php?action=ShowImage@', $id, '" width="' . $width . '" height="' . $height . '"/>';
+			{
+				$stmt = $this->context->database->query("SELECT hoehe, breite FROM grafik WHERE hoehe<>0 AND breite<>0 AND id=" . $id);
+				if($stmt)
+				{
+					$data = $stmt->fetch();
+					if($data)
+					{
+						$width = $height * ($data['breite'] / $data['hoehe']);
+					}
+				}
+				echo '<img src="index.php?action=ShowImage&id=', $id, '" width="' . $width . '" height="' . $height . '"/>';
+			}
 		}
 		
 		public function show()
@@ -179,16 +193,20 @@ use App\Controller;
 	{
 		protected $context = NULL;
 		private $image;
+		private $type;
 		
-		public function __construct($context, $image) 
+		public function __construct($context, $image, $type) 
 		{
 			$this->context = $context;
 			$this->image = $image;
+			$this->type = $type;
+			if($this->type == "")
+			  $this->type = "image/jpg";
 		}
 		
 		public function show()
 		{
-			header("Content-type: image/jpg");
+			header("Content-type: " . $this->type);
 			echo $this->image;
 		}
 	}

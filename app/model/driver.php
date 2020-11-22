@@ -1,30 +1,21 @@
 <?php
 namespace App\Model;
 
-	class Driver
+	class Driver extends Entity
 	{
-		public int $id = 0;
 		public string $name = '';
 		public string $vorname = '';
 		public string $anmerkung = '';
-		public int $bildId = 0;
 
 		public function __construct($driverData) 
 		{
-			if(isset($driverData['id']))
-				$this->id = $driverData['id'];
+			parent::__construct($driverData);
 			if(isset($driverData['name']))
 				$this->name = $driverData['name'];
 			if(isset($driverData['vorname']))
 				$this->vorname = $driverData['vorname'];
 			if(isset($driverData['anmerkung']))
 				$this->anmerkung = $driverData['anmerkung'];
-			if(isset($driverData['grafik_fk']))
-				if($driverData['grafik_fk'] != null)
-					$this->bildId = $driverData['grafik_fk'];
-			if(isset($driverData['bildId']))
-				if($driverData['bildId'] != null)
-					$this->bildId = $driverData['bildId'];
 		}
 	}
 	
@@ -61,7 +52,7 @@ namespace App\Model;
 				$driver->bildId = self::saveImage($driver->bildId);
 				if($driver->id == 0)
 				{
-					$statement = $db->prepare('INSERT INTO fahrer (name, vorname, anmerkung, grafik_fk) VALUES(?,?)');
+					$statement = $db->prepare('INSERT INTO fahrer (name, vorname, anmerkung, grafik_fk) VALUES(?,?,?,?)');
 					$statement->execute(array(
 						$driver->name, $driver->vorname, $driver->anmerkung, $driver->bildId));
 					$driver->id = self::$db->lastInsertId();

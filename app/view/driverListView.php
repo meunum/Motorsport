@@ -64,10 +64,7 @@ class DriverListView extends ListView
 		foreach($this->contentList as $driver) 
 		{
 			echo '<tr><td>';
-			if($driver->bildId==0)
-				echo '<img src="app/view/img/placeholder.jpg" width="160" height="90"/>';
-			else
-				$this->showImage($driver->bildId, 160, 90);
+			$this->showImage($driver->bildId, 160, 90);
 			echo '</td><td>';
 			echo htmlspecialchars($driver->vorname);
 			echo '</td><td>';

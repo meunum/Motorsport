@@ -1,7 +1,7 @@
 <?php
 namespace App\Model;
 
-	class Promoter
+	class Promoter extends Entity
 	{
 		public int $id = 0;
 		public string $name = '';
@@ -21,28 +21,21 @@ namespace App\Model;
 			return EventList::eventsComingByPromoterId($this->id, $limit);
 		}
 		
-		public function __construct($pdaten) 
+		public function __construct($promoterData) 
 		{
-			if(isset($pdaten['id']))
-				$this->id = $pdaten['id'];
-			if(isset($pdaten['name']))
-				$this->name = $pdaten['name'];
-			if(isset($pdaten['kategorie']))
-				$this->kategorie = $pdaten['kategorie'];
-			if(isset($pdaten['region']))
-				$this->region = $pdaten['region'];
-			if(isset($pdaten['beschreibung']))
-				$this->beschreibung = $pdaten['beschreibung'];
-			if(isset($pdaten['grafik_fk']))
-				if($pdaten['grafik_fk'] != null)
-					$this->bildId = $pdaten['grafik_fk'];
-			if(isset($pdaten['users_fk']))
-				$this->userId = $pdaten['users_fk'];
-			if(isset($pdaten['userId']))
-				$this->userId = $pdaten['userId'];
-			if(isset($pdaten['bildId']))
-				if($pdaten['bildId'] != null)
-					$this->bildId = $pdaten['bildId'];
+			parent::__construct($promoterData);
+			if(isset($promoterData['name']))
+				$this->name = $promoterData['name'];
+			if(isset($promoterData['kategorie']))
+				$this->kategorie = $promoterData['kategorie'];
+			if(isset($promoterData['region']))
+				$this->region = $promoterData['region'];
+			if(isset($promoterData['beschreibung']))
+				$this->beschreibung = $promoterData['beschreibung'];
+			if(isset($promoterData['users_fk']))
+				$this->userId = $promoterData['users_fk'];
+			if(isset($promoterData['userId']))
+				$this->userId = $promoterData['userId'];
 		}
 	}
 	
@@ -55,9 +48,9 @@ namespace App\Model;
 			$stmt = self::$db->query(
 				"SELECT v.* FROM veranstalter v INNER JOIN users u ON v.users_fk = u.id WHERE u.verified = 1");
 			$allPromoter = $stmt->fetchAll();
-			foreach($allPromoter as $pdaten)
+			foreach($allPromoter as $promoterData)
 			{
-				$list[] = new Promoter($pdaten);
+				$list[] = new Promoter($promoterData);
 			}
 			return $list;
 		}

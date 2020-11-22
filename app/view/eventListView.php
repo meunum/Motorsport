@@ -66,10 +66,7 @@ class EventListView extends ListView
 		foreach($this->contentList as $event) 
 		{
 			echo '<tr><td>';
-			if($event->bildId==0)
-				echo '<img src="app/view/img/placeholder.jpg" width="160" height="90"/>';
-			else
-				$this->showImage($event->bildId, 160, 90);
+			$this->showImage($event->bildId, 160, 90);
 			echo '</td><td>';
 			echo htmlspecialchars($event->bezeichnung);
 			echo '</td><td>';

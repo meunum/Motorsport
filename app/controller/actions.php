@@ -42,24 +42,26 @@ class Action extends AppObject
 class ShowImageAction extends action
 {
 	private $image;
+	private $type;
 
 	public function createViewOnSuccess()
 	{
-		return new \App\View\ImageView($this->context, $this->image);
+		return new \App\View\ImageView($this->context, $this->image, $this->type);
 	}
 	
 	public function execute()
 	{
 		$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
 		$this->context->logger->LogDebug("ShowImageAction->execute()\n");
-		if($this->parameter[1] > 0)
+		if($_GET['id'] > 0)
 		{
 			$mysqli = new \mysqli($this->context->dbhost, $this->context->dbuser, $this->context->dbpass, $this->context->dbname);
-			$sql = "SELECT * FROM grafik WHERE id=" . $this->parameter[1];
+			$sql = "SELECT daten, typ FROM grafik WHERE id=" . $_GET['id'];
 			$this->context->logger->LogDebug("sql: " . $sql);
 			$Q = $mysqli->query($sql);
 			$Q = $Q->fetch_array();
 			$this->image = $Q['daten'];
+			$this->type = $Q['typ'];
 			$mysqli->close();
 			$this->success = true;
 		}
