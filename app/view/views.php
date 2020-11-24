@@ -128,8 +128,8 @@ use App\Model;
 		{
 			if($id == 0)
 			{
-				$width = $height * (209 / 222);
-				echo '<img src="app/view/img/placeholder.jpg" width="100" height="90"/>';
+				$width = $height * (275 / 183);
+				echo '<img src="app/view/img/placeholder.png" width="' . $width . '" height="' . $height . '"/>';
 			}
 			else
 			{
