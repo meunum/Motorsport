@@ -18,14 +18,7 @@
 				<label for="kategorie"><span>Kategorie: </span></label>
 				<input class="edit" type="text" name="kategorie" id="kategorie" value="<?=htmlspecialchars($this->event->kategorie??'')?>" />
 			</li>
-			<li>
-				<label for="bild"><span>Bild hochladen: </span></label>
-				<input class="edit" type="file" name="bild" id="bild" />
-			</li>
-			<li>
-				<label><span>Bild aktuell: </span></label>
-				<?php $this->showImage($this->event->bildId, 160, 90); ?>
-			</li>
+			<?php $this->ShowImageFragment(); ?>
 			<li>
 				<input class="edit" type="hidden" name="id" id="id" value="<?=htmlspecialchars($this->event->id??'0')?>" />
 			</li>

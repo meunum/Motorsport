@@ -128,7 +128,7 @@ form .subTableButton
 }
 
 .iconButton.insertIcon {
-  background-color: DodgerBlue; /* Blue background */
+  background-color: DodgerBlue;
 }
 
 .iconButton.insertIcon:hover {
@@ -136,12 +136,22 @@ form .subTableButton
 }
 
 .iconButton {
-	width: 1.5em;
-  border: solid; /* Remove borders */
+  width: 1.5em;
+  border: solid; 
   border-width: 1px;
-  color: black; /* White text */
+  color: black; 
   padding: 0;
   margin: 0.25em;
-  font-size: 16px; /* Set a font size */
-  cursor: pointer; /* Mouse pointer on hover */
+  font-size: 16px; 
+  cursor: pointer; 
+}
+
+.icon {
+  width: 1.5em;
+  border: none; 
+  color: black; 
+  padding: 0;
+  margin: 0.25em;
+  font-size: 16px;
+  cursor: pointer;
 }

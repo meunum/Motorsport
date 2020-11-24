@@ -22,14 +22,7 @@
 				<label for="beschreibung"><span>Beschreibung: </span></label>
 				<input class="edit" type="text" name="beschreibung" id="beschreibung" value="<?=htmlspecialchars($this->context->user->promoter->beschreibung??'')?>" />
 			</li>
-			<li>
-				<label for="bild"><span>Bild hochladen: </span></label>
-				<input class="edit" type="file" name="bild" id="bild" />
-			</li>
-			<li>
-				<label for="bild"><span>Bild aktuell: </span></label>
-				<?php $this->showImage($this->context->user->promoter->bildId, 160, 90); ?>
-			</li>
+			<?php $this->ShowImageFragment(); ?>
 			<li>
 				<input class="edit" type="hidden" name="id" id="id"  value="<?=htmlspecialchars($this->context->user->promoter->id??'')?>"/>
 			</li>

@@ -72,6 +72,15 @@ namespace App\Model;
 			}
 		}
 		
+		public static function delete(driver $driver)
+		{
+			self::$context->logger->LogDebug("\n-------------------------------------------------------\n");
+			self::$context->logger->LogDebug("DriverList->delete()\n");
+			$db = self::$db;
+			$statement = $db->prepare('DELETE FROM fahrer WHERE id=?');
+			$statement->execute(array($driver->id));
+		}
+		
 		public static function validate(Driver $driver)
 		{
 			self::$context->logger->LogDebug("\n-------------------------------------------------------\n");

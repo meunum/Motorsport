@@ -14,14 +14,7 @@
 				<label for="Anmerkung"><span>Anmerkung: </span><?php echo $this->REQUIRED; ?></label>
 				<input class="edit" type="text" name="anmerkung" id="anmerkung" value="<?=htmlspecialchars($this->driver->anmerkung??'')?>"/>
 			</li>
-			<li>
-				<label for="bild"><span>Bild hochladen: </span></label>
-				<input class="edit" type="file" name="bild" id="bild" />
-			</li>
-			<li>
-				<label><span>Bild aktuell: </span></label>
-				<?php $this->showImage($this->driver->bildId, 160, 90); ?>
-			</li>
+			<?php $this->ShowImageFragment(); ?>
 			<li>
 				<input class="edit" type="hidden" name="id" id="id" value="<?=htmlspecialchars($this->driver->id??'0')?>" />
 			</li>
@@ -38,7 +31,7 @@
 			</li>
 			<li>
 				<label for="cancelButton" id="buttonLabel">.</label>
-				<button name="action" id="cancelButton" value="ShowPromoterDriverList">Abbrechen</button>
+				<button name="action" id="cancelButton" value="DriverList">Abbrechen</button>
 			</li>
 		</ul>
 	</section>

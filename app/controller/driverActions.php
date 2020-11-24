@@ -80,7 +80,7 @@ class DeleteDriverAction extends DriverAction
 	{
 		parent::execute();
 		\App\Model\DriverList::delete($this->Driver);
-		$this->list = \App\Model\DriverList.createList();
+		$this->list = \App\Model\DriverList::createList();
 	}
 }
 
@@ -114,9 +114,9 @@ class DriverSubmitAction extends Action
 		$this->executed = true;
 		$this->Driver = new \App\Model\Driver($_POST);
 
-		$this->context->logger->LogDebug("Driver: " . print_r($this->Driver, true) . ")\n");
-
 		$this->success = $this->saveDriver();
+
+		$this->context->logger->LogDebug("Driver: " . print_r($this->Driver, true) . ")\n");
 	}
 	
 	private function saveDriver()

@@ -2,13 +2,13 @@
 namespace App\View;
 use App\Model;
 
-class EventView extends FormView
+class EventView extends EntityView
 {
 	private \App\Model\Event $event;
 	
 	public function __construct($context, $event, $messages) 
 	{
-		parent::__construct($context, 'Motorsport (Veranstaltung bearbeiten)', $messages);
+		parent::__construct($context, $event, 'Motorsport (Veranstaltung bearbeiten)', $messages);
 		$this->event = $event;
 	}
 

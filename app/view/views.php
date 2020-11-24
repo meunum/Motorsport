@@ -2,6 +2,7 @@
 
 namespace App\View;
 use App\Controller;
+use App\Model;
 
 	class HtmlView extends \App\Controller\AppObject
 	{
@@ -39,18 +40,30 @@ use App\Controller;
 		protected function showHeader()
 		{
 			print('<header id="header">');
-			print('	<nav id="homeNav">');
-			print('		<ul>');
-			print('			<li><a class="activeLink1" href="index.php">Home</a></li>');
-			print('			<li><a class="activeLink1" href="index.php">Impressum</a></li>');
-			print('			<li><a class="activeLink1" href="index.php">Kontakt</a></li>');
-			print('		</ul>');
-			print('	</nav>');
-			print('	<nav id="accountNav">');
-			print('		<ul>');
-			print('			<li><a class="activeLink1" href="index.php?action=ShowPromoterView">Veranstalterbereich</a></li>');
-			print('		</ul>');
-			print('	</nav>');
+			print('<nav id="homeNav">');
+			print('<ul>');
+			print('<li><a class="activeLink1" href="index.php">Home</a></li>');
+			print('<li><a class="activeLink1" href="index.php">Impressum</a></li>');
+			print('<li><a class="activeLink1" href="index.php">Kontakt</a></li>');
+			print('</ul>');
+			print('</nav>');
+			print('<nav id="accountNav">');
+			print('<ul>');
+			if($this->context->user->loggedIn)
+			{
+				print('<li><a class="activeLink1" href="index.php?action=Logout&sender=' . $this->className() . '">' . $this->context->user->promoter->name . ' Abmelden</a></li>');
+			}
+			print('<li><a class="activeLink1" href="index.php?action=ShowPromoterView"><span class="icon"><i class="far fa-user"></i></span>');
+			if($this->context->user->loggedIn)
+			{
+				print('Konto');
+			}
+			else
+			{
+				print('Anmelden');
+			}
+			print('</a></li></ul>');
+			print('</nav>');
 			print('</header>');
 		}
 		
@@ -71,19 +84,9 @@ use App\Controller;
 			print('<section class="mainHead">');
 			print('<nav class="userNav">');
 			print('<ul>');
-			if($this->context->user->loggedIn)
-				print('<li><a class="activeLink2" href="index.php?action=Logout&sender=' . $this->className() . '">Abmelden</a></li>');
-			else
-				print('<li></li>');
+			$this->showHeadNavContent();
 			print('</ul>');
 			print('</nav>');
-			if($this->context->user->loggedIn)
-				print('<legend class="userLegend">Du bist angemeldet als ' . htmlspecialchars($this->context->user->promoter->name??'') . '</legend>');
-			else
-				if($this->context->user->justLoggedOut)
-					print('<legend class="userLegend">Du bist nicht mehr angemeldet</legend>');
-				else
-					print('<legend class="userLegend"></legend>');
 			print('<nav class="mainNav">');
 			print('<ul>');
 			$this->showMainNavContent();
@@ -91,6 +94,10 @@ use App\Controller;
 			print('</nav>');
 			print('</section>');
 			
+		}
+		
+		protected function showHeadNavContent()
+		{
 		}
 		
 		protected function showMainSectionContent()
@@ -178,6 +185,29 @@ use App\Controller;
 		}
 	}
 
+	class EntityView extends FormView
+	{
+		protected \App\Model\Entity $entity;
+		
+		public function __construct($context, $entity, $title, $messages) 
+		{
+			parent::__construct($context, $title, $messages);
+			$this->entity = $entity;
+		}
+		
+		protected function ShowImageFragment()
+		{
+			print('<li>');
+			print('	<label for="bild"><span>Bild hochladen: </span></label>');
+			print('	<input class="edit" type="file" name="bild" id="bild" />');
+			print('</li>');
+			print('<li>');
+			print('	<label for="bild"><span>Bild aktuell: </span></label>');
+			$this->showImage($this->entity->bildId, 320, 180);
+			print('</li>');
+		}
+	}
+	
 	class ListView extends HtmlView
 	{
 		protected $contentList;
