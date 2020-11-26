@@ -18,7 +18,7 @@
 				<label for="kategorie"><span>Kategorie: </span></label>
 				<input class="edit" type="text" name="kategorie" id="kategorie" value="<?=htmlspecialchars($this->event->kategorie??'')?>" />
 			</li>
-			<?php $this->ShowImageFragment(); ?>
+			<?php $this->showImageFragment(); ?>
 			<li>
 				<input class="edit" type="hidden" name="id" id="id" value="<?=htmlspecialchars($this->event->id??'0')?>" />
 			</li>

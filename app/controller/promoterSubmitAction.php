@@ -22,8 +22,7 @@ class PromoterSubmitAction extends Action
 	
 	public function execute()
 	{
-		$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
-		$this->context->logger->LogDebug("PromoterSubmitAction->execute()\n");
+		parent::execute();
 		$this->executed = true;
 		$this->promoter = new \App\Model\Promoter($_POST);
 		$this->savePromoter();

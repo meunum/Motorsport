@@ -20,7 +20,7 @@
 			foreach($this->contentList as $promoter) 
 			{
 				print('<tr><td>');
-					$this->showImage($promoter->bildId, 160, 90);
+					$this->showCellImage($promoter->bildId);
 				print('</td><td>');
 					echo '<div>', htmlspecialchars($promoter->name), '</div><br>';
 					echo '<div> Kategorie: ', htmlspecialchars($promoter->kategorie), '</div>';
@@ -38,13 +38,6 @@
 				print('</td></tr>');
 			}
 			print('</table>');
-		}
-
-		public function showMainNavContent() 
-		{
-			print('<li><div class="navTitle">Veranstalter</div></li>');
-			print('<li><a class="activeLink2" href="index.php?action=EventList">Veranstaltungen</a></li>');
-			print('<li><a class="activeLink2" href="index.php?action=Driverlist">Fahrer</a></li>');
 		}
 	}
 ?>

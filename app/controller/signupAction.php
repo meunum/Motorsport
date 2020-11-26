@@ -20,6 +20,7 @@ class SignUpAction extends Action
 	
 	public function execute()
 	{
+		parent::execute();
 		$this->executed = true;
 		if(!isset($_POST['id']))
 		{

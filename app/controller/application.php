@@ -1,5 +1,4 @@
 <?php
-/* <script src="https://kit.fontawesome.com/b20425f347.js" crossorigin="anonymous"></script>*/
 	namespace App\Controller;
 	use \Exception as Exception;
 	use App\Model;
@@ -13,34 +12,7 @@
 		{
 
 			$INDEXDIR = dirname($_SERVER['SCRIPT_FILENAME'], 1);
-			require_once $INDEXDIR . '/app/controller/object.php';
-			require_once $INDEXDIR . '/app/controller/context.php';
-			require_once $INDEXDIR . '/app/controller/logger.php';
-			require_once $INDEXDIR . '/app/controller/actions.php';
-			require_once $INDEXDIR . '/app/controller/promoterActions.php';
-			require_once $INDEXDIR . '/app/controller/eventActions.php';
-			require_once $INDEXDIR . '/app/controller/driverActions.php';
-			require_once $INDEXDIR . '/app/controller/signupAction.php';
-			require_once $INDEXDIR . '/app/controller/accountActivateAction.php';
-			require_once $INDEXDIR . '/app/controller/signupAction.php';
-			require_once $INDEXDIR . '/app/controller/loginActions.php';
-			require_once $INDEXDIR . '/app/controller/promoterSubmitAction.php';
-			require_once $INDEXDIR . '/app/model/entity.php';
-			require_once $INDEXDIR . '/app/model/user.php';
-			require_once $INDEXDIR . '/app/model/promoter.php';
-			require_once $INDEXDIR . '/app/model/event.php';
-			require_once $INDEXDIR . '/app/model/driver.php';
-			require_once $INDEXDIR . '/app/view/views.php';
-			require_once $INDEXDIR . '/app/view/loginView.php';
-			require_once $INDEXDIR . '/app/view/signupViews.php';
-			require_once $INDEXDIR . '/app/view/accountActivateViews.php';
-			require_once $INDEXDIR . '/app/view/promoterListView.php';
-			require_once $INDEXDIR . '/app/view/promoterView.php';
-			require_once $INDEXDIR . '/app/view/eventView.php';
-			require_once $INDEXDIR . '/app/view/eventListView.php';
-			require_once $INDEXDIR . '/app/view/driverView.php';
-			require_once $INDEXDIR . '/app/view/driverListView.php';
-
+			include("includes.php");
 			$this->context = new AppContext($INDEXDIR);
 			$this->context->logger = new Logger($this->context->loglevel);
 			$this->context->logger->LogDebug("Application->__construct()\n");
@@ -91,38 +63,44 @@
 		{
 			$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
 			$this->context->logger->LogDebug("Application->createView()\n");
-			if(isset($_GET['view']))
-				$view = $this->CreateViewByName($_GET['view']);
-			else if(isset($_POST['view']))
-				$view = $this->CreateViewByName($_POST['view']);
-			else if(isset($_GET['action']))
-				$view = $this->CreateViewByAction($_GET['action']);
-			else if(isset($_POST['action']))
-				$view = $this->CreateViewByAction($_POST['action']);
+			if(!empty($_POST))
+			{
+				$this->context->logger->LogDebug("use _POST");
+				$parameter = $_POST;
+			}
+			else if(!empty($_GET))
+			{
+				$this->context->logger->LogDebug("use _GET");
+				$parameter = $_GET;
+			} 
+			if(isset($parameter['action']))
+				$view = $this->CreateViewByAction($parameter['action'], $parameter);
+			else if(isset($parameter['view']))
+				$view = $this->CreateViewByName($viewParams['view'], $parameter);
 			else
-				$view = $this->CreateViewByAction('PromoterList');
-			
+				$view = $this->CreateViewByAction('PromoterList', []);
+				
 			return $view;
 			
 		}
 
-		private function CreateViewByName(string $viewName)
+		private function CreateViewByName($viewName, $viewParams)
 		{
 			$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
 			$this->context->logger->LogDebug("Application->CreateViewByName(". $viewName . ")\n");
 			$viewClass = '\\App\\View\\' . $viewName . 'View';
 			$this->context->logger->LogDebug("viewClass: " . $viewClass . "\n");
+			$this->context->logger->LogDebug("viewParams: " . print_r($viewParams, true));
 		
 			return new $viewClass($this->context, []);
 		
 		}
 		
-		private function CreateViewByAction(string $actionName)
+		private function CreateViewByAction($actionName, $actionParams)
 		{
 			$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
 			$this->context->logger->LogDebug("Application->CreateViewByAtion(" . $actionName . ")\n");
-			$actionParams = explode('@', $actionName);
-			$actionClass = '\\App\\Controller\\' . $actionParams[0] . 'Action';
+			$actionClass = '\\App\\Controller\\' . $actionName . 'Action';
 			$this->context->logger->LogDebug("actionClass: " . $actionClass . "\n");
 			$this->context->logger->LogDebug("actionParams: " . print_r($actionParams, true));
 			$action = new $actionClass($this->context, $actionParams);

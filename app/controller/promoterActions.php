@@ -18,6 +18,7 @@ class PromoterListAction extends Action
 	
 	public function execute()
 	{
+		parent::execute();
 		$this->list = \App\Model\PromoterList::createList();
 		$this->success = isset($this->list);
 		$this->executed = true;
@@ -47,6 +48,7 @@ class LoggedInPromoterActions extends Action
 	
 	public function execute()
 	{
+		parent::execute();
 		$this->executed = true;
 		if($this->context->user->loggedIn)
 			$this->success = $this->executeIfLoggenIn();

@@ -22,7 +22,7 @@
 				<label for="beschreibung"><span>Beschreibung: </span></label>
 				<input class="edit" type="text" name="beschreibung" id="beschreibung" value="<?=htmlspecialchars($this->context->user->promoter->beschreibung??'')?>" />
 			</li>
-			<?php $this->ShowImageFragment(); ?>
+			<?php $this->showImageFragment(); ?>
 			<li>
 				<input class="edit" type="hidden" name="id" id="id"  value="<?=htmlspecialchars($this->context->user->promoter->id??'')?>"/>
 			</li>

@@ -17,13 +17,6 @@ class DriverListView extends ListView
 		}
 		parent::__construct($context, $caption, $list);
 	}
-
-	public function showMainNavContent() 
-	{
-		print('<li><a class="activeLink2" href="index.php?action=PromoterList">Veranstalter</a></li>');
-		print('<li><a class="activeLink2" href="index.php?action=EventList">Veranstaltungen</a></li>');
-		print('<li><div class="navTitle">Fahrer</div></li>');
-	}
 	
 	protected function showMainSectionContent()
 	{
@@ -32,28 +25,29 @@ class DriverListView extends ListView
 			print('<script>');
 
 			print('function editDriver(DriverId) {');
-			print('  var action = document.getElementById("action");');
-			print('  action.setAttribute("value", "EditDriver");');
-			print('  var id = document.getElementById("id");');
-			print('  id.setAttribute("value", DriverId);');
+			print('  var actionInput = document.getElementById("actionInput");');
+			print('  actionInput.setAttribute("value", "EditDriver");');
+			print('  var idInput = document.getElementById("idInput");');
+			print('  idInput.setAttribute("value", DriverId);');
 			print('}');
 
 			print('function confirmDeleteDriver(DriverId, DriverName) {');
-			print('  var action = document.getElementById("action");');
-			print('  var id = document.getElementById("id");');
+			print('  var actionInput = document.getElementById("actionInput");');
+			print('  var idInput = document.getElementById("idInput");');
 			print('  if (confirm("Möchtest Du den Fahrer \"" + DriverName + "\" löschen?")) {');
-			print('    action.setAttribute("value", "DeleteDriver");');
-			print('    id.setAttribute("value", DriverId);');
+			print('    actionInput.setAttribute("value", "DeleteDriver");');
+			print('    idInput.setAttribute("value", DriverId);');
 			print('  } else {');
-			print('    action.setAttribute("value", "DriverList");');
-			print('    id.setAttribute("value", "");');
+			print('    actionInput.setAttribute("value", "DriverList");');
+			print('    idInput.setAttribute("value", "");');
 			print('  }');
 			print('}');
 
 			print('</script>');
 		}
-		print('<form id="driverForm" action="index.php" enctype="multipart/form-data" method="post">');
-		print('<input type="hidden" id="action" name="action" value="" /><input type="hidden" id="id" name="id" value="" />');
+		print('<form idInput="driverForm" action="index.php" enctype="multipart/form-data" method="post">');
+		print('<input type="hidden" id="actionInput" name="action" value="" />');
+		print('<input type="hidden" id="idInput" name="id" value="" />');
 
 		print('<table>');
 		print('<th><i class="fas fa-camera"/></th><th>Vorname</th><th>Name</th><th>Anmerkung</th>');
@@ -64,7 +58,7 @@ class DriverListView extends ListView
 		foreach($this->contentList as $driver) 
 		{
 			echo '<tr><td>';
-			$this->showImage($driver->bildId, 160, 90);
+			$this->showCellImage($driver->bildId);
 			echo '</td><td>';
 			echo htmlspecialchars($driver->vorname);
 			echo '</td><td>';
@@ -74,9 +68,11 @@ class DriverListView extends ListView
 			if($this->context->user->loggedIn)
 			{
 				echo '</td><td class="td-buttons">';
-				echo '<button class="iconButton editIcon" type="submit" onclick="editDriver(', $driver->id, ')" ><i class="far fa-edit"></i></button>';
-				echo '<button class="iconButton deleteIcon" type="submit" onclick="confirmDeleteDriver(', $driver->id, ',\'';
-					echo $driver->vorname . ' ' . $driver->name, '\')" ><i class="far fa-trash-alt"></i></button>';
+				echo '<button class="iconButton editIcon" type="submit" onclick="editDriver(', $driver->id, ')" >';
+				echo '<i class="far fa-edit"></i></button>';
+				echo '<button class="iconButton deleteIcon" type="submit"';
+				echo ' onclick="confirmDeleteDriver(', $driver->id, ',\'', $driver->vorname, ' ', $driver->name, '\')" >';
+				echo '<i class="far fa-trash-alt"></i></button>';
 			}
 			echo '</td></tr>';
 		}
@@ -85,7 +81,8 @@ class DriverListView extends ListView
 		if($this->context->user->loggedIn)
 		{
 			print('<section class="subTableButton">');
-			print('<button class="iconButton insertIcon" type="submit" name="action" value="InsertDriver"><i class="far fa-plus-square"></i></button>');
+			print('<button class="iconButton insertIcon" type="submit" name="action" value="InsertDriver">');
+			print(' <i class="far fa-plus-square"></i></button>');
 			print('</section>');
 		}
 		print('<section><p/></section></form>');

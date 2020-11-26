@@ -18,6 +18,7 @@ class LogInAction extends Action
 	
 	public function execute()
 	{
+		parent::execute();
 		$this->messages = [];
 		if(empty($_POST['email'])) {
 			$this->messages[] = 'Die Email-Adresse darf nicht leer sein.';
@@ -94,6 +95,7 @@ class LogOutAction extends Action
 	
 	public function execute()
 	{
+		parent::execute();
 		$this->messages = [];
 		$this->success = !$this->context->user->loggedIn;
 		$this->context->user->justLoggedOut = False;

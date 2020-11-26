@@ -11,6 +11,8 @@ class Action extends AppObject
 	
 	public function __construct($context, $parameter) 
 	{
+		$context->logger->LogDebug("\n-------------------------------------------------------\n");
+		$context->logger->LogDebug($this->className() . "->__construct(" . print_r($parameter, true) . ")\n");
 		$this->context = $context;
 		$this->parameter = $parameter;
 	}
@@ -36,13 +38,25 @@ class Action extends AppObject
 	
 	public function execute()
 	{
+		$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
+		$this->context->logger->LogDebug($this->className() . "->execute()\n");
 	}
 }
 
-class ShowImageAction extends action
+class ShowImageAction extends Action
 {
 	private $image;
+	private $imageId;
 	private $type;
+	
+	public function __construct($context, $parameter) 
+	{
+		parent::__construct($context, $parameter);
+		
+		$this->imageId = $parameter['id'];
+		
+		$context->logger->LogDebug("imageId: " . $this->imageId);
+	}
 
 	public function createViewOnSuccess()
 	{
@@ -51,12 +65,11 @@ class ShowImageAction extends action
 	
 	public function execute()
 	{
-		$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
-		$this->context->logger->LogDebug("ShowImageAction->execute()\n");
-		if($_GET['id'] > 0)
+		parent::execute();
+		if($this->imageId != 0)
 		{
 			$mysqli = new \mysqli($this->context->dbhost, $this->context->dbuser, $this->context->dbpass, $this->context->dbname);
-			$sql = "SELECT daten, typ FROM grafik WHERE id=" . $_GET['id'];
+			$sql = "SELECT daten, typ FROM grafik WHERE id=" . $this->imageId;
 			$this->context->logger->LogDebug("sql: " . $sql);
 			$Q = $mysqli->query($sql);
 			$Q = $Q->fetch_array();

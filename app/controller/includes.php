@@ -1,0 +1,33 @@
+<?php
+    require_once $INDEXDIR . '/app/controller/object.php';
+    require_once $INDEXDIR . '/app/controller/context.php';
+    require_once $INDEXDIR . '/app/controller/logger.php';
+    require_once $INDEXDIR . '/app/controller/actions.php';
+    require_once $INDEXDIR . '/app/controller/promoterActions.php';
+    require_once $INDEXDIR . '/app/controller/eventActions.php';
+    require_once $INDEXDIR . '/app/controller/driverActions.php';
+    require_once $INDEXDIR . '/app/controller/signupAction.php';
+    require_once $INDEXDIR . '/app/controller/accountActivateAction.php';
+    require_once $INDEXDIR . '/app/controller/signupAction.php';
+    require_once $INDEXDIR . '/app/controller/loginActions.php';
+    require_once $INDEXDIR . '/app/controller/promoterSubmitAction.php';
+    require_once $INDEXDIR . '/app/model/entity.php';
+    require_once $INDEXDIR . '/app/model/user.php';
+    require_once $INDEXDIR . '/app/model/promoter.php';
+    require_once $INDEXDIR . '/app/model/event.php';
+    require_once $INDEXDIR . '/app/model/driver.php';
+    require_once $INDEXDIR . '/app/view/views.php';
+    require_once $INDEXDIR . '/app/view/htmlView.php';
+    require_once $INDEXDIR . '/app/view/listView.php';
+    require_once $INDEXDIR . '/app/view/formView.php';
+    require_once $INDEXDIR . '/app/view/entityView.php';
+    require_once $INDEXDIR . '/app/view/loginView.php';
+    require_once $INDEXDIR . '/app/view/signupViews.php';
+    require_once $INDEXDIR . '/app/view/accountActivateViews.php';
+    require_once $INDEXDIR . '/app/view/promoterListView.php';
+    require_once $INDEXDIR . '/app/view/promoterView.php';
+    require_once $INDEXDIR . '/app/view/eventView.php';
+    require_once $INDEXDIR . '/app/view/eventListView.php';
+    require_once $INDEXDIR . '/app/view/driverView.php';
+    require_once $INDEXDIR . '/app/view/driverListView.php';
+?>

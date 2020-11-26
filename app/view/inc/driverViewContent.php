@@ -14,7 +14,7 @@
 				<label for="Anmerkung"><span>Anmerkung: </span><?php echo $this->REQUIRED; ?></label>
 				<input class="edit" type="text" name="anmerkung" id="anmerkung" value="<?=htmlspecialchars($this->driver->anmerkung??'')?>"/>
 			</li>
-			<?php $this->ShowImageFragment(); ?>
+			<?php $this->showImageFragment(); ?>
 			<li>
 				<input class="edit" type="hidden" name="id" id="id" value="<?=htmlspecialchars($this->driver->id??'0')?>" />
 			</li>

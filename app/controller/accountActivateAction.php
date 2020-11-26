@@ -19,6 +19,7 @@ class AccountActivateAction extends Action
 	
 	public function execute()
 	{
+		parent::execute();
 		$auth = new \Delight\Auth\Auth($this->context->database);
 
 		$this->messages = [];

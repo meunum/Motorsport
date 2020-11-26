@@ -23,6 +23,7 @@ class InsertDriverAction extends Action
 	
 	public function execute()
 	{
+		parent::execute();
 		$this->executed = true;
 		$this->success = true;
 	}
@@ -39,15 +40,14 @@ class DriverAction extends Action
 		$context->logger->LogDebug("\n-------------------------------------------------------\n");
 		$context->logger->LogDebug($this->className() . "->__construct(" . print_r($parameter, true) . ")\n");
 		
-		$this->DriverId = $_POST['id'];
+		$this->DriverId = $parameter['id'];
 		
 		$context->logger->LogDebug("DriverId: " . $this->DriverId);
 	}
 	
 	public function execute()
 	{
-		$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
-		$this->context->logger->LogDebug($this->className() . "->execute()\n");
+		parent::execute();
 		$this->Driver = \App\Model\DriverList::get($this->DriverId);
 		$this->context->logger->LogDebug("Driver: " . print_r($this->Driver, true) . ")\n");
 		
@@ -108,8 +108,7 @@ class DriverSubmitAction extends Action
 	
 	public function execute()
 	{
-		$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
-		$this->context->logger->LogDebug("DriverSubmitAction->execute()\n");
+		parent::execute();
 
 		$this->executed = true;
 		$this->Driver = new \App\Model\Driver($_POST);
@@ -155,8 +154,7 @@ class DriverListAction extends Action
 	
 	public function execute()
 	{
-		$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
-		$this->context->logger->LogDebug("DriverListAction->execute()\n");
+		parent::execute();
 		
 		$this->list = \App\Model\DriverList::createList();
 		$this->executed = true;

@@ -23,6 +23,7 @@ class InsertEventAction extends Action
 	
 	public function execute()
 	{
+		parent::execute();
 		$this->executed = true;
 		$this->success = $this->context->user->loggedIn;
 	}
@@ -39,15 +40,14 @@ class EventAction extends Action
 		$context->logger->LogDebug("\n-------------------------------------------------------\n");
 		$context->logger->LogDebug($this->className() . "->__construct(" . print_r($parameter, true) . ")\n");
 		
-		$this->eventId = $_POST['id'];
+		$this->eventId = $parameter['id'];
 		
 		$context->logger->LogDebug("eventId: " . $this->eventId);
 	}
 	
 	public function execute()
 	{
-		$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
-		$this->context->logger->LogDebug($this->className() . "->execute()\n");
+		parent::execute();
 		$this->event = \App\Model\EventList::get($this->eventId);
 		$this->context->logger->LogDebug("event: " . print_r($this->event, true) . ")\n");
 		
@@ -113,8 +113,7 @@ class EventSubmitAction extends Action
 	
 	public function execute()
 	{
-		$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
-		$this->context->logger->LogDebug("EventSubmitAction->execute()\n");
+		parent::execute();
 
 		$this->executed = true;
 		$this->event = new \App\Model\Event($_POST);
@@ -160,8 +159,7 @@ class EventListAction extends Action
 	
 	public function execute()
 	{
-		$this->context->logger->LogDebug("\n-------------------------------------------------------\n");
-		$this->context->logger->LogDebug("EventListAction->execute()\n");
+		parent::execute();
 		
 		if($this->context->user->loggedIn)
 			$this->list = $this->context->user->promoter->events();

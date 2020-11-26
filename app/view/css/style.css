@@ -46,7 +46,7 @@ nav li
 	float: left;
 }
 
-#accountNav
+#userNav
 {
 	float: right;
 }
@@ -124,14 +124,21 @@ a
 	text-decoration: none;
 }
 
-.activeLink1
+.homeNavLink
 {
 	color: black;
 	font-weight: bold;
 	font-size: 11pt;
 }
 
-.activeLink2
+.userNavLink
+{
+	color: black;
+	font-weight: bold;
+	font-size: 11pt;
+}
+
+.mainNavLink
 {
 	color: black;
 	font-weight: bold;
