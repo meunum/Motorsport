@@ -1,6 +1,6 @@
 <?php
-$appSettings = [];
-if($_SERVER['SERVER_NAME'] == 'localhost')
+//echo "<pre>";print_r($_SERVER);echo "</pre>";
+if(isset($_SERVER['VSCODE_CWD']) | isset($_SERVER['WINDIR']))
 {
 	$appSettings['DOMAIN']='localhost/motorsport';
 	$appSettings['DBHOST']='localhost';
@@ -9,7 +9,7 @@ if($_SERVER['SERVER_NAME'] == 'localhost')
 	$appSettings['DBPASS']='';
 	$appSettings['LOGLEVEL']='debug';
 }
-else
+else if($_SERVER['SERVER_NAME'] == 'meunum.de')
 {
 	$appSettings['DOMAIN']='meunum.de';
 	$appSettings['DBHOST']='10.35.46.173:3306';
@@ -18,5 +18,5 @@ else
 	$appSettings['DBPASS']='&22uuS4p';
 	$appSettings['LOGLEVEL']='info';
 }
-$appSettings['LASTUPDATE']='24.11.2020 21:30';
+$appSettings['LASTUPDATE']='10.12.2020 21:15';
 ?>

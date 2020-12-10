@@ -25,6 +25,36 @@ namespace App\Model;
 			if(isset($eventData['kategorie']))
 				$this->kategorie = $eventData['kategorie'];
 		}
+
+		public function Bezeichnung()
+		{
+			return $this->bezeichnung;
+		}
+
+		public function Classname()
+		{
+			return 'Event';
+		}
+
+		public function Title1()
+		{
+			return 'die Veranstaltung';
+		}
+
+		public function Title2()
+		{
+			return 'der Veranstaltung';
+		}
+
+		public function Title3()
+		{
+			return 'der Veranstaltung';
+		}
+
+		public function Title4()
+		{
+			return 'die Veranstaltung';
+		}
 	}
 
 	class EventList extends EntityList

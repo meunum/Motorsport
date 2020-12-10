@@ -17,6 +17,36 @@ namespace App\Model;
 			if(isset($data['bildTyp']))
 				$this->bildTyp = $data['bildTyp'];
 		}
+
+		public function Bezeichnung()
+		{
+			return 'Entität XY';
+		}
+
+		public function Classname()
+		{
+			return 'Entity';
+		}
+
+		public function Title1()
+		{
+			return 'die Entität';
+		}
+
+		public function Title2()
+		{
+			return 'der Entität';
+		}
+
+		public function Title3()
+		{
+			return 'der Entität';
+		}
+
+		public function Title4()
+		{
+			return 'die Entität';
+		}
 	}
 	
 	class EntityList

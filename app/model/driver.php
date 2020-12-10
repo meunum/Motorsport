@@ -17,6 +17,36 @@ namespace App\Model;
 			if(isset($driverData['anmerkung']))
 				$this->anmerkung = $driverData['anmerkung'];
 		}
+
+		public function Bezeichnung()
+		{
+			return $this->vorname . ' ' . $this->name;
+		}
+
+		public function Classname()
+		{
+			return 'Driver';
+		}
+
+		public function Title1()
+		{
+			return 'der Fahrer';
+		}
+
+		public function Title2()
+		{
+			return 'des Fahrers';
+		}
+
+		public function Title3()
+		{
+			return 'dem Fahrer';
+		}
+
+		public function Title4()
+		{
+			return 'den Fahrer';
+		}
 	}
 	
 	class DriverList extends EntityList

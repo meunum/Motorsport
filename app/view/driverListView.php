@@ -23,26 +23,7 @@ class DriverListView extends ListView
 		if($this->context->user->loggedIn)
 		{
 			print('<script>');
-
-			print('function editDriver(DriverId) {');
-			print('  var actionInput = document.getElementById("actionInput");');
-			print('  actionInput.setAttribute("value", "EditDriver");');
-			print('  var idInput = document.getElementById("idInput");');
-			print('  idInput.setAttribute("value", DriverId);');
-			print('}');
-
-			print('function confirmDeleteDriver(DriverId, DriverName) {');
-			print('  var actionInput = document.getElementById("actionInput");');
-			print('  var idInput = document.getElementById("idInput");');
-			print('  if (confirm("Möchtest Du den Fahrer \"" + DriverName + "\" löschen?")) {');
-			print('    actionInput.setAttribute("value", "DeleteDriver");');
-			print('    idInput.setAttribute("value", DriverId);');
-			print('  } else {');
-			print('    actionInput.setAttribute("value", "DriverList");');
-			print('    idInput.setAttribute("value", "");');
-			print('  }');
-			print('}');
-
+			include('inc/listViewScript.js');
 			print('</script>');
 		}
 		print('<form idInput="driverForm" action="index.php" enctype="multipart/form-data" method="post">');
@@ -53,26 +34,21 @@ class DriverListView extends ListView
 		print('<th><i class="fas fa-camera"/></th><th>Vorname</th><th>Name</th><th>Anmerkung</th>');
 		if($this->context->user->loggedIn)
 		{
-			print('<th/>');
+			print('<th/>');// eine weitere Spalte für die Edit-Buttons
 		}
-		foreach($this->contentList as $driver) 
+		foreach($this->contentList as $entity) 
 		{
 			echo '<tr><td>';
-			$this->showCellImage($driver->bildId);
+			$this->showCellImage($entity->bildId);
 			echo '</td><td>';
-			echo htmlspecialchars($driver->vorname);
+			echo htmlspecialchars($entity->vorname);
 			echo '</td><td>';
-			echo htmlspecialchars($driver->name);
+			echo htmlspecialchars($entity->name);
 			echo '</td><td>';
-			echo htmlspecialchars($driver->anmerkung);
+			echo htmlspecialchars($entity->anmerkung);
 			if($this->context->user->loggedIn)
 			{
-				echo '</td><td class="td-buttons">';
-				echo '<button class="iconButton editIcon" type="submit" onclick="editDriver(', $driver->id, ')" >';
-				echo '<i class="far fa-edit"></i></button>';
-				echo '<button class="iconButton deleteIcon" type="submit"';
-				echo ' onclick="confirmDeleteDriver(', $driver->id, ',\'', $driver->vorname, ' ', $driver->name, '\')" >';
-				echo '<i class="far fa-trash-alt"></i></button>';
+				include('inc/listViewCellButtons.php');
 			}
 			echo '</td></tr>';
 		}
@@ -80,6 +56,7 @@ class DriverListView extends ListView
 
 		if($this->context->user->loggedIn)
 		{
+			// Button zum Hinzufügen eines Fahrers
 			print('<section class="subTableButton">');
 			print('<button class="iconButton insertIcon" type="submit" name="action" value="InsertDriver">');
 			print(' <i class="far fa-plus-square"></i></button>');

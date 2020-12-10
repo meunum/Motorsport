@@ -5,9 +5,32 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Listen for XDebug",
+            "request": "launch",
+            "type": "php",
+            "port": 9000
+        },
+        {
+            "name": "Launch currently open Script",
+            "request": "launch",
+            "type": "php",
+            "program": "${file}",
+            "stopOnEntry": true,
+            "cwd": "${fileDirname}",
+            "port": 9000,
+            "runtimeExecutable": "C:\\xampp\\php\\php.exe"
+        },
+        {
+            "name": "Launch Edge against localhost/motorsport",
+            "request": "launch",
+            "type": "pwa-msedge",
+            "url": "http://localhost/Motorsport",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
             "type": "pwa-chrome",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
+            "name": "Launch Chrome against localhost/motorsport",
             "url": "http://localhost/motorsport",
             "webRoot": "${workspaceFolder}"
         }

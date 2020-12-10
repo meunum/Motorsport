@@ -37,6 +37,36 @@ namespace App\Model;
 			if(isset($promoterData['userId']))
 				$this->userId = $promoterData['userId'];
 		}
+
+		public function Bezeichnung()
+		{
+			return $this->name;
+		}
+
+		public function Classname()
+		{
+			return 'Promoter';
+		}
+
+		public function Title1()
+		{
+			return 'der Veranstalter';
+		}
+
+		public function Title2()
+		{
+			return 'des Veranstalters';
+		}
+
+		public function Title3()
+		{
+			return 'dem Veranstalter';
+		}
+
+		public function Title4()
+		{
+			return 'den Veranstalter';
+		}
 	}
 	
 	class PromoterList extends EntityList
