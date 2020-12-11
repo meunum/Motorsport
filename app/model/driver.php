@@ -18,34 +18,48 @@ namespace App\Model;
 				$this->anmerkung = $driverData['anmerkung'];
 		}
 
+		public function GetListProps()
+		{
+			DriverList::GetContext()->logger->LogDebug("\n-------------------------------------------------------\n");
+			DriverList::GetContext()->logger->LogDebug("Driver->GetListProps()\n");
+			$props[] = $this->name;
+			$props[] = $this->vorname;
+			$props[] = $this->anmerkung;
+			DriverList::GetContext()->logger->LogDebug(print_r($props, true));
+
+			return $props;
+			
+		}
+
+		public static function GetListCaptions()
+		{
+			DriverList::GetContext()->logger->LogDebug("\n-------------------------------------------------------\n");
+			DriverList::GetContext()->logger->LogDebug("Driver->GetListCaptions()\n");
+			$props = [];
+			$props[] = 'Name';
+			$props[] = 'Vorname';
+			$props[] = 'Anmerkung';
+			DriverList::GetContext()->logger->LogDebug(print_r($props, true));
+
+			return $props;
+
+		}
+
 		public function Bezeichnung()
 		{
 			return $this->vorname . ' ' . $this->name;
 		}
 
-		public function Classname()
+		public function GetTitle(int $x)
 		{
-			return 'Driver';
-		}
+			$titles = [];
+			$titles[] = 'der Fahrer';
+			$titles[] = 'des Fahrers';
+			$titles[] = 'dem Fahrer';
+			$titles[] = 'den Fahrer';
 
-		public function Title1()
-		{
-			return 'der Fahrer';
-		}
+			return $titles[$x - 1];
 
-		public function Title2()
-		{
-			return 'des Fahrers';
-		}
-
-		public function Title3()
-		{
-			return 'dem Fahrer';
-		}
-
-		public function Title4()
-		{
-			return 'den Fahrer';
 		}
 	}
 	
@@ -55,7 +69,7 @@ namespace App\Model;
 		public static function createList() 
 		{
 			$list = [];
-			$stmt = self::$db->query("SELECT * FROM fahrer");
+			$stmt = DriverList::$db->query("SELECT * FROM fahrer");
 			$allDriver = $stmt->fetchAll();
 			foreach($allDriver as $driverData)
 			{
@@ -66,26 +80,26 @@ namespace App\Model;
 
 		public static function get($id) 
 		{
-			$stmt = self::$db->query("SELECT * FROM fahrer WHERE id=" . $id);
+			$stmt = DriverList::$db->query("SELECT * FROM fahrer WHERE id=" . $id);
 			if($stmt)
 				return new driver($stmt->fetch());
 		}
 		
 		public static function save(driver $driver)
 		{
-			self::$context->logger->LogDebug("\n-------------------------------------------------------\n");
-			self::$context->logger->LogDebug("DriverList->save()\n");
+			DriverList::GetContext()->logger->LogDebug("\n-------------------------------------------------------\n");
+			DriverList::GetContext()->logger->LogDebug("DriverList->save()\n");
 			try
 			{
-				$db = self::$db;
+				$db = DriverList::$db;
 				$db->beginTransaction();
-				$driver->bildId = self::saveImage($driver->bildId);
+				$driver->bildId = DriverList::saveImage($driver->bildId);
 				if($driver->id == 0)
 				{
 					$statement = $db->prepare('INSERT INTO fahrer (name, vorname, anmerkung, grafik_fk) VALUES(?,?,?,?)');
 					$statement->execute(array(
 						$driver->name, $driver->vorname, $driver->anmerkung, $driver->bildId));
-					$driver->id = self::$db->lastInsertId();
+					$driver->id = DriverList::$db->lastInsertId();
 				}
 				else
 				{
@@ -97,24 +111,24 @@ namespace App\Model;
 			}
 			catch(PDOException $e)
 			{
-				self::$db->rollBack();
+				DriverList::$db->rollBack();
 				throw($e);
 			}
 		}
 		
 		public static function delete(driver $driver)
 		{
-			self::$context->logger->LogDebug("\n-------------------------------------------------------\n");
-			self::$context->logger->LogDebug("DriverList->delete()\n");
-			$db = self::$db;
+			DriverList::GetContext()->logger->LogDebug("\n-------------------------------------------------------\n");
+			DriverList::GetContext()->logger->LogDebug("DriverList->delete()\n");
+			$db = DriverList::$db;
 			$statement = $db->prepare('DELETE FROM fahrer WHERE id=?');
 			$statement->execute(array($driver->id));
 		}
 		
 		public static function validate(Driver $driver)
 		{
-			self::$context->logger->LogDebug("\n-------------------------------------------------------\n");
-			self::$context->logger->LogDebug("DriverList->validate()\n");
+			DriverList::GetContext()->logger->LogDebug("\n-------------------------------------------------------\n");
+			DriverList::GetContext()->logger->LogDebug("DriverList->validate()\n");
 
 			$messages = [];
 			if ($driver->name == '')
@@ -122,7 +136,7 @@ namespace App\Model;
 			if ($driver->vorname == '')
 				$messages[] = 'Der Vorname darf nicht leer sein.';
 
-			self::$context->logger->LogDebug("messages: " . print_r($messages, true) . "\n");
+			DriverList::DriverList::GetContext()->logger->LogDebug("messages: " . print_r($messages, true) . "\n");
 			
 			return $messages;
 			

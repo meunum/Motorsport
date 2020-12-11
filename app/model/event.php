@@ -26,34 +26,51 @@ namespace App\Model;
 				$this->kategorie = $eventData['kategorie'];
 		}
 
+		public function GetListProps()
+		{
+			EventList::GetContext()->logger->LogDebug("\n-------------------------------------------------------\n");
+			EventList::GetContext()->logger->LogDebug("Event->GetListProps()\n");
+			$props = [];
+			$props[] = $this->bezeichnung;
+			$props[] = $this->zeitpunkt;
+			$props[] = $this->ort;
+			$props[] = $this->kategorie;
+			EventList::GetContext()->logger->LogDebug(print_r($props, true));
+
+			return $props;
+
+		}
+
+		public static function GetListCaptions()
+		{
+			EventList::GetContext()->logger->LogDebug("\n-------------------------------------------------------\n");
+			EventList::GetContext()->logger->LogDebug("Event->GetListCaptions()\n");
+			$props = [];
+			$props[] = 'Bezeichnung';
+			$props[] = 'Datum, Zeit';
+			$props[] = 'Ort';
+			$props[] = 'Kategorie';
+			EventList::GetContext()->logger->LogDebug(print_r($props, true));
+
+			return $props;
+
+		}
+
 		public function Bezeichnung()
 		{
 			return $this->bezeichnung;
 		}
 
-		public function Classname()
+		public function GetTitle(int $x)
 		{
-			return 'Event';
-		}
+			$titles = [];
+			$titles[] = 'die Veranstaltung';
+			$titles[] = 'der Veranstaltung';
+			$titles[] = 'der Veranstaltung';
+			$titles[] = 'die Veranstaltung';
 
-		public function Title1()
-		{
-			return 'die Veranstaltung';
-		}
+			return $titles[$x - 1];
 
-		public function Title2()
-		{
-			return 'der Veranstaltung';
-		}
-
-		public function Title3()
-		{
-			return 'der Veranstaltung';
-		}
-
-		public function Title4()
-		{
-			return 'die Veranstaltung';
 		}
 	}
 
@@ -111,7 +128,7 @@ namespace App\Model;
 				$event->bildId = self::saveImage($event->bildId);
 				if($event->id == 0)
 				{
-					$event->veranstalter = self::$context->user->promoter->id;
+					$event->veranstalter = self::EventList::GetContext()->user->promoter->id;
 					$statement = self::$db->prepare(
 						'INSERT INTO veranstaltung (bezeichnung, zeitpunkt, ort, kategorie, veranstalter, grafik_fk) VALUES(?, ?, ?, ?, ?, ?)');
 					$statement->execute(array(

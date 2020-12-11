@@ -1,7 +1,8 @@
 <?php
 namespace App\Model;
+use App\Controller;
 
-	class Entity
+	class Entity extends \App\Controller\AppObject
 	{
 		public int $id = 0;
 		public int $bildId = 0;
@@ -18,34 +19,37 @@ namespace App\Model;
 				$this->bildTyp = $data['bildTyp'];
 		}
 
+		public function GetListProps()
+		{
+			$props = [];
+
+			return $props;
+
+		}
+
+		public static function GetListCaptions()
+		{
+			$props = [];
+
+			return $props;
+
+		}
+
 		public function Bezeichnung()
 		{
 			return 'Entität XY';
 		}
 
-		public function Classname()
+		public function GetTitle(int $x)
 		{
-			return 'Entity';
-		}
+			$titles = [];
+			$titles[] = 'die Entität';
+			$titles[] = 'der Entität';
+			$titles[] = 'der Entität';
+			$titles[] = 'die Entität';
 
-		public function Title1()
-		{
-			return 'die Entität';
-		}
+			return $titles[$x - 1];
 
-		public function Title2()
-		{
-			return 'der Entität';
-		}
-
-		public function Title3()
-		{
-			return 'der Entität';
-		}
-
-		public function Title4()
-		{
-			return 'die Entität';
 		}
 	}
 	

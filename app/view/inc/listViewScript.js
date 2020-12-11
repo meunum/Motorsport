@@ -5,14 +5,18 @@ function editEntity(entityId, entityType)
   var idInput = document.getElementById("idInput");
   idInput.setAttribute("value", entityId);
 }
+
 function confirmDeleteEntity(entityId, entityType, entityName, entityTitle) 
 {
   var actionInput = document.getElementById("actionInput");
   var idInput = document.getElementById("idInput");
-  if (confirm(`Möchtest Du ${entityTitle} "${entityName}" löschen?`)) {
+  if (confirm(`Möchtest Du ${entityTitle} "${entityName}" löschen?`)) 
+  {
     actionInput.setAttribute("value", "Delete" + entityType);
     idInput.setAttribute("value", entityId);
-  } else {
+  } 
+  else 
+  {
     actionInput.setAttribute("value", entityType + "List");
     idInput.setAttribute("value", "");
   }

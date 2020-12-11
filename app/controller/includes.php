@@ -21,6 +21,7 @@
     require_once $INDEXDIR . '/app/view/listView.php';
     require_once $INDEXDIR . '/app/view/formView.php';
     require_once $INDEXDIR . '/app/view/entityView.php';
+    require_once $INDEXDIR . '/app/view/entityListView.php';
     require_once $INDEXDIR . '/app/view/loginView.php';
     require_once $INDEXDIR . '/app/view/signupViews.php';
     require_once $INDEXDIR . '/app/view/accountActivateViews.php';
