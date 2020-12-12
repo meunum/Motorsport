@@ -37,9 +37,9 @@ namespace App\Model;
 			DriverList::GetContext()->logger->LogDebug("\n-------------------------------------------------------\n");
 			DriverList::GetContext()->logger->LogDebug("Driver->GetListProps()\n");
 			$props = [
-				'Name',
-				'Vorname',
-				'Anmerkung'];
+				'Name' => $this->name,
+				'Vorname' => $this->vorname,
+				'Anmerkung' => $this->anmerkung];
 			EventList::GetContext()->logger->LogDebug(print_r($props, true));
 
 			return $props;

@@ -11,25 +11,28 @@
         print('<th><i class="fas fa-camera"/>');
         $qualifiedEntityClass = 'App\\Model\\' . $this->entityClass;
         $captions = $qualifiedEntityClass::GetListCaptions();
+        // Spaltentitel anzeigen für die Objekteigenschaften
         foreach($captions as $columnTitle)
         {
             print('<th>' . $columnTitle . '</th>');
         }
-
 		if($this->context->user->loggedIn)
 		{
-			print('<th/>');// eine weitere Spalte für die Edit-Buttons
-		}
+			print('<th><i class="far fa-edit"></i></th>');// Titel einer weiteren Spalte für die Edit-Buttons, wenn eingeloggt
+        }
+        // Zeilen generieren
 		foreach($this->contentList as $entity) 
 		{
 			echo '<tr><td>';
 			$this->showCellImage($entity->bildId);
             echo '</td>';
             $props = $entity->GetListProps();
+            // Spalten der Objekteigenschaften anzeigen
             foreach ($props as $property) 
             {
                 echo '<td>', htmlspecialchars($property), '</td>';    
             }
+            // Weitere Spalte mit Edit- und Löschen-Button, wenn eingeloggt
 			if($this->context->user->loggedIn)
 			{
                 echo '<td class="td-buttons">',
