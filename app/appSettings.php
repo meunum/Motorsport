@@ -1,5 +1,5 @@
 <?php
-//echo "<pre>";print_r($_SERVER);echo "</pre>";
+echo "<pre>";print_r($_SERVER);echo "</pre>";
 if(isset($_SERVER['VSCODE_CWD']) | isset($_SERVER['WINDIR']))
 {
 	$appSettings['DOMAIN']='localhost/motorsport';
