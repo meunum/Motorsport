@@ -151,7 +151,7 @@ namespace App\Model;
 			if ($driver->vorname == '')
 				$messages[] = 'Der Vorname darf nicht leer sein.';
 
-			DriverList::DriverList::GetContext()->logger->LogDebug("messages: " . print_r($messages, true) . "\n");
+			DriverList::GetContext()->logger->LogDebug("messages: " . print_r($messages, true) . "\n");
 			
 			return $messages;
 			
