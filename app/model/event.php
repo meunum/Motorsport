@@ -143,7 +143,7 @@ namespace App\Model;
 				$event->bildId = self::saveImage($event->bildId);
 				if($event->id == 0)
 				{
-					$event->veranstalter = self::EventList::GetContext()->user->promoter->id;
+					$event->veranstalter = EventList::GetContext()->user->promoter->id;
 					$statement = self::$db->prepare(
 						'INSERT INTO veranstaltung (bezeichnung, zeitpunkt, ort, kategorie, veranstalter, grafik_fk) VALUES(?, ?, ?, ?, ?, ?)');
 					$statement->execute(array(
