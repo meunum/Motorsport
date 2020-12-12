@@ -18,5 +18,5 @@ else if($_SERVER['SERVER_NAME'] == 'meunum.de' | $_SERVER['SERVER_NAME'] == 'hos
 	$appSettings['DBPASS']='&22uuS4p';
 	$appSettings['LOGLEVEL']='info';
 }
-$appSettings['LASTUPDATE']='12.12.2020 19:30';
+$appSettings['LASTUPDATE']='12.12.2020 21:30';
 ?>
