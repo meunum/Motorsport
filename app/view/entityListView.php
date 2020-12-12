@@ -17,6 +17,6 @@ class EntityListView extends ListView
 	protected function showMainSectionContent()
 	{
 		parent::showMainSectionContent();
-		include('inc/entityViewContent.php');
+		include('inc/entityListViewContent.php');
 	}
 }?>

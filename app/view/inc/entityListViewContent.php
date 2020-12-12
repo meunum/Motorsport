@@ -2,7 +2,7 @@
         print('<form id="' . $this->entityClass . 'ListForm" action="index.php" enctype="multipart/form-data" method="post">');
 		if($this->context->user->loggedIn)
 		{
-			print('<script>');include('inc/listViewScript.js');print('</script>');
+			print('<script>');include('listViewScript.js');print('</script>');
 			print('<input type="hidden" id="actionInput" name="action" value="" />');
 			print('<input type="hidden" id="idInput" name="id" value="" />');
 		}
