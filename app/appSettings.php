@@ -9,7 +9,7 @@ if(isset($_SERVER['VSCODE_CWD']) | isset($_SERVER['WINDIR']))
 	$appSettings['DBPASS']='';
 	$appSettings['LOGLEVEL']='debug';
 }
-else if($_SERVER['SERVER_NAME'] == 'meunum.de')
+else if($_SERVER['SERVER_NAME'] == 'meunum.de' | $_SERVER['SERVER_NAME'] == 'hosting147757.a2eac.netcup.net')
 {
 	$appSettings['DOMAIN']='meunum.de';
 	$appSettings['DBHOST']='10.35.46.173:3306';
