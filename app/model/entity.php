@@ -58,13 +58,14 @@ use App\Controller;
 
 		public function GetTitle(int $x)
 		{
-			$titles = [];
-			$titles[] = 'die Entität';
-			$titles[] = 'der Entität';
-			$titles[] = 'der Entität';
-			$titles[] = 'die Entität';
+			$titles = [
+				'Entität',		// ohne Artikel
+				'die Entität',	// Nominativ
+				'der Entität',	// Genitiv
+				'der Entität',	// Dativ
+				'die Entität'];	// Akkusativ
 
-			return $titles[$x - 1];
+			return $titles[$x];
 
 		}
 	}

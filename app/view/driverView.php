@@ -8,7 +8,7 @@ class DriverView extends EntityView
 	
 	public function __construct($context, $driver, $messages) 
 	{
-		parent::__construct($context, $driver, 'Motorsport (Fahrer bearbeiten)', $messages);
+		parent::__construct($context, $driver, $messages);
 		$this->driver = $driver;
 	}
 

@@ -8,7 +8,7 @@ class EventView extends EntityView
 	
 	public function __construct($context, $event, $messages) 
 	{
-		parent::__construct($context, $event, 'Motorsport (Veranstaltung bearbeiten)', $messages);
+		parent::__construct($context, $event, $messages);
 		$this->event = $event;
 	}
 

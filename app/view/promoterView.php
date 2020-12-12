@@ -7,7 +7,7 @@ class PromoterView extends EntityView
 	
 	public function __construct($context, $messages) 
 	{
-		parent::__construct($context, $context->user->promoter, 'Motorsport (Veranstalterdaten)', $messages);
+		parent::__construct($context, $context->user->promoter, $messages);
 	}
 	
 	protected function showHeadNavContent()

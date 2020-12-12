@@ -55,6 +55,19 @@ namespace App\Model;
 			return $props;
 
 		}
+
+		public function GetTitle(int $x)
+		{
+			$titles = [
+				'Veranstalter',
+				'der Veranstalter',
+				'des Veranstalters',
+				'dem Veranstalter',
+				'den Veranstalter'];
+
+			return $titles[$x];
+
+		}
 	}
 	
 	class PromoterList extends EntityList

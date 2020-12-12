@@ -78,13 +78,14 @@ namespace App\Model;
 
 		public function GetTitle(int $x)
 		{
-			$titles = [];
-			$titles[] = 'die Veranstaltung';
-			$titles[] = 'der Veranstaltung';
-			$titles[] = 'der Veranstaltung';
-			$titles[] = 'die Veranstaltung';
+			$titles = [
+				'Veranstaltung',
+				'die Veranstaltung',
+				'der Veranstaltung',
+				'der Veranstaltung',
+				'die Veranstaltung'];
 
-			return $titles[$x - 1];
+			return $titles[$x];
 
 		}
 	}
