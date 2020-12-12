@@ -16,11 +16,5 @@ class DriverView extends EntityView
 	{
 		print('<li><div class="navTitle">Fahrer bearbeiten</div></li>');
 	}
-	
-	protected function showMainSectionContent()
-	{
-		parent::showMainSectionContent();
-		include 'inc/driverViewContent.php';
-	}
 }
 ?>

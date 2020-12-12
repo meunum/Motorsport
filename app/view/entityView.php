@@ -12,17 +12,11 @@ use App\Model;
 			parent::__construct($context, $title, $messages);
 			$this->entity = $entity;
 		}
-		
-		protected function showImageFragment()
+	
+		protected function showMainSectionContent()
 		{
-			print('<li>');
-			print('	<label for="bild"><span>Bild hochladen: </span></label>');
-			print('	<input class="edit" type="file" name="bild" id="bild" />');
-			print('</li>');
-			print('<li>');
-			print('	<label for="bild"><span>Bild aktuell: </span></label>');
-			$this->showImage($this->entity->bildId, 320, 180);
-			print('</li>');
+			parent::showMainSectionContent();
+			include('inc/entityViewContent.php');
 		}
 	}
 ?>

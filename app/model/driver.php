@@ -18,14 +18,29 @@ namespace App\Model;
 				$this->anmerkung = $driverData['anmerkung'];
 		}
 
+		public function GetProps()
+		{
+			EventList::GetContext()->logger->LogDebug("\n-------------------------------------------------------\n");
+			EventList::GetContext()->logger->LogDebug("Driver->GetProps()\n");
+			$props = [
+				'Name' => [$this->name, 1],
+				'Vorname' => [$this->vorname, 1],
+				'Anmerkung' => [$this->anmerkung, 0]];
+			EventList::GetContext()->logger->LogDebug(print_r($props, true));
+
+			return $props;
+
+		}
+
 		public function GetListProps()
 		{
 			DriverList::GetContext()->logger->LogDebug("\n-------------------------------------------------------\n");
 			DriverList::GetContext()->logger->LogDebug("Driver->GetListProps()\n");
-			$props[] = $this->name;
-			$props[] = $this->vorname;
-			$props[] = $this->anmerkung;
-			DriverList::GetContext()->logger->LogDebug(print_r($props, true));
+			$props = [
+				'Name',
+				'Vorname',
+				'Anmerkung'];
+			EventList::GetContext()->logger->LogDebug(print_r($props, true));
 
 			return $props;
 			

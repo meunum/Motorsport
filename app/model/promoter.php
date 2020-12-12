@@ -4,6 +4,7 @@ namespace App\Model;
 	class Promoter extends Entity
 	{
 		public int $id = 0;
+		public string $email = '';
 		public string $name = '';
 		public string $kategorie = '';
 		public string $region = '';
@@ -36,6 +37,23 @@ namespace App\Model;
 				$this->userId = $promoterData['users_fk'];
 			if(isset($promoterData['userId']))
 				$this->userId = $promoterData['userId'];
+			$this->email = EventList::GetContext()->user->email;
+		}
+
+		public function GetProps()
+		{
+			EventList::GetContext()->logger->LogDebug("\n-------------------------------------------------------\n");
+			EventList::GetContext()->logger->LogDebug("Event->GetProps()\n");
+			$props = [
+				'Email' => [$this->email, 2],
+				'Name' => [$this->name, 1],
+				'Kategorie' => [$this->kategorie, 0],
+				'Region' => [$this->region, 0],
+				'Beschreibung' => [$this->beschreibung, 0]];
+			EventList::GetContext()->logger->LogDebug(print_r($props, true));
+
+			return $props;
+
 		}
 	}
 	

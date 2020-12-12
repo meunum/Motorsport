@@ -19,6 +19,22 @@ use App\Controller;
 				$this->bildTyp = $data['bildTyp'];
 		}
 
+		public function GetProps()
+		{
+			$props = [];
+
+			return $props;
+
+		}
+
+		public static function GetCaptions()
+		{
+			$props = [];
+
+			return $props;
+
+		}
+
 		public function GetListProps()
 		{
 			$props = [];

@@ -22,10 +22,5 @@ class PromoterView extends EntityView
 		print('<li><a class="mainNavLink" href="index.php?action=EventList">Veranstaltungen</a></li>');
 		print('<li><a class="mainNavLink" href="index.php?action=Driverlist">Fahrer</a></li>');
 	}
-	
-	protected function showMainSectionContent()
-	{
-		include 'inc/promoterViewContent.php';
-	}
 }
 ?>

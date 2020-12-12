@@ -51,7 +51,7 @@ class EntityListView extends ListView
 			{
                 echo '<td class="td-buttons">',
                     '<button class="iconButton editIcon" type="submit"', 
-                        'onclick="editEntity(', $entity->id, ', \'Event\')" >',
+                        'onclick="editEntity(', $entity->id, ', \'', $this->entityClass, '\')" >',
                         '<i class="far fa-edit"></i>',
                     '</button>',
                     '<button class="iconButton deleteIcon" type="submit" ',
@@ -70,7 +70,7 @@ class EntityListView extends ListView
 
 		if($this->context->user->loggedIn)
 		{
-			// Button zum Hinzufügen einer Veranstaltung
+			// Button zum Hinzufügen unterhalb der Tabelle
 			print('<section class="subTableButton">');
 			print('<button class="iconButton insertIcon" type="submit" name="action" value="Insert' . $this->entityClass . '">');
 			print(' <i class="far fa-plus-square"></i></button>');

@@ -26,15 +26,30 @@ namespace App\Model;
 				$this->kategorie = $eventData['kategorie'];
 		}
 
+		public function GetProps()
+		{
+			EventList::GetContext()->logger->LogDebug("\n-------------------------------------------------------\n");
+			EventList::GetContext()->logger->LogDebug("Event->GetProps()\n");
+			$props = [
+				'Bezeichnung' => [$this->bezeichnung, 1],
+				'Datum, Zeit' => [$this->zeitpunkt, 1],
+				'Ort' => [$this->ort, 1],
+				'Kategorie' => [$this->kategorie, 0]];
+			EventList::GetContext()->logger->LogDebug(print_r($props, true));
+
+			return $props;
+
+		}
+
 		public function GetListProps()
 		{
 			EventList::GetContext()->logger->LogDebug("\n-------------------------------------------------------\n");
 			EventList::GetContext()->logger->LogDebug("Event->GetListProps()\n");
-			$props = [];
-			$props[] = $this->bezeichnung;
-			$props[] = $this->zeitpunkt;
-			$props[] = $this->ort;
-			$props[] = $this->kategorie;
+			$props = [
+				'Bezeichnung' => $this->bezeichnung,
+				'Datum, Zeit' => $this->zeitpunkt,
+				'Ort' => $this->ort,
+				'Kategorie' => $this->kategorie];
 			EventList::GetContext()->logger->LogDebug(print_r($props, true));
 
 			return $props;
@@ -45,11 +60,11 @@ namespace App\Model;
 		{
 			EventList::GetContext()->logger->LogDebug("\n-------------------------------------------------------\n");
 			EventList::GetContext()->logger->LogDebug("Event->GetListCaptions()\n");
-			$props = [];
-			$props[] = 'Bezeichnung';
-			$props[] = 'Datum, Zeit';
-			$props[] = 'Ort';
-			$props[] = 'Kategorie';
+			$props = [
+				'Bezeichnung',
+				'Datum, Zeit',
+				'Ort',
+				'Kategorie'];
 			EventList::GetContext()->logger->LogDebug(print_r($props, true));
 
 			return $props;

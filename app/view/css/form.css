@@ -37,9 +37,16 @@ form input.edit
 	color: white;
 }
 
-#buttonSection
+.buttonSection
 {
-	margin-top: 2em;
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+
+.bottomSection
+{
+	padding-top: 1em;
+	padding-bottom: 1em;
 }
 
 Button

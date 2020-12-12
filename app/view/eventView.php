@@ -20,11 +20,5 @@ class EventView extends EntityView
 			print('<li><div class="navTitle">Veranstaltung ändern</div></li>');
 		print('<li><a class="mainNavLink" href="index.php?action=ShowEventDriverListView">Teilnehmer</a></li>');
 	}
-	
-	protected function showMainSectionContent()
-	{
-		parent::showMainSectionContent();
-		include 'inc/eventViewContent.php';
-	}
 }
 ?>
